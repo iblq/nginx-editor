@@ -10,7 +10,7 @@
     "_build": "BABEL_ENV=production webpack --progress --env=production",
     "build": "npm run _build",
     "es": "electron . --env=development",
-   "package": "electron-packager ./ myapp --out ./OutApp Mac x64 --app-version 4.1.4 --overwrite --env=production"
+    "package": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds --env=production"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
@@ -48,6 +48,7 @@
     "babel-plugin-import": "^1.8.0",
     "babel-plugin-react-css-modules": "^3.4.2",
     "css-loader": "^1.0.0",
+    "dx-mock": "^0.1.0",
     "electron": "^4.1.4",
     "electron-packager": "^13.1.1",
     "eslint": "^5.5.0",

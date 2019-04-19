@@ -20,7 +20,8 @@ function createWindow () {
   */
   // 加载应用----适用于 react 项目
   const env = process.env.NODE_ENV
-  if(env==='development'){
+  console.log(env)
+  if(env!=='development'){
     mainWindow.loadURL('http://localhost:3000/')
   }else{
     mainWindow.loadURL(url.format({
