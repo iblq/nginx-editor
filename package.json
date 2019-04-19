@@ -9,8 +9,8 @@
     "vendor": "webpack --progress --env=dll",
     "_build": "BABEL_ENV=production webpack --progress --env=production",
     "build": "npm run _build",
-    "es": "electron . --env=development",
-    "package": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds --env=production"
+    "es": "ELECTRON_ENV=dev electron .",
+    "package": "ELECTRON_ENV=pro electron-forge package -p darwin"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [

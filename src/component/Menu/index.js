@@ -8,8 +8,13 @@ const { Item } = AntdMenu
 
 const menuCfg = [
   {
-    title: '首页',
+    title: 'nginx 配置',
     link: '/',
+    icon: 'home'
+  },
+  {
+    title: 'host',
+    link: '/host',
     icon: 'home'
   }
 ]

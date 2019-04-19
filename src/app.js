@@ -28,6 +28,11 @@ class App extends Component {
                   path="/"
                   bundle={require('bundle-loader?lazy!./container/home')}
                 />
+                <Dynamic
+                  exact
+                  path="/host"
+                  bundle={require('bundle-loader?lazy!./container/host')}
+                />
               </Switch>
             </div>
           </div>
