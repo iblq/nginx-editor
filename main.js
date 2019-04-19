@@ -14,6 +14,9 @@ function createWindow() {
   const env = process.env.ELECTRON_ENV
   if (env === 'dev') {
     mainWindow.loadURL('http://localhost:3000/')
+
+    // 打开开发者工具，默认不打开
+    mainWindow.webContents.openDevTools()
   } else {
     mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, '/build/index.html'),
@@ -22,8 +25,7 @@ function createWindow() {
     }))
   }
 
-  // 打开开发者工具，默认不打开
-  mainWindow.webContents.openDevTools()
+  
 
   // 关闭window时触发下列事件.
   mainWindow.on('closed', function () {
