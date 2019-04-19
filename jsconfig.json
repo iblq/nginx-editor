@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "util/*": ["./src/util/*"],
+      "component/*": ["./src/component/*"],
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

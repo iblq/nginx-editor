@@ -1,0 +1,90 @@
+{
+  "name": "electron-react",
+  "version": "0.1.0",
+  "description": "electron-react",
+  "main": "main.js",
+  "homepage": ".",
+  "scripts": {
+    "start": "BABEL_ENV=development webpack-dev-server -w --open --env=development",
+    "vendor": "webpack --progress --env=dll",
+    "_build": "BABEL_ENV=production webpack --progress --env=production",
+    "build": "npm run vendor && npm run _build",
+    "electron-start": "electron .",
+    "package": "electron-packager ~/mine/electron-react/build electron-app --all --out ~/ --app-version 1.7.10"
+
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "yarn test",
+      "yarn prettier",
+      "git add"
+    ]
+  },
+  "author": {
+    "name": "baolq"
+  },
+  "publishConfig": {},
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/src/"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "autoprefixer": "^9.1.5",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-import": "^1.8.0",
+    "babel-plugin-react-css-modules": "^3.4.2",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.5.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^1.3.1",
+    "image-webpack-loader": "^4.3.1",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "lint-staged": "^8.1.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-less": "^2.0.0",
+    "postcss-loader": "^3.0.0",
+    "react-hot-loader": "^4.3.6",
+    "style-loader": "^0.23.0",
+    "svg-url-loader": "^2.3.2",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.17.2",
+    "webpack-cleanup-plugin": "^0.5.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
+  },
+  "dependencies": {
+    "antd": "^3.9.1",
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "bundle-loader": "^0.5.6",
+    "mobx": "^5.1.0",
+    "mobx-react": "^5.2.6",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-router-dom": "^4.3.1"
+  }
+}

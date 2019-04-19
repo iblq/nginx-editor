@@ -1,0 +1,33 @@
+/*
+ * 全局样式
+ */
+@import './variables.less';
+
+:global {
+  html, body, #app, .app-root {
+    height: 100%;
+  }
+
+  .app-root {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-wrapper {
+    display: flex;
+    flex: 1;
+  }
+  .app-menu {
+    width: 200px;
+    background: @menu-bg-color;
+    padding: 20px 0;
+  }
+  .app-content {
+    position: relative;
+    flex: 1;
+    background: #f4f4f4;
+    padding: 20px;
+
+    overflow: auto;
+  }
+}
