@@ -8,10 +8,9 @@
     "start": "BABEL_ENV=development webpack-dev-server -w --open --env=development",
     "vendor": "webpack --progress --env=dll",
     "_build": "BABEL_ENV=production webpack --progress --env=production",
-    "build": "npm run vendor && npm run _build",
-    "electron-start": "electron .",
-    "package": "electron-packager ~/mine/electron-react/build electron-app --all --out ~/ --app-version 1.7.10"
-
+    "build": "npm run _build",
+    "es": "electron . --env=development",
+   "package": "electron-packager ./ myapp --out ./OutApp Mac x64 --app-version 4.1.4 --overwrite --env=production"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
@@ -49,6 +48,8 @@
     "babel-plugin-import": "^1.8.0",
     "babel-plugin-react-css-modules": "^3.4.2",
     "css-loader": "^1.0.0",
+    "electron": "^4.1.4",
+    "electron-packager": "^13.1.1",
     "eslint": "^5.5.0",
     "eslint-loader": "^2.1.0",
     "eslint-plugin-import": "^2.14.0",

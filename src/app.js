@@ -9,7 +9,6 @@ import { hot } from 'react-hot-loader'
 import './less/antd.less'
 import './less/app.less'
 
-import Header from 'component/Header'
 import Menu from 'component/Menu'
 import Dynamic from './dynamic'
 
@@ -18,7 +17,6 @@ class App extends Component {
     return (
       <Router>
         <div className="app-root">
-          <Header />
           <div className="app-wrapper">
             <div className="app-menu">
               <Menu />
