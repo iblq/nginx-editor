@@ -11,7 +11,7 @@
     "build": "npm run _build",
     "es": "ELECTRON_ENV=dev electron .",
     "package": "ELECTRON_ENV=pro electron-forge package -p darwin",
-    "package2": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/"
+    "package2": "npm run build && ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
