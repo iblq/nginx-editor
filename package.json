@@ -1,5 +1,5 @@
 {
-  "name": "electron-react",
+  "name": "BaolqSwitchs",
   "version": "0.1.0",
   "description": "electron-react",
   "main": "main.js",
@@ -69,7 +69,6 @@
     "postcss-loader": "^3.0.0",
     "react-hot-loader": "^4.3.6",
     "style-loader": "^0.23.0",
-    "sudo-prompt": "^8.2.5",
     "svg-url-loader": "^2.3.2",
     "uglifyjs-webpack-plugin": "^1.3.0",
     "url-loader": "^1.1.1",
@@ -79,6 +78,7 @@
     "webpack-dev-server": "^3.1.7"
   },
   "dependencies": {
+    "sudo-prompt": "^8.2.5",
     "antd": "^3.9.1",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",

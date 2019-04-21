@@ -18,6 +18,8 @@ function createWindow() {
     // 打开开发者工具，默认不打开
     mainWindow.webContents.openDevTools()
   } else {
+        // mainWindow.webContents.openDevTools()
+
     mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, '/build/index.html'),
       protocol: 'file:',
