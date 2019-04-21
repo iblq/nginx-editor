@@ -5,11 +5,15 @@ import { Button, Input, Row, message } from 'antd'
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec, execSync } = window.require('child_process')
+var sudo = window.require('sudo-prompt')
+var options = {
+  name: 'Electron'
+};
 
 import './style.less'
 
 const { TextArea } = Input
-
+const cmdPath = {cwd: '/'}
 @withRouter
 class Host extends Component {
   state = {
@@ -39,13 +43,15 @@ class Host extends Component {
 
   onSaveFile = () => {
     const { path, content } = this.state
-    fs.writeFile(path, content, 'utf8', (err) => {
-      if (err) {
-        this.updateInfo(err)
-        message.error('文件保存错误')
-        return
-      }
-    })
+
+        fs.writeFile(path, content, 'utf8', (err) => {
+          if (err) {
+            this.updateInfo(err)
+            message.error('文件保存错误')
+            return
+          }
+          message.success('文件保存成功')
+        })
   }
 
   onRestart = () => {
@@ -57,7 +63,6 @@ class Host extends Component {
         return
       }
     })
-    message.success('保存成功')
   }
 
   render() {
@@ -69,7 +74,7 @@ class Host extends Component {
           <Button
             type="primary"
             size="small"
-            style={{ marginLeft: 12 }} onClick={this.onRestart}>保存
+            style={{ marginLeft: 12 }} onClick={this.onSaveFile}>保存
           </Button>
         </div>
         {

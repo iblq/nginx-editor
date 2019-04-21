@@ -5,10 +5,9 @@ import { Button, Input, Row, message } from 'antd'
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec, execSync } = window.require('child_process')
-
-import './style.less'
-
-const { TextArea } = Input
+import './style.less';
+const { TextArea } = Input;
+const cmdPath = {cwd: '/'}
 
 @inject('homeStore', 'homeActions')
 @withRouter
@@ -59,7 +58,7 @@ class Home extends Component {
         return
       }
 
-      exec('nginx -t', {}, (err, stdout, stderr) => {
+      exec('/usr/local/bin/nginx -t', cmdPath, (err, stdout, stderr) => {
         this.updateInfo(err || stdout || stderr)
         if (err) {
           message.error('配置文件编辑错误，请修改后再试')
@@ -67,7 +66,7 @@ class Home extends Component {
         }
         message.success('编辑成功，正在重启')
 
-        exec('brew services restart nginx', {}, (err, stdout, stderr) => {
+        exec('/usr/local/bin/brew services restart nginx', cmdPath, (err, stdout, stderr) => {
           this.updateInfo(err || stdout || stderr)
           if (err) {
             return false
