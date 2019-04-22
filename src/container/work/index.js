@@ -1,21 +1,24 @@
-import { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { observer, inject } from 'mobx-react'
-import { Button, Input, Row, message } from 'antd'
+import { Component } from 'src/container/work/react'
+import { withRouter } from 'src/container/work/react-router-dom'
+import { observer, inject } from 'src/container/work/mobx-react'
+import { Button, Input, Row, message } from 'src/container/work/antd'
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec, execSync } = window.require('child_process')
-import './style.less';
-const { TextArea } = Input;
-const cmdPath = {cwd: '/'}
+var sudo = window.require('sudo-prompt')
+var options = {
+  name: 'Electron'
+}
 
-@inject('homeStore', 'homeActions')
+import './style.less'
+
+const { TextArea } = Input
+const cmdPath = {cwd: '/'}
 @withRouter
-@observer
-class Home extends Component {
+class Host extends Component {
   state = {
     content: '',
-    path: '/usr/local/etc/nginx/nginx.conf',
+    path: '/etc/hosts',
     info: '',
     type: 'edit'
   }
@@ -40,12 +43,14 @@ class Home extends Component {
 
   onSaveFile = () => {
     const { path, content } = this.state
+
     fs.writeFile(path, content, 'utf8', (err) => {
       if (err) {
         this.updateInfo(err)
         message.error('文件保存错误')
         return
       }
+      message.success('文件保存成功')
     })
   }
 
@@ -57,24 +62,6 @@ class Home extends Component {
         message.error('文件保存错误')
         return
       }
-
-      exec('/usr/local/bin/nginx -t', cmdPath, (err, stdout, stderr) => {
-        this.updateInfo(err || stdout || stderr)
-        if (err) {
-          message.error('配置文件编辑错误，请修改后再试')
-          return false
-        }
-        message.success('编辑成功，正在重启')
-
-        exec('/usr/local/bin/brew services restart nginx', cmdPath, (err, stdout, stderr) => {
-          this.updateInfo(err || stdout || stderr)
-          if (err) {
-            return false
-          }
-          message.success('重启成功')
-        })
-      })
-
     })
   }
 
@@ -87,11 +74,7 @@ class Home extends Component {
           <Button
             type="primary"
             size="small"
-            style={{ marginLeft: 12 }} onClick={this.onRestart}>重启
-          </Button>
-          <Button
-            size="small"
-            style={{ marginLeft: 12 }} onClick={() => this.setState({ type: 'info'})}>日志
+            style={{ marginLeft: 12 }} onClick={this.onSaveFile}>保存
           </Button>
         </div>
         {
@@ -112,4 +95,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default Host

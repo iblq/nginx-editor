@@ -27,8 +27,6 @@ function createWindow() {
     }))
   }
 
-  
-
   // 关闭window时触发下列事件.
   mainWindow.on('closed', function () {
     mainWindow = null
