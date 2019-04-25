@@ -1,5 +1,5 @@
 // 引入electron并创建一个Browserwindow
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -9,6 +9,36 @@ let mainWindow
 function createWindow() {
   //创建浏览器窗口,宽高自定义具体大小你开心就好
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
+
+  if (process.platform === 'darwin') {
+    const template = [
+      {
+        label: 'Application',
+        submenu: [
+          { label: 'Quit', accelerator: 'Command+Q', click: function () { app.quit() } }
+        ]
+      },
+      {
+        label: 'Edit',
+        submenu: [
+          { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+          { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+          { role: 'undo' },
+          { role: 'redo' },
+          { type: 'separator' },
+          { role: 'cut' },
+          { role: 'copy' },
+          { role: 'paste' },
+          { role: 'pasteandmatchstyle' },
+          { role: 'delete' },
+          { role: 'selectall' }
+        ]
+      }
+    ]
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+  } else {
+    Menu.setApplicationMenu(null)
+  }
 
   // 加载应用----适用于 react 项目
   const env = process.env.ELECTRON_ENV
