@@ -8,7 +8,21 @@
 .wrap{
     height: 100%;
 
+    :global{
+        .ant-spin-nested-loading{
+            height: calc(100% - 40px);
+        }
+        .ant-spin-container{
+            height: 100%;
+        }
+    }
+
     .textarea{
-        height: calc(~'100% - 40px');
+        height: 100%;
+        background: #0A0A2B;
+        color: #f2f2f2;
+    }
+    .log{
+        height: 100%;
     }
 }

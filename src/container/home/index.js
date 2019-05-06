@@ -1,13 +1,15 @@
 import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
-import { Button, Input, Row, message } from 'antd'
+import { Button, Input, Row, Col, message, Icon, Spin } from 'antd'
+import moment from 'moment'
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec, execSync } = window.require('child_process')
 import './style.less';
 const { TextArea } = Input;
-const cmdPath = {cwd: '/'}
+const cmdPath = { cwd: '/' };
+
 
 @inject('homeStore', 'homeActions')
 @withRouter
@@ -17,7 +19,9 @@ class Home extends Component {
     content: '',
     path: '/usr/local/etc/nginx/nginx.conf',
     info: '',
-    type: 'edit'
+    type: 'edit',
+    status: 'success',
+    loading: false
   }
 
   componentDidMount() {
@@ -35,7 +39,8 @@ class Home extends Component {
   }
 
   updateInfo = (err) => {
-    this.setState({ type: 'info', info: this.state.info + err + '\r\n' })
+    let info = `${this.state.info} ${moment(new Date()).format('h:mm:ss')}>  ${err}`
+    this.setState({ type: 'info', info })
   }
 
   onSaveFile = () => {
@@ -62,15 +67,19 @@ class Home extends Component {
         this.updateInfo(err || stdout || stderr)
         if (err) {
           message.error('配置文件编辑错误，请修改后再试')
+          this.setState({ status: 'error' })
           return false
         }
-        message.success('编辑成功，正在重启')
 
-        exec('/usr/local/bin/brew services restart nginx', cmdPath, (err, stdout, stderr) => {
-          this.updateInfo(err || stdout || stderr)
+        this.setState({ loading: true })
+
+        exec('/usr/local/bin/nginx -s reload', cmdPath, (err, stdout, stderr) => {
+          console.log(new Date().getDate())
+          this.updateInfo(err || stdout || stderr || 'restart success')
           if (err) {
             return false
           }
+          this.setState({ status: 'success', loading: false })
           message.success('重启成功')
         })
       })
@@ -79,34 +88,62 @@ class Home extends Component {
   }
 
   render() {
-    const { content, type, info } = this.state
+    const { content, type, info, status } = this.state
+    const colorCfg = {
+      success: '#52c41a',
+      error: '#f5222d'
+    }
     return (
       <div styleName="wrap">
-        <div style={{ marginBottom: 12 }}>
-          <Button size="small" onClick={this.readFile}>编辑</Button>
-          <Button
-            type="primary"
-            size="small"
-            style={{ marginLeft: 12 }} onClick={this.onRestart}>重启
-          </Button>
-          <Button
-            size="small"
-            style={{ marginLeft: 12 }} onClick={() => this.setState({ type: 'info'})}>日志
-          </Button>
-        </div>
-        {
-          type === 'edit' ?
-            <TextArea
-              styleName="textarea"
-              onChange={this.onChange}
-              value={content}
-              onBlur={this.onBlur}
-            /> :
-            <TextArea
-              styleName="textarea"
-              value={info}
-            />
-        }
+        <Row style={{ marginBottom: 12 }}>
+          <Col span={12}>
+            <Button
+              size="small"
+              type={type === 'edit' ? 'primary' : 'default'}
+              onClick={this.readFile}
+            >
+              编辑
+            </Button>
+            <Button
+              size="small"
+              type={type === 'info' ? 'primary' : 'default'}
+              style={{ marginLeft: 12 }}
+              onClick={() => this.setState({ type: 'info' })}
+            >
+              日志
+            </Button>
+          </Col>
+          <Col span={12}>
+            <div style={{ color: colorCfg[status], fontSize: '16px' }} className="g-fr">
+              {status === 'success' && <Icon type="check-circle" />}
+              {status === 'error' && <Icon type="close-circle" />}
+            </div>
+            <Button
+              type="primary"
+              size="small"
+              className="g-fr"
+              style={{ marginRight: 12 }} onClick={this.onRestart}>重启
+            </Button>
+          </Col>
+        </Row>
+
+        <Spin spinning={this.state.loading} tip="Loading...">
+          {
+            type === 'edit' ?
+              <TextArea
+                styleName="textarea"
+                onChange={this.onChange}
+                value={content}
+                onBlur={this.onBlur}
+              /> :
+              <TextArea
+                styleName="log"
+                value={info}
+              />
+          }
+        </Spin>
+
+
       </div>
     )
   }
