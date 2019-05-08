@@ -6,16 +6,28 @@ const url = require('url')
 // 保持window对象的全局引用,避免JavaScript对象被垃圾回收时,窗口被自动关闭.
 let mainWindow
 
+console.log(path.join(__dirname + '/src/img/nh.icns'))
+
 function createWindow() {
   //创建浏览器窗口,宽高自定义具体大小你开心就好
-  mainWindow = new BrowserWindow({ width: 800, height: 600 })
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    icon: path.join(__dirname + '/src/img/nh.icns')
+  })
 
   if (process.platform === 'darwin') {
     const template = [
       {
         label: 'Application',
         submenu: [
-          { label: 'Quit', accelerator: 'Command+Q', click: function () { app.quit() } }
+          {
+            label: 'Quit',
+            accelerator: 'Command+Q',
+            click: function() {
+              app.quit()
+            }
+          }
         ]
       },
       {
@@ -50,15 +62,17 @@ function createWindow() {
   } else {
     // mainWindow.webContents.openDevTools()
 
-    mainWindow.loadURL(url.format({
-      pathname: path.join(__dirname, '/build/index.html'),
-      protocol: 'file:',
-      slashes: true
-    }))
+    mainWindow.loadURL(
+      url.format({
+        pathname: path.join(__dirname, '/build/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
+    )
   }
 
   // 关闭window时触发下列事件.
-  mainWindow.on('closed', function () {
+  mainWindow.on('closed', function() {
     mainWindow = null
   })
 }
@@ -67,19 +81,18 @@ function createWindow() {
 app.on('ready', createWindow)
 
 // 所有窗口关闭时退出应用.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
   // macOS中除非用户按下 `Cmd + Q` 显式退出,否则应用与菜单栏始终处于活动状态.
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
-app.on('activate', function () {
+app.on('activate', function() {
   // macOS中点击Dock图标时没有已打开的其余应用窗口时,则通常在应用中重建一个窗口
   if (mainWindow === null) {
     createWindow()
   }
 })
 
-// 你可以在这个脚本中续写或者使用require引入独立的js文件.   
-
+// 你可以在这个脚本中续写或者使用require引入独立的js文件.
