@@ -1,5 +1,5 @@
-import homeStore from '../container/home/store'
-import homeActions from '../container/home/action'
+import homeStore from '../store'
+import homeActions from '../action'
 
 export default {
   homeStore,

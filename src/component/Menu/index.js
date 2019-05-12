@@ -16,6 +16,11 @@ const menuCfg = [
     title: 'host',
     link: '/host',
     icon: 'home'
+  },
+  {
+    title: 'project',
+    link: '/project',
+    icon: 'home'
   }
 ]
 
