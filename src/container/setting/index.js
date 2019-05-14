@@ -24,6 +24,7 @@ class Setting extends Component {
   reset = () => {
     this.props.globalActions.reset()
     localStorage.clear('setting')
+    this.form.setFieldsValue(this.props.globalStore.defaultSetting)
   };
 
   render() {

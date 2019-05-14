@@ -2,9 +2,13 @@
  * 全局样式
  */
 @import './variables.less';
+@import (inline) '../../node_modules/codemirror/lib/codemirror.css';
 
 :global {
-  html, body, #app, .app-root {
+  html,
+  body,
+  #app,
+  .app-root {
     height: 100%;
   }
 
@@ -30,7 +34,7 @@
 
     overflow: auto;
   }
-  .g-fr{
+  .g-fr {
     float: right;
   }
 }

@@ -11,7 +11,6 @@ import zhCN from 'antd/lib/locale-provider/zh_CN'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
-import 'codemirror/lib/codemirror.css'
 
 import App from './app'
 import injects from './inject'

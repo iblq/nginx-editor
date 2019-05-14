@@ -2,7 +2,8 @@ import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { Button, Input, Row, Col, message, Icon, Spin } from 'antd'
 import moment from 'moment'
-import CodeMirror from 'react-codemirror'
+// import CodeMirror from 'react-codemirror';
+// import 'codemirror/mode/shell/shell';
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec } = window.require('child_process')
@@ -84,7 +85,8 @@ class Nginx extends Component {
     }
 
     var options = {
-      lineNumbers: true
+      lineNumbers: true,
+      mode: 'shell'
     }
 
     return (
@@ -129,16 +131,11 @@ class Nginx extends Component {
 
         <Spin spinning={this.state.loading} tip="Loading...">
           {type === 'edit' ? (
-            // <TextArea
-            //   styleName="textarea"
-            //   onChange={this.onChange}
-            //   value={content}
-            //   onBlur={this.onBlur}
-            // />
-            <CodeMirror
-              value={content}
+            <TextArea
+              styleName="textarea"
               onChange={this.onChange}
-              options={options}
+              value={content}
+              onBlur={this.onBlur}
             />
           ) : (
             <TextArea styleName="log" value={info} />
