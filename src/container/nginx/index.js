@@ -14,6 +14,17 @@ const cmdPath = { cwd: '/' }
 @inject('globalStore')
 @observer
 class Nginx extends Component {
+  constructor(p) {
+    super(p)
+
+    this.store = p.globalStore
+    let localData = localStorage.getItem('setting')
+    localData = localData ? JSON.parse(localData) : {}
+
+    const { nginxPath, nginxCmdPath } = localData
+    this.nginxPath = nginxPath || this.store.defaultSetting.nginxPath
+    this.nginxCmdPath = nginxCmdPath || this.store.defaultSetting.nginxCmdPath
+  }
   state = {
     content: '',
     info: '',
@@ -27,8 +38,7 @@ class Nginx extends Component {
   }
 
   readFile = () => {
-    const { nginxPath } = this.props.globalStore
-    fs.readFile(nginxPath, 'utf8', (err, data) => {
+    fs.readFile(this.nginxPath, 'utf8', (err, data) => {
       this.setState({ content: data, type: 'edit' })
     })
   };
@@ -46,7 +56,7 @@ class Nginx extends Component {
 
   onRestart = () => {
     const { content } = this.state
-    const { nginxPath, nginxCmdPath } = this.props.globalStore
+    const { nginxPath, nginxCmdPath } = this
 
     fs.writeFile(nginxPath, content, 'utf8', err => {
       if (err) {
@@ -84,49 +94,43 @@ class Nginx extends Component {
       error: '#f5222d'
     }
 
-    var options = {
-      lineNumbers: true,
-      mode: 'shell'
-    }
-
     return (
       <div styleName="wrap">
         <Row style={{ marginBottom: 12 }}>
-          <Col span={12}>
-            <Button
-              size="small"
-              type={type === 'edit' ? 'primary' : 'default'}
-              onClick={this.readFile}
-            >
-              编辑
-            </Button>
-            <Button
-              size="small"
-              type={type === 'info' ? 'primary' : 'default'}
-              style={{ marginLeft: 12 }}
-              onClick={() => this.setState({ type: 'info' })}
-            >
-              日志
-            </Button>
-          </Col>
-          <Col span={12}>
-            <div
-              style={{ color: colorCfg[status], fontSize: '16px' }}
-              className="g-fr"
-            >
-              {status === 'success' && <Icon type="check-circle" />}
-              {status === 'error' && <Icon type="close-circle" />}
-            </div>
-            <Button
-              type="primary"
-              size="small"
-              className="g-fr"
-              style={{ marginRight: 12 }}
-              onClick={this.onRestart}
-            >
-              重启
-            </Button>
-          </Col>
+          <Button
+            size="small"
+            type={type === 'edit' ? 'primary' : 'default'}
+            onClick={this.readFile}
+          >
+            编辑
+          </Button>
+          <Button
+            size="small"
+            type={type === 'info' ? 'primary' : 'default'}
+            style={{ marginLeft: 12 }}
+            onClick={() => this.setState({ type: 'info' })}
+          >
+            日志
+          </Button>
+          <div className="g-sm-info">
+            如有错误请检查 setting 页面命令配置是否正确
+          </div>
+          <div
+            style={{ color: colorCfg[status], fontSize: '16px' }}
+            className="g-fr"
+          >
+            {status === 'success' && <Icon type="check-circle" />}
+            {status === 'error' && <Icon type="close-circle" />}
+          </div>
+          <Button
+            type="primary"
+            size="small"
+            className="g-fr"
+            style={{ marginRight: 12 }}
+            onClick={this.onRestart}
+          >
+            重启
+          </Button>
         </Row>
 
         <Spin spinning={this.state.loading} tip="Loading...">

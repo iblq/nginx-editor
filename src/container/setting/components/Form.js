@@ -4,11 +4,11 @@ import { Form, Input, Row, Col } from 'antd'
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 8 }
+    sm: { span: 6 }
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 16 }
+    sm: { span: 18 }
   }
 }
 
@@ -22,7 +22,7 @@ export default class SettingForm extends Component {
       ? JSON.parse(localValue)
       : this.props.globalStore.defaultSetting
 
-    const { nginxPath, nginxCmdPath } = initValue
+    const { nginxPath, nginxCmdPath, hostPath, userPath } = initValue
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
@@ -58,18 +58,18 @@ export default class SettingForm extends Component {
                 message: 'Please input your hostPath!'
               }
             ],
-            initialValue: nginxPath
+            initialValue: hostPath
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="命令路径">
-          {getFieldDecorator('hostCmdPath', {
+        <Form.Item label="用户目录路径">
+          {getFieldDecorator('userPath', {
             rules: [
               {
                 required: true,
-                message: 'Please input your hostCmdPath!'
+                message: 'Please input your userPath!'
               }
             ],
-            initialValue: nginxCmdPath
+            initialValue: userPath
           })(<Input />)}
         </Form.Item>
       </Form>

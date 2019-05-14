@@ -31,12 +31,14 @@ class Setting extends Component {
     return (
       <div>
         <Form ref={el => (this.form = el)} {...this.props} />
-        <Button type="primary" onClick={this.onSave}>
-          保存
-        </Button>
-        <Button type="primary" onClick={this.reset}>
-          重置
-        </Button>
+        <Row className="g-ta-r">
+          <Button type="primary" onClick={this.onSave}>
+            保存
+          </Button>
+          <Button className="g-ml-12" type="primary" onClick={this.reset}>
+            重置
+          </Button>
+        </Row>
       </div>
     )
   }

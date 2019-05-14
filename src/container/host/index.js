@@ -5,6 +5,8 @@ const fs = window.require('fs')
 const path = window.require('path')
 const { exec, execSync } = window.require('child_process')
 var sudo = window.require('sudo-prompt')
+import { observer, inject } from 'mobx-react'
+
 var options = {
   name: 'Electron'
 }
@@ -14,14 +16,9 @@ import io from '../../util/io'
 import SudoModal from './SudoForm'
 const { TextArea } = Input
 
-const filePath = '/etc/hosts'
-const home_path = '/Users/baolq/'
-
 function needPswd(str) {
   str = str.toLowerCase()
 
-  console.log('---')
-  console.log(str)
   let keys = [
     'Permission denied',
     'incorrect password',
@@ -30,21 +27,45 @@ function needPswd(str) {
   return !!keys.find(k => str.includes(k.toLowerCase()))
 }
 
+@inject('globalStore', 'globalActions')
+@observer
 @withRouter
 class Host extends Component {
-  state = {
-    content: '',
-    path: '/etc/hosts',
-    info: '',
-    type: 'edit',
-    sudo_pswd: localStorage.getItem('sudo_pswd') || '',
-    isShowModal: false,
-    status: 'success'
-  };
+  constructor(p) {
+    super(p)
+    this.state = {
+      content: '',
+      info: '',
+      type: 'edit',
+      sudo_pswd: localStorage.getItem('sudo_pswd') || '',
+      isShowModal: false,
+      status: 'success'
+    }
+
+    this.store = p.globalStore
+
+    let localData = localStorage.getItem('setting')
+    localData = localData ? JSON.parse(localData) : {}
+
+    const { userPath, hostPath } = localData
+
+    this.userPath = userPath || this.store.defaultSetting.userPath
+    this.hostPath = hostPath || this.store.defaultSetting.hostPath
+  }
 
   componentDidMount() {
+    this.testSetting()
     this.readFile()
   }
+
+  testSetting = () => {
+    if (!this.userPath) {
+      message.info('请先配置您的个人用户目录路径')
+      setTimeout(() => {
+        this.props.history.push('/setting')
+      }, 1000)
+    }
+  };
 
   closeModal = () => this.setState({ isShowModal: false });
 
@@ -56,7 +77,7 @@ class Host extends Component {
   };
 
   readFile = async () => {
-    io.pReadFile(filePath).then(data => {
+    io.pReadFile(this.store.hostPath).then(data => {
       this.setState({ content: data, type: 'edit' })
     })
   };
@@ -71,7 +92,8 @@ class Host extends Component {
 
   onSaveFile = () => {
     const { content, sudo_pswd } = this.state
-    let tmp_fn = path.join(home_path, 'tmp.txt')
+
+    let tmp_fn = path.join(this.userPath, 'tmp.txt')
     this.setState({ status: '' })
     if (typeof content !== 'string') {
       message.error('')
@@ -79,20 +101,21 @@ class Host extends Component {
     }
 
     const _this = this
+    const { hostPath } = this
 
     io.pWriteFile(tmp_fn, content)
       .then(() => {
         let cmd
 
         if (!sudo_pswd) {
-          cmd = [`cat "${tmp_fn}" > ${filePath}`, `rm -rf ${tmp_fn}`].join(
+          cmd = [`cat "${tmp_fn}" > ${hostPath}`, `rm -rf ${tmp_fn}`].join(
             ' && '
           )
         } else {
           cmd = [
-            `echo '${sudo_pswd}' | sudo -S chmod 777 ${filePath}`,
-            `cat "${tmp_fn}" > ${filePath}`,
-            `echo '${sudo_pswd}' | sudo -S chmod 644 ${filePath}`
+            `echo '${sudo_pswd}' | sudo -S chmod 777 ${hostPath}`,
+            `cat "${tmp_fn}" > ${hostPath}`,
+            `echo '${sudo_pswd}' | sudo -S chmod 644 ${hostPath}`
             // , 'rm -rf ' + tmp_fn
           ].join(' && ')
         }
@@ -112,6 +135,9 @@ class Host extends Component {
             message.error(error)
           }
         })
+      })
+      .catch(err => {
+        this.updateInfo(err.toString())
       })
   };
 
@@ -147,8 +173,15 @@ class Host extends Component {
           >
             保存
           </Button>
+          <div className="g-sm-info">
+            如有错误请检查 setting 页面命令配置是否正确
+          </div>
           <div
-            style={{ color: colorCfg[status], fontSize: '16px', height: 32 }}
+            style={{
+              color: colorCfg[status],
+              fontSize: '16px',
+              height: 32
+            }}
             className="g-fr"
           >
             {status === 'success' && <Icon type="check-circle" />}

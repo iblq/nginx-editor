@@ -1,18 +1,19 @@
-
-
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Modal, Input } from 'antd';
+import { Modal, Input } from 'antd'
 
 export default class SudoForm extends Component {
-
   state = {
     sudo_pswd: ''
-  }
+  };
 
   onChange = e => {
     this.setState({ sudo_pswd: e.target.value })
-  }
+  };
+
+  onEnter = () => {
+    this.props.saveData(this.state.sudo_pswd)
+  };
 
   render() {
     return (
@@ -25,7 +26,12 @@ export default class SudoForm extends Component {
         }}
         onCancel={this.props.onCancel}
       >
-        <Input type="password" style={{ width: '100%' }} onChange={this.onChange} />
+        <Input
+          type="password"
+          style={{ width: '100%' }}
+          onPressEnter={this.onEnter}
+          onChange={this.onChange}
+        />
       </Modal>
     )
   }
