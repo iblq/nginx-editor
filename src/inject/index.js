@@ -1,7 +1,7 @@
-import homeStore from '../store'
-import homeActions from '../action'
+import globalStore from '../store'
+import globalActions from '../action'
 
 export default {
-  homeStore,
-  homeActions
+  globalStore,
+  globalActions
 }

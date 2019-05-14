@@ -52,7 +52,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules|antd)/,
+        exclude: /(node_modules|antd|codemirror)/,
         use: [
           'style-loader',
           {
@@ -104,24 +104,21 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
-      'React': 'react'
+      React: 'react'
     }),
     new webpack.DefinePlugin({
       API_SERVER_PLACEHOLDER: JSON.stringify('')
     })
   ],
   devServer: {
-    contentBase: [
-      path.join(__dirname, '../build'),
-      path.join(__dirname, '..')
-    ],
+    contentBase: [path.join(__dirname, '../build'), path.join(__dirname, '..')],
     hot: true,
     historyApiFallback: true,
     host: '0.0.0.0',
     port: '3000',
     disableHostCheck: true,
-    before(app){
-      dxMock(app, { root: path.join(__dirname, '../api')})
+    before(app) {
+      dxMock(app, { root: path.join(__dirname, '../api') })
     }
   }
 }

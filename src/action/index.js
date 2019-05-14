@@ -7,17 +7,13 @@ class Actions {
     this.store = store
   }
 
-  getMsg() {
-    // get(constants.API_HOME).then(data => {
-    //   this.merge({
-    //     msg: data.helloMsg
-    //   });
-    // });
-  }
-
   @action.bound
   merge(obj = {}) {
     Object.assign(this.store, obj)
+  }
+  @action.bound
+  reset() {
+    this.merge(this.store.defaultSetting)
   }
 }
 

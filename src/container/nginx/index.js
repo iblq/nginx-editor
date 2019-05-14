@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { Button, Input, Row, Col, message, Icon, Spin } from 'antd'
 import moment from 'moment'
+import CodeMirror from 'react-codemirror'
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec } = window.require('child_process')
@@ -9,13 +10,11 @@ import './style.less'
 const { TextArea } = Input
 const cmdPath = { cwd: '/' }
 
-// @inject('homeStore', 'homeActions')
-// @withRouter
-// @observer
+@inject('globalStore')
+@observer
 class Nginx extends Component {
   state = {
     content: '',
-    path: '/usr/local/etc/nginx/nginx.conf',
     info: '',
     type: 'edit',
     status: 'success',
@@ -27,7 +26,8 @@ class Nginx extends Component {
   }
 
   readFile = () => {
-    fs.readFile(this.state.path, 'utf8', (err, data) => {
+    const { nginxPath } = this.props.globalStore
+    fs.readFile(nginxPath, 'utf8', (err, data) => {
       this.setState({ content: data, type: 'edit' })
     })
   };
@@ -43,49 +43,35 @@ class Nginx extends Component {
     this.setState({ type: 'info', info })
   };
 
-  onSaveFile = () => {
-    const { path, content } = this.state
-    fs.writeFile(path, content, 'utf8', err => {
-      if (err) {
-        this.updateInfo(err)
-        message.error('文件保存错误')
-        return;
-      }
-    })
-  };
-
   onRestart = () => {
-    const { path, content } = this.state
-    fs.writeFile(path, content, 'utf8', err => {
+    const { content } = this.state
+    const { nginxPath, nginxCmdPath } = this.props.globalStore
+
+    fs.writeFile(nginxPath, content, 'utf8', err => {
       if (err) {
         this.updateInfo(err)
         message.error('文件保存错误')
         return;
       }
 
-      exec('/usr/local/bin/nginx -t', cmdPath, (err, stdout, stderr) => {
+      exec(`${nginxCmdPath} -t`, cmdPath, (err, stdout, stderr) => {
         this.updateInfo(err || stdout || stderr)
         if (err) {
-          message.error('配置文件编辑错误，请修改后再试')
+          message.error('命令执行错误，请查看日志或检查命令配置是否正确')
           this.setState({ status: 'error' })
           return false
         }
 
         this.setState({ loading: true })
 
-        exec(
-          '/usr/local/bin/nginx -s reload',
-          cmdPath,
-          (err, stdout, stderr) => {
-            console.log(new Date().getDate())
-            this.updateInfo(err || stdout || stderr || 'restart success')
-            if (err) {
-              return false
-            }
-            this.setState({ status: 'success', loading: false })
-            message.success('重启成功')
+        exec(`${nginxCmdPath} -s reload`, cmdPath, (err, stdout, stderr) => {
+          this.updateInfo(err || stdout || stderr || 'restart success')
+          if (err) {
+            return false
           }
-        )
+          this.setState({ status: 'success', loading: false })
+          message.success('重启成功')
+        })
       })
     })
   };
@@ -96,6 +82,11 @@ class Nginx extends Component {
       success: '#52c41a',
       error: '#f5222d'
     }
+
+    var options = {
+      lineNumbers: true
+    }
+
     return (
       <div styleName="wrap">
         <Row style={{ marginBottom: 12 }}>
@@ -138,11 +129,16 @@ class Nginx extends Component {
 
         <Spin spinning={this.state.loading} tip="Loading...">
           {type === 'edit' ? (
-            <TextArea
-              styleName="textarea"
-              onChange={this.onChange}
+            // <TextArea
+            //   styleName="textarea"
+            //   onChange={this.onChange}
+            //   value={content}
+            //   onBlur={this.onBlur}
+            // />
+            <CodeMirror
               value={content}
-              onBlur={this.onBlur}
+              onChange={this.onChange}
+              options={options}
             />
           ) : (
             <TextArea styleName="log" value={info} />
