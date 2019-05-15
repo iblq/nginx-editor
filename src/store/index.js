@@ -17,7 +17,7 @@ class Store {
   nginxCmdPath = '/usr/local/bin/nginx';
 
   @observable
-  hostPath = '';
+  hostPath = '/etc/hosts';
   @observable
   userPath = '';
 }

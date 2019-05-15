@@ -50,7 +50,8 @@ class Host extends Component {
     const { userPath, hostPath } = localData
 
     this.userPath = userPath || this.store.defaultSetting.userPath
-    this.hostPath = hostPath || this.store.defaultSetting.hostPath
+    this.hostPath =
+      '/etc/hosts' || hostPath || this.store.defaultSetting.hostPath
   }
 
   componentDidMount() {

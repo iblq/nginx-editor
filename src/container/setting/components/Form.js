@@ -50,7 +50,7 @@ export default class SettingForm extends Component {
           })(<Input />)}
         </Form.Item>
         <h3>host</h3>
-        <Form.Item label="配置文件路径">
+        {/* <Form.Item label="配置文件路径">
           {getFieldDecorator('hostPath', {
             rules: [
               {
@@ -60,7 +60,7 @@ export default class SettingForm extends Component {
             ],
             initialValue: hostPath
           })(<Input />)}
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="用户目录路径">
           {getFieldDecorator('userPath', {
             rules: [

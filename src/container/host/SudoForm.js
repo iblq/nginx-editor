@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Modal, Input } from 'antd'
 
 export default class SudoForm extends Component {
