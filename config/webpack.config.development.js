@@ -2,9 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const dxMock = require('dx-mock')
 
 const rules = require('./webpack.rules')
+
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
@@ -14,20 +14,17 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map',
   resolve: {
-    modules: ['node_modules', 'src']
+    modules: ['node_modules', 'src'],
+    alias: {
+      component: path.resolve(__dirname, '../src/component/')
+    }
   },
   module: {
     rules: rules.concat([
       {
         test: /\.jsx?$/,
         use: ['babel-loader', 'eslint-loader'],
-        exclude: p => {
-          if (/dx-lib/.test(p)) {
-            return false
-          }
-
-          return /node_modules/.test(p)
-        }
+        exclude: p => /node_modules/.test(p)
       },
       {
         test: /\.css$/,
@@ -52,7 +49,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules|antd|codemirror)/,
+        exclude: /(node_modules|antd)/,
         use: [
           'style-loader',
           {
@@ -100,7 +97,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'template/index.html'
+      template: 'config/template/index.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
@@ -115,10 +112,6 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
     host: '0.0.0.0',
-    port: '3000',
-    disableHostCheck: true,
-    before(app) {
-      dxMock(app, { root: path.join(__dirname, '../api') })
-    }
+    disableHostCheck: true
   }
 }

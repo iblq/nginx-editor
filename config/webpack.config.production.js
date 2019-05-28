@@ -1,14 +1,13 @@
-// https://www.maizhiying.me/posts/2017/03/01/webpack-babel-ie8-support.html
 const path = require('path')
 const moment = require('moment')
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const rules = require('./webpack.rules')
+
 module.exports = {
   mode: 'production',
   entry: './src/index.js',
@@ -18,7 +17,20 @@ module.exports = {
     chunkFilename: '[name].[hash].js'
   },
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          // 将第三方模块提取出来
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 10, // 优先级
+          enforce: true
+        }
+      }
+    },
     minimizer: [
+      // 压缩
       new UglifyJsPlugin({
         uglifyOptions: {
           output: {
@@ -37,7 +49,8 @@ module.exports = {
     modules: ['node_modules', 'src']
   },
   module: {
-    rules: rules.concat([{
+    rules: rules.concat([
+      {
         test: /\.jsx?$/,
         use: ['babel-loader'],
         exclude: p => {
@@ -78,7 +91,6 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              minimize: true,
               modules: true,
               localIdentName: '[hash:base64]'
             }
@@ -104,10 +116,7 @@ module.exports = {
         loader: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
-            options: {
-              minimize: true
-            }
+            loader: 'css-loader'
           },
           {
             loader: 'postcss-loader',
@@ -133,7 +142,7 @@ module.exports = {
           // Inline files smaller than 10 kB (10240 bytes)
           limit: 10 * 1024,
           name: 'image/[hash].[ext]'
-        },
+        }
       },
       {
         test: /\.svg$/,
@@ -169,26 +178,22 @@ module.exports = {
     ])
   },
   plugins: [
-    new WebpackCleanupPlugin({
-      exclude: ['vendor.js']
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: require('../tmp/manifest.json')
-    }),
     new webpack.DefinePlugin({
       API_SERVER_PLACEHOLDER: JSON.stringify('')
     }),
     new webpack.ProvidePlugin({
-      'React': 'react'
+      React: 'react'
     }),
     new MiniCssExtractPlugin({
       chunkFilename: '[name].[hash].css',
       filename: '[name].css'
     }),
     new HtmlWebpackPlugin({
-      template: 'template/index.prod.html',
+      template: 'config/template/index.prod.html',
       hash: true,
-      random: Math.random().toString().slice(2)
+      random: Math.random()
+        .toString()
+        .slice(2)
     })
   ]
 }
