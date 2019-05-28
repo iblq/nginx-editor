@@ -13,22 +13,10 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, '../build'),
-    filename: 'main.js',
-    chunkFilename: '[name].[hash].js'
+    filename: 'main.js'
+    // chunkFilename: '[name].[hash].js'
   },
   optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          // 将第三方模块提取出来
-          test: /node_modules/,
-          chunks: 'initial',
-          name: 'vendor',
-          priority: 10, // 优先级
-          enforce: true
-        }
-      }
-    },
     minimizer: [
       // 压缩
       new UglifyJsPlugin({
@@ -185,15 +173,15 @@ module.exports = {
       React: 'react'
     }),
     new MiniCssExtractPlugin({
-      chunkFilename: '[name].[hash].css',
+      // chunkFilename: '[name].[hash].css',
       filename: '[name].css'
     }),
     new HtmlWebpackPlugin({
-      template: 'config/template/index.prod.html',
-      hash: true,
-      random: Math.random()
-        .toString()
-        .slice(2)
+      template: 'config/template/index.prod.html'
+      // hash: true,
+      // random: Math.random()
+      //   .toString()
+      //   .slice(2)
     })
   ]
 }

@@ -6,14 +6,14 @@ const url = require('url')
 // 保持window对象的全局引用,避免JavaScript对象被垃圾回收时,窗口被自动关闭.
 let mainWindow
 
-console.log(path.join(__dirname + '/src/img/nh.icns'))
+console.log(path.join(__dirname + '../src/img/nh.icns'))
 
 function createWindow() {
   //创建浏览器窗口,宽高自定义具体大小你开心就好
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname + '/src/img/nh.icns')
+    icon: path.join(__dirname + '../src/img/nh.icns')
   })
 
   if (process.platform === 'darwin') {
@@ -64,7 +64,7 @@ function createWindow() {
 
     mainWindow.loadURL(
       url.format({
-        pathname: path.join(__dirname, '/build/index.html'),
+        pathname: path.join(__dirname, '../build/index.html'),
         protocol: 'file:',
         slashes: true
       })
