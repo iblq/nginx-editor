@@ -2,4 +2,4 @@
 
 方便配置本地 nginx 代理和 host
 
-> host 编辑需要管理员权限，sudo 命令执行相关方法参考 oldj 的 SwitchHosts，感谢老 loader
+> host 编辑需要管理员权限，sudo 命令执行相关方法参考 SwitchHosts，感谢前 loader oldj
