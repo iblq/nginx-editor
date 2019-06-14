@@ -10,6 +10,7 @@ const remote = window.require('electron').remote
 const homePath = remote.app.getPath('home')
 
 const readList = ['mine', 'work', 'test', 'Downloads', 'Desktop']
+const ignoreList = ['node_modules']
 
 class Project extends React.Component {
   state = {
@@ -56,6 +57,8 @@ class Project extends React.Component {
   }
 
   readFile = (path = homePath, arr) => {
+    if (!fs.existsSync(path)) return
+
     let info = fs.statSync(path)
 
     // 文件夹
@@ -66,8 +69,9 @@ class Project extends React.Component {
     if (files.includes('package.json')) {
       arr.push(path)
     } else {
-      const list = files.filter(item => item.substr(0, 1) !== '.')
-
+      const list = files.filter(
+        item => item.substr(0, 1) !== '.' && !ignoreList.includes(item)
+      )
       for (let i of list) {
         this.readFile(path + '/' + i, arr)
       }
@@ -81,6 +85,7 @@ class Project extends React.Component {
       this.readFile(homePath + '/' + p, projects)
     }
 
+    console.log(projects)
     this.setState({ data: this.formatList(projects) })
   }
 
