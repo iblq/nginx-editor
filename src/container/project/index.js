@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Button, Input, Row, Col, message, Icon, Spin } from 'antd'
+import { Button, Col, Row } from 'antd'
+import React from 'react'
+import superInject from 'superInject'
+import './style.less'
 const fs = window.require('fs')
 const { exec } = window.require('child_process')
-import superInject from 'superInject'
 const cmdPath = { cwd: '/' }
 const remote = window.require('electron').remote
 
 const homePath = remote.app.getPath('home')
-import './style.less'
 
 const readList = ['mine', 'work', 'test', 'Downloads', 'Desktop']
 

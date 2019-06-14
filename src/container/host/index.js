@@ -1,15 +1,16 @@
+import { Button, Icon, Input, message } from 'antd'
+import { inject, observer } from 'mobx-react'
 import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Button, Input, Icon, message } from 'antd'
+import io from '../../util/io'
+import './style.less'
+import SudoModal from './SudoForm'
+import superInject from 'util/superInject'
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec } = window.require('child_process')
-import { observer, inject } from 'mobx-react'
 const remote = window.require('electron').remote
 
-import './style.less'
-import io from '../../util/io'
-import SudoModal from './SudoForm'
 const { TextArea } = Input
 
 console.log(remote.app.getPath('home'))
@@ -25,9 +26,7 @@ function needPswd(str) {
   return !!keys.find(k => str.includes(k.toLowerCase()))
 }
 
-@inject('globalStore', 'globalActions')
-@observer
-@withRouter
+@superInject()
 class Host extends Component {
   constructor(p) {
     super(p)

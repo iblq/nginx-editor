@@ -1,18 +1,17 @@
-import { Component } from 'react'
-import { observer, inject } from 'mobx-react'
-import { Button, Input, Row, Col, message, Icon, Spin } from 'antd'
+import { Button, Icon, Input, message, Row, Spin } from 'antd'
 import moment from 'moment'
+import { Component } from 'react'
+import superInject from 'superInject'
+import './style.less'
 // import CodeMirror from 'react-codemirror';
 // import 'codemirror/mode/shell/shell';
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec } = window.require('child_process')
-import './style.less'
 const { TextArea } = Input
 const cmdPath = { cwd: '/' }
 
-@inject('globalStore')
-@observer
+@superInject()
 class Nginx extends Component {
   constructor(p) {
     super(p)
@@ -31,7 +30,7 @@ class Nginx extends Component {
     type: 'edit',
     status: 'success',
     loading: false
-  };
+  }
 
   componentDidMount() {
     this.readFile()
@@ -41,18 +40,18 @@ class Nginx extends Component {
     fs.readFile(this.nginxPath, 'utf8', (err, data) => {
       this.setState({ content: data, type: 'edit' })
     })
-  };
+  }
 
   onChange = e => {
     this.setState({ content: e.target.value })
-  };
+  }
 
   updateInfo = err => {
     let info = `${this.state.info} ${moment(new Date()).format(
       'h:mm:ss'
     )}>  ${err}`
     this.setState({ type: 'info', info })
-  };
+  }
 
   onRestart = () => {
     const { content } = this.state
@@ -62,7 +61,7 @@ class Nginx extends Component {
       if (err) {
         this.updateInfo(err)
         message.error('文件保存错误')
-        return;
+        return
       }
 
       exec(`${nginxCmdPath} -t`, cmdPath, (err, stdout, stderr) => {
@@ -85,7 +84,7 @@ class Nginx extends Component {
         })
       })
     })
-  };
+  }
 
   render() {
     const { content, type, info, status } = this.state
