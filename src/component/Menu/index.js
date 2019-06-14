@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Menu as AntdMenu, Icon } from 'antd';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Menu as AntdMenu, Icon } from 'antd'
 
-import './less/styles.less';
+import './less/styles.less'
 
-const { Item } = AntdMenu;
+const { Item } = AntdMenu
 
 const menuCfg = [
   {
@@ -21,25 +21,30 @@ const menuCfg = [
     title: 'setting',
     link: '/setting',
     icon: 'setting'
+  },
+  {
+    title: 'project',
+    link: '/project',
+    icon: 'home'
   }
-];
+]
 
 class Menu extends Component {
   handleClick(e) {
-    const router = this.context.router;
-    const pathname = router.route.location.pathname;
-    const target = e.item.props.pathname;
+    const router = this.context.router
+    const pathname = router.route.location.pathname
+    const target = e.item.props.pathname
 
     if (pathname !== target) {
-      router.history.push(target);
+      router.history.push(target)
     }
   }
 
   render() {
-    const router = this.context.router;
-    const pathname = router.route.location.pathname;
+    const router = this.context.router
+    const pathname = router.route.location.pathname
     const currentMenu =
-      menuCfg.find(item => item.link === pathname) || menuCfg[0];
+      menuCfg.find(item => item.link === pathname) || menuCfg[0]
 
     return (
       <div>
@@ -55,16 +60,16 @@ class Menu extends Component {
                 {item.icon ? <Icon type={item.icon} /> : null}
                 <span>{item.title}</span>
               </Item>
-            );
+            )
           })}
         </AntdMenu>
       </div>
-    );
+    )
   }
 }
 
 Menu.contextTypes = {
   router: PropTypes.object
-};
+}
 
-export default Menu;
+export default Menu

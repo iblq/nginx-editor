@@ -1,114 +1,135 @@
-import { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { observer, inject } from 'mobx-react'
+import React, { useState } from 'react'
 import { Button, Input, Row, Col, message, Icon, Spin } from 'antd'
-import moment from 'moment'
 const fs = window.require('fs')
-const path = window.require('path')
-const { exec, execSync } = window.require('child_process')
-import './style.less'
-const { TextArea } = Input
+const { exec } = window.require('child_process')
+import superInject from 'superInject'
 const cmdPath = { cwd: '/' }
+const remote = window.require('electron').remote
 
-// @inject('homeStore', 'homeActions')
-// @withRouter
-// @observer
-class Home extends Component {
+const homePath = remote.app.getPath('home')
+import './style.less'
+
+const readList = ['mine', 'work', 'test', 'Downloads', 'Desktop']
+
+class Project extends React.Component {
   state = {
-    content: '',
-    path: '/usr/local/etc/nginx/nginx.conf',
-    info: '',
-    type: 'edit',
-    status: 'success',
-    loading: false
-  };
-
-  componentDidMount() {
-    this.readFile()
+    data: {}
   }
 
-  readFile = () => {
-    fs.readFile(this.state.path, 'utf8', (err, data) => {
-      this.setState({ content: data, type: 'edit' })
-    })
-  };
+  componentDidMount() {
+    this.start()
+  }
 
-  onChange = e => {
-    this.setState({ content: e.target.value })
-  };
+  formatList = projects => {
+    /****
+     * /User/baolq/mine/admin
+     * {
+     *  name: 'admin',
+     *  path: '/User/baolq/mine/admin',
+     *  userPath: '/mine
+     * }
+     */
+    const list = projects.map(item => {
+      const arr = item.split('/')
 
-  updateInfo = err => {
-    let info = `${this.state.info} ${moment(new Date()).format(
-      'h:mm:ss'
-    )}>  ${err}`
-    this.setState({ type: 'info', info })
-  };
+      let name = '',
+        userPath = ''
 
-  onSaveFile = () => {
-    const { path, content } = this.state
-    fs.writeFile(path, content, 'utf8', err => {
-      if (err) {
-        this.updateInfo(err)
-        message.error('文件保存错误')
-        return;
+      name = arr[arr.length - 1]
+
+      userPath = arr.slice(3, arr.length - 1)
+      userPath = userPath.join('/')
+      return {
+        name,
+        userPath,
+        path: item
       }
     })
-  };
 
-  onRestart = () => {
-    const { path, content } = this.state
-    fs.writeFile(path, content, 'utf8', err => {
-      if (err) {
-        this.updateInfo(err)
-        message.error('文件保存错误')
-        return;
+    let objData = {}
+    for (let i of list) {
+      let { userPath } = i
+      objData[userPath] = objData[userPath] ? objData[userPath] : []
+      objData[userPath].push(i)
+    }
+    return objData
+  }
+
+  readFile = (path = homePath, arr) => {
+    let info = fs.statSync(path)
+
+    // 文件夹
+    if (!info.isDirectory()) return
+
+    const files = fs.readdirSync(path) //同步读取
+
+    if (files.includes('package.json')) {
+      arr.push(path)
+    } else {
+      const list = files.filter(item => item.substr(0, 1) !== '.')
+
+      for (let i of list) {
+        this.readFile(path + '/' + i, arr)
       }
+    }
+  }
 
-      exec('/usr/local/bin/nginx -t', cmdPath, (err, stdout, stderr) => {
-        this.updateInfo(err || stdout || stderr)
-        if (err) {
-          message.error('配置文件编辑错误，请修改后再试')
-          this.setState({ status: 'error' })
-          return false
-        }
+  start = () => {
+    const projects = []
 
-        this.setState({ loading: true })
+    for (let p of readList) {
+      this.readFile(homePath + '/' + p, projects)
+    }
 
-        exec(
-          '/usr/local/bin/nginx -s reload',
-          cmdPath,
-          (err, stdout, stderr) => {
-            console.log(new Date().getDate())
-            this.updateInfo(err || stdout || stderr || 'restart success')
-            if (err) {
-              return false
-            }
-            this.setState({ status: 'success', loading: false })
-            message.success('重启成功')
-          }
-        )
-      })
+    this.setState({ data: this.formatList(projects) })
+  }
+
+  onOpenInCode = path => {
+    console.log(path)
+    exec(`/usr/local/bin/code ${path}`, cmdPath, (err, stdout, stderr) => {
+      console.log(err || stdout || stderr || 'restart success')
+      if (err) {
+        console.log(err)
+      }
     })
-  };
+  }
+
+  renderList = list => {
+    return list.map(({ name, path }, i) => (
+      <Button
+        onClick={() => this.onOpenInCode(path)}
+        styleName="item"
+        key={path}
+      >
+        {name}
+      </Button>
+    ))
+  }
 
   render() {
+    const { data } = this.state
     return (
       <div styleName="wrap">
         <Row style={{ marginBottom: 12 }}>
           <Col span={12}>
-            <Button
-              size="small"
-              type={this.state.type === 'edit' ? 'primary' : 'default'}
-              onClick={this.readFile}
-            >
+            <Button size="small" onClick={this.start}>
               刷新
             </Button>
           </Col>
           <Col span={12} />
         </Row>
+
+        {Object.keys(data).map(key => {
+          return (
+            <div key={key}>
+              <h3 styleName="h3">{key}</h3>
+              <div>{this.renderList(data[key])}</div>
+            </div>
+          )
+        })}
       </div>
     )
   }
 }
 
-export default Home
+export default superInject()(Project)

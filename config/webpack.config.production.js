@@ -34,7 +34,11 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ['node_modules', 'src']
+    modules: ['node_modules', 'src'],
+    alias: {
+      component: path.resolve(__dirname, '../src/component/'),
+      superInject: path.resolve(__dirname, '../src/util/superInject.js')
+    }
   },
   module: {
     rules: rules.concat([

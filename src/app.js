@@ -31,6 +31,11 @@ class App extends Component {
                 />
                 <Dynamic
                   exact
+                  path="/project"
+                  bundle={require('bundle-loader?lazy!./container/project')}
+                />
+                <Dynamic
+                  exact
                   path="/setting"
                   bundle={require('bundle-loader?lazy!./container/setting')}
                 />

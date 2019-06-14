@@ -22,7 +22,7 @@ export default class SettingForm extends Component {
       ? JSON.parse(localValue)
       : this.props.globalStore.defaultSetting
 
-    const { nginxPath, nginxCmdPath, hostPath, userPath } = initValue
+    const { nginxPath, nginxCmdPath } = initValue
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
