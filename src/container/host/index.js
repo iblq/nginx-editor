@@ -3,18 +3,16 @@ import { withRouter } from 'react-router-dom'
 import { Button, Input, Icon, message } from 'antd'
 const fs = window.require('fs')
 const path = window.require('path')
-const { exec, execSync } = window.require('child_process')
-var sudo = window.require('sudo-prompt')
+const { exec } = window.require('child_process')
 import { observer, inject } from 'mobx-react'
-
-var options = {
-  name: 'Electron'
-}
+const remote = window.require('electron').remote
 
 import './style.less'
 import io from '../../util/io'
 import SudoModal from './SudoForm'
 const { TextArea } = Input
+
+console.log(remote.app.getPath('home'))
 
 function needPswd(str) {
   str = str.toLowerCase()
@@ -47,9 +45,9 @@ class Host extends Component {
     let localData = localStorage.getItem('setting')
     localData = localData ? JSON.parse(localData) : {}
 
-    const { userPath, hostPath } = localData
+    const { hostPath } = localData
 
-    this.userPath = userPath || this.store.defaultSetting.userPath
+    this.userPath = remote.app.getPath('home')
     this.hostPath =
       '/etc/hosts' || hostPath || this.store.defaultSetting.hostPath
   }
@@ -66,30 +64,30 @@ class Host extends Component {
         this.props.history.push('/setting')
       }, 1000)
     }
-  };
+  }
 
-  closeModal = () => this.setState({ isShowModal: false });
+  closeModal = () => this.setState({ isShowModal: false })
 
-  showModal = () => this.setState({ isShowModal: true });
+  showModal = () => this.setState({ isShowModal: true })
 
   savePwd = v => {
     this.setState({ sudo_pswd: v, isShowModal: false })
     localStorage.setItem('sudo_pswd', v)
-  };
+  }
 
   readFile = async () => {
     io.pReadFile(this.store.hostPath).then(data => {
       this.setState({ content: data, type: 'edit' })
     })
-  };
+  }
 
   onChange = e => {
     this.setState({ content: e.target.value })
-  };
+  }
 
   updateInfo = err => {
     this.setState({ type: 'info', info: this.state.info + err + '\r\n' })
-  };
+  }
 
   onSaveFile = () => {
     const { content, sudo_pswd } = this.state
@@ -98,7 +96,7 @@ class Host extends Component {
     this.setState({ status: '' })
     if (typeof content !== 'string') {
       message.error('')
-      return;
+      return
     }
 
     const _this = this
@@ -128,7 +126,7 @@ class Host extends Component {
           if (!error) {
             message.success('文件保存成功')
             _this.setState({ status: 'success' })
-            return;
+            return
           }
           if (!sudo_pswd || needPswd(stdout + stderr)) {
             _this.showModal()
@@ -140,7 +138,7 @@ class Host extends Component {
       .catch(err => {
         this.updateInfo(err.toString())
       })
-  };
+  }
 
   onRestart = () => {
     const { path, content } = this.state
@@ -148,10 +146,10 @@ class Host extends Component {
       if (err) {
         this.updateInfo(err)
         message.error('文件保存错误')
-        return;
+        return
       }
     })
-  };
+  }
 
   render() {
     const { content, type, info, isShowModal, status } = this.state

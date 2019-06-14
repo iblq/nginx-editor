@@ -1,9 +1,5 @@
 import { Component } from 'react'
-import {
-  // BrowserRouter as Router
-  HashRouter as Router,
-  Switch
-} from 'react-router-dom'
+import { HashRouter as Router, Switch } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 
 import './less/antd.less'

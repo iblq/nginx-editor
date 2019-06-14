@@ -49,29 +49,6 @@ export default class SettingForm extends Component {
             initialValue: nginxCmdPath
           })(<Input />)}
         </Form.Item>
-        <h3>host</h3>
-        {/* <Form.Item label="配置文件路径">
-          {getFieldDecorator('hostPath', {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your hostPath!'
-              }
-            ],
-            initialValue: hostPath
-          })(<Input />)}
-        </Form.Item> */}
-        <Form.Item label="用户目录路径">
-          {getFieldDecorator('userPath', {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your userPath!'
-              }
-            ],
-            initialValue: userPath
-          })(<Input />)}
-        </Form.Item>
       </Form>
     )
   }

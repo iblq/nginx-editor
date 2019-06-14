@@ -3,10 +3,10 @@ const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 const url = require('url')
 
+window.homePath = app.getPath('home')
+
 // 保持window对象的全局引用,避免JavaScript对象被垃圾回收时,窗口被自动关闭.
 let mainWindow
-
-console.log(path.join(__dirname + '../src/img/nh.icns'))
 
 function createWindow() {
   //创建浏览器窗口,宽高自定义具体大小你开心就好
