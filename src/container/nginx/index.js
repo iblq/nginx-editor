@@ -24,6 +24,7 @@ class Nginx extends Component {
     this.nginxPath = nginxPath || this.store.defaultSetting.nginxPath
     this.nginxCmdPath = nginxCmdPath || this.store.defaultSetting.nginxCmdPath
   }
+
   state = {
     content: '',
     info: '',

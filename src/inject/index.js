@@ -1,5 +1,5 @@
 import globalStore from '../store'
-import globalActions from '../action'
+import globalActions from '../store/action'
 
 export default {
   globalStore,

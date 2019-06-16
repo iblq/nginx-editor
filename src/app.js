@@ -8,7 +8,17 @@ import './less/app.less'
 import Menu from 'component/Menu'
 import Dynamic from './dynamic'
 
+import routerCfg from './router'
+import superInject from 'util/superInject'
+
+@superInject()
 class App extends Component {
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.globalActions.readLocalList()
+    }, 1000)
+  }
+
   render() {
     return (
       <Router>
@@ -19,26 +29,17 @@ class App extends Component {
             </div>
             <div className="app-content">
               <Switch>
-                <Dynamic
-                  exact
-                  path="/"
-                  bundle={require('bundle-loader?lazy!./container/nginx')}
-                />
-                <Dynamic
-                  exact
-                  path="/host"
-                  bundle={require('bundle-loader?lazy!./container/host')}
-                />
-                <Dynamic
-                  exact
-                  path="/project"
-                  bundle={require('bundle-loader?lazy!./container/project')}
-                />
-                <Dynamic
-                  exact
-                  path="/setting"
-                  bundle={require('bundle-loader?lazy!./container/setting')}
-                />
+                {routerCfg.map((item, i) => {
+                  const { link, path } = item
+                  return (
+                    <Dynamic
+                      key={i}
+                      exact
+                      path={link}
+                      bundle={require('bundle-loader?lazy!./container/' + path)}
+                    />
+                  )
+                })}
               </Switch>
             </div>
           </div>

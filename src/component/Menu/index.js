@@ -6,28 +6,7 @@ import './less/styles.less'
 
 const { Item } = AntdMenu
 
-const menuCfg = [
-  {
-    title: 'nginx',
-    link: '/',
-    icon: 'home'
-  },
-  {
-    title: 'host',
-    link: '/host',
-    icon: 'home'
-  },
-  {
-    title: 'setting',
-    link: '/setting',
-    icon: 'setting'
-  },
-  {
-    title: 'project',
-    link: '/project',
-    icon: 'home'
-  }
-]
+import menuCfg from '@/router'
 
 class Menu extends Component {
   handleClick(e) {
