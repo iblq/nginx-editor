@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const { resolve } = require('./config.js')
 
 const rules = require('./webpack.rules')
 
@@ -33,13 +34,7 @@ module.exports = {
       new webpack.BannerPlugin(`${moment().format('YYYY-MM-DD HH:mm:ss')}`)
     ]
   },
-  resolve: {
-    modules: ['node_modules', 'src'],
-    alias: {
-      component: path.resolve(__dirname, '../src/component/'),
-      superInject: path.resolve(__dirname, '../src/util/superInject.js')
-    }
-  },
+  resolve,
   module: {
     rules: rules.concat([
       {

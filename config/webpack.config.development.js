@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { resolve } = require('./config.js')
 
 const rules = require('./webpack.rules')
 
@@ -13,14 +14,7 @@ module.exports = {
     filename: 'main.js'
   },
   devtool: 'cheap-module-eval-source-map',
-  resolve: {
-    modules: ['node_modules', 'src'],
-    alias: {
-      '@': path.resolve(__dirname, '../src/'),
-      component: path.resolve(__dirname, '../src/component/'),
-      superInject: path.resolve(__dirname, '../src/util/superInject.js')
-    }
-  },
+  resolve,
   module: {
     rules: rules.concat([
       {

@@ -28,7 +28,7 @@ const Project = ({ globalActions, globalStore }) => {
   const renderList = list => {
     return list.map(({ name, path }) => (
       <p styleName="item" onClick={() => onOpen(path)} key={path}>
-        <a styleName="title" href="javascript:;" onClick={() => onOpen(path)}>
+        <a href="javascript:;" onClick={() => onOpen(path)}>
           {name}
         </a>
         <a
