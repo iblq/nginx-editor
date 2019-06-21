@@ -1,6 +1,5 @@
 import { action } from 'mobx'
 import store from '../store'
-const fs = window.require('fs')
 const remote = window.require('electron').remote
 
 const homePath = remote.app.getPath('home')

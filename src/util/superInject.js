@@ -1,4 +1,3 @@
-import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import storeList from '../inject/index'
 

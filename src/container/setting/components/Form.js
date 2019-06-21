@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { Form, Input, Row, Col } from 'antd'
+import { Form, Input } from 'antd'
 
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 6 }
+    sm: { span: 6 },
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 18 }
-  }
+    sm: { span: 18 },
+  },
 }
 
 @Form.create()
@@ -32,10 +32,10 @@ export default class SettingForm extends Component {
             rules: [
               {
                 required: true,
-                message: 'Please input your nginxPath!'
-              }
+                message: 'Please input your nginxPath!',
+              },
             ],
-            initialValue: nginxPath
+            initialValue: nginxPath,
           })(<Input />)}
         </Form.Item>
         <Form.Item label="命令路径">
@@ -43,10 +43,10 @@ export default class SettingForm extends Component {
             rules: [
               {
                 required: true,
-                message: 'Please input your nginxCmdPath!'
-              }
+                message: 'Please input your nginxCmdPath!',
+              },
             ],
-            initialValue: nginxCmdPath
+            initialValue: nginxCmdPath,
           })(<Input />)}
         </Form.Item>
       </Form>

@@ -1,6 +1,4 @@
 const fs = window.require('fs')
-const crypto = window.require('crypto')
-const md5File = window.require('md5-file')
 
 exports.getUserHome = () => {
   return process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']

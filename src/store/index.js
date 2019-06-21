@@ -7,7 +7,7 @@ class Store {
   defaultSetting = {
     nginxPath: '/usr/local/etc/nginx/nginx.conf',
     nginxCmdPath: '/usr/local/bin/nginx',
-    hostPath: '/etc/hosts'
+    hostPath: '/etc/hosts',
   }
 
   @observable

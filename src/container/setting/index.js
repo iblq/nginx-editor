@@ -1,9 +1,6 @@
+import { Button, Row } from 'antd'
+import { inject, observer } from 'mobx-react'
 import { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { observer, inject } from 'mobx-react'
-import { Button, Input, Row, message } from 'antd'
-const fs = window.require('fs')
-
 import Form from './components/Form'
 
 @inject('globalStore', 'globalActions')
@@ -19,13 +16,13 @@ class Setting extends Component {
         this.props.globalActions.merge(values)
       }
     })
-  };
+  }
 
   reset = () => {
     this.props.globalActions.reset()
     localStorage.clear('setting')
     this.form.setFieldsValue(this.props.globalStore.defaultSetting)
-  };
+  }
 
   render() {
     return (

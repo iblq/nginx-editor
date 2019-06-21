@@ -1,20 +1,18 @@
 {
   "name": "WF",
   "version": "0.1.0",
-  "description": "nginx & host gui",
+  "description": "workflow",
   "main": "main/index.js",
   "homepage": ".",
   "scripts": {
-    "start": "BABEL_ENV=development webpack-dev-server -w --env=development && npm run es",
+    "start": "BABEL_ENV=development webpack-dev-server -w --env=development & npm run electron",
     "vendor": "webpack --progress --env=dll",
-    "_build": "BABEL_ENV=production webpack --progress --env=production",
-    "build": "npm run _build",
-    "es": "ELECTRON_ENV=dev electron .",
+    "build": "BABEL_ENV=production webpack --progress --env=production",
+    "electron": "ELECTRON_ENV=dev electron .",
     "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
-      "yarn test",
       "yarn prettier",
       "git add"
     ]
@@ -27,12 +25,6 @@
     "type": "git",
     "url": ""
   },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/src/"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
@@ -43,12 +35,10 @@
     "autoprefixer": "^9.1.5",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^9.0.0",
-    "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.2",
     "babel-plugin-import": "^1.8.0",
     "babel-plugin-react-css-modules": "^3.4.2",
     "css-loader": "^1.0.0",
-    "dx-mock": "^0.1.0",
     "electron": "^4.1.4",
     "electron-packager": "^13.1.1",
     "eslint": "^5.5.0",
@@ -83,15 +73,10 @@
     "babel-polyfill": "^6.26.0",
     "bundle-loader": "^0.5.6",
     "codemirror": "^5.48.0",
-    "install": "^0.12.2",
-    "md5-file": "^4.0.0",
     "mobx": "^5.1.0",
     "mobx-react": "^5.2.6",
     "moment": "^2.22.2",
-    "npm": "^6.9.0",
     "react": "^16.8.4",
-    "react-codemirror": "^1.0.0",
-    "react-codemirror2": "^6.0.0",
     "react-dom": "^16.8.4",
     "react-router-dom": "^4.3.1",
     "sudo-prompt": "^8.2.5"

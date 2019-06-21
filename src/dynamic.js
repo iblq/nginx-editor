@@ -6,7 +6,7 @@ class Loader extends Component {
     super(props, context)
 
     this.state = {
-      mod: null
+      mod: null,
     }
   }
 
@@ -22,12 +22,12 @@ class Loader extends Component {
 
   bundle() {
     this.setState({
-      mod: null
+      mod: null,
     })
 
     this.props.bundle(mod => {
       this.setState({
-        mod: mod.default || mod
+        mod: mod.default || mod,
       })
     })
   }

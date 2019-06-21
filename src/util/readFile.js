@@ -1,7 +1,4 @@
 const fs = window.require('fs')
-const remote = window.require('electron').remote
-
-const readList = ['mine', 'work', 'test', 'Downloads', 'Desktop']
 const ignoreList = ['node_modules']
 
 export const formatList = projects => {
