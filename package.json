@@ -10,7 +10,7 @@
     "_build": "BABEL_ENV=production webpack --progress --env=production",
     "build": "npm run _build",
     "es": "ELECTRON_ENV=dev electron .",
-    "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=wf.icns"
+    "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [

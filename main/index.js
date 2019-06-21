@@ -11,7 +11,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname + '../src/img/nh.icns'),
+    icon: path.join(__dirname + '../assets/wf.icns'),
   })
 
   if (process.platform === 'darwin') {
@@ -65,8 +65,7 @@ function createWindow() {
     // 打开开发者工具，默认不打开
     mainWindow.webContents.openDevTools()
   } else {
-    // mainWindow.webContents.openDevTools()
-
+    // 打包入口
     mainWindow.loadURL(
       url.format({
         pathname: path.join(__dirname, '../build/index.html'),

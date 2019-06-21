@@ -2,8 +2,8 @@
 
 基于 electron 实现的 mac 下简单工作流工具。
 
-![界面图片](https://github.com/iblq/NHEditor/blob/master/wf1.png)
-![界面图片](https://github.com/iblq/NHEditor/blob/master/wf2.png)
+![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf1.png)
+![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf2.png)
 
 - nginx conf 编辑
 - host 编辑

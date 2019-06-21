@@ -1,5 +1,4 @@
 import { action } from 'mobx'
-import { get } from 'util/request'
 import store from '../store'
 const fs = window.require('fs')
 const remote = window.require('electron').remote
