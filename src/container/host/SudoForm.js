@@ -1,37 +1,30 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Modal, Input } from 'antd'
 
-export default class SudoForm extends Component {
-  state = {
-    sudo_pswd: '',
-  }
+const SudoForm = ({ saveData, onCancel }) => {
+  const [sudo_pswd, setSudo_pswd] = useState('')
 
-  onChange = (e) => {
+  const onChange = (e) => {
     this.setState({ sudo_pswd: e.target.value })
   }
 
-  onEnter = () => {
-    this.props.saveData(this.state.sudo_pswd)
+  const onEnter = () => {
+    saveData(this.state.sudo_pswd)
   }
 
-  render() {
-    return (
-      <Modal
-        title="请输入管理员密码"
-        visible={true}
-        width={300}
-        onOk={() => {
-          this.props.saveData(this.state.sudo_pswd)
-        }}
-        onCancel={this.props.onCancel}
-      >
-        <Input
-          type="password"
-          style={{ width: '100%' }}
-          onPressEnter={this.onEnter}
-          onChange={this.onChange}
-        />
-      </Modal>
-    )
-  }
+  return (
+    <Modal
+      title="请输入管理员密码"
+      visible={true}
+      width={300}
+      onOk={() => {
+        saveData(sudo_pswd)
+      }}
+      onCancel={onCancel}
+    >
+      <Input type="password" style={{ width: '100%' }} onPressEnter={onEnter} onChange={onChange} />
+    </Modal>
+  )
 }
+
+export default SudoForm
