@@ -1,5 +1,5 @@
 {
-  "name": "BWF",
+  "name": "WF",
   "version": "0.1.0",
   "description": "nginx & host gui",
   "main": "main/index.js",
@@ -10,7 +10,7 @@
     "_build": "BABEL_ENV=production webpack --progress --env=production",
     "build": "npm run _build",
     "es": "ELECTRON_ENV=dev electron .",
-    "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=nh.icns"
+    "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=wf.icns"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [

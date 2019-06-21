@@ -26,7 +26,7 @@ export const formatList = projects => {
     return {
       name,
       userPath,
-      path: item
+      path: item,
     }
   })
 
@@ -55,10 +55,17 @@ export const readFile = (path, arr, docs) => {
     return
   }
   // 判断是否是设计文档
-  if (files.includes('index.html') && files.includes('assets')) {
+  if (
+    files.includes('index.html') &&
+    (files.includes('assets') ||
+      files.includes('images') ||
+      files.includes('files') ||
+      files.includes('links'))
+  ) {
     docs.push(path)
     return
   }
+
   // 不是的话递归查看子文件夹
   const list = files.filter(
     item => item.substr(0, 1) !== '.' && !ignoreList.includes(item)
