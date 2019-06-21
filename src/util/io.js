@@ -22,6 +22,19 @@ exports.isDirectory = (p) => {
   return false
 }
 
+let writeFile = (exports.writeFile = (fn, data, callback) => {
+  if (isFile(fn)) {
+    callback()
+  } else {
+    fs.writeFile(fn, data, 'utf-8', callback)
+  }
+})
+exports.pWriteFile = (fn, data) => {
+  return new Promise((resolve, reject) => {
+    writeFile(fn, data, (e, v) => (e ? reject(e) : resolve(v)))
+  })
+}
+
 let readFile = (exports.readFile = (fn, callback) => {
   if (!isFile(fn)) {
     callback(null, '')

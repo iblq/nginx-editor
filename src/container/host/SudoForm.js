@@ -5,11 +5,11 @@ const SudoForm = ({ saveData, onCancel }) => {
   const [sudo_pswd, setSudo_pswd] = useState('')
 
   const onChange = (e) => {
-    this.setState({ sudo_pswd: e.target.value })
+    setSudo_pswd(e.target.value)
   }
 
   const onEnter = () => {
-    saveData(this.state.sudo_pswd)
+    saveData(sudo_pswd)
   }
 
   return (
@@ -22,7 +22,12 @@ const SudoForm = ({ saveData, onCancel }) => {
       }}
       onCancel={onCancel}
     >
-      <Input type="password" style={{ width: '100%' }} onPressEnter={onEnter} onChange={onChange} />
+      <Input
+        type="password"
+        style={{ width: '100%' }}
+        onPressEnter={onEnter}
+        onChange={onChange}
+      />
     </Modal>
   )
 }
