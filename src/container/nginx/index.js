@@ -2,14 +2,16 @@ import { Button, Icon, Input, message, Row, Spin } from 'antd'
 import moment from 'moment'
 import { Component } from 'react'
 import superInject from 'superInject'
-import './style.less'
-// import CodeMirror from 'react-codemirror';
-// import 'codemirror/mode/shell/shell';
+import styles from './style.less'
 const fs = window.require('fs')
-const path = window.require('path')
 const { exec } = window.require('child_process')
 const { TextArea } = Input
 const cmdPath = { cwd: '/' }
+
+import CodeMirror from 'codemirror'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/shell/shell'
+import 'codemirror/mode/markdown/markdown'
 
 @superInject()
 class Nginx extends Component {
@@ -30,21 +32,41 @@ class Nginx extends Component {
     info: '',
     type: 'edit',
     status: 'success',
-    loading: false
+    loading: false,
   }
 
   componentDidMount() {
     this.readFile()
+    this.initCm()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.type !== prevState.type && this.state.type === 'edit') {
+      this.initCm()
+    }
+  }
+
+  initCm = () => {
+    this.cm = CodeMirror.fromTextArea(this.txt, {
+      lineNumbers: true,
+      mode: 'shell',
+    })
+
+    this.cm.on('change', () => this.onChange())
+    this.cm.getDoc().setValue(this.state.value || '')
+    this.cm.setSize('100%', 400)
   }
 
   readFile = () => {
     fs.readFile(this.nginxPath, 'utf8', (err, data) => {
       this.setState({ content: data, type: 'edit' })
+      this.cm.getDoc().setValue(data || '')
     })
   }
 
-  onChange = e => {
-    this.setState({ content: e.target.value })
+  onChange = () => {
+    let doc = this.cm.getDoc()
+    this.setState({ content: doc.getValue() })
   }
 
   updateInfo = err => {
@@ -91,11 +113,11 @@ class Nginx extends Component {
     const { content, type, info, status } = this.state
     const colorCfg = {
       success: '#52c41a',
-      error: '#f5222d'
+      error: '#f5222d',
     }
 
     return (
-      <div styleName="wrap">
+      <div className={styles.wrap}>
         <Row style={{ marginBottom: 12 }}>
           <Button
             size="small"
@@ -135,14 +157,17 @@ class Nginx extends Component {
 
         <Spin spinning={this.state.loading} tip="Loading...">
           {type === 'edit' ? (
-            <TextArea
-              styleName="textarea"
-              onChange={this.onChange}
-              value={content}
-              onBlur={this.onBlur}
-            />
+            <div className={styles.textarea}>
+              <textarea ref={c => (this.txt = c)} onChange={() => {}} />
+            </div>
           ) : (
-            <TextArea styleName="log" value={info} />
+            <TextArea
+              className={styles.log}
+              value={info}
+              options={{
+                mode: 'shell',
+              }}
+            />
           )}
         </Spin>
       </div>

@@ -11,7 +11,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname + '../src/img/nh.icns')
+    icon: path.join(__dirname + '../src/img/nh.icns'),
   })
 
   if (process.platform === 'darwin') {
@@ -20,13 +20,20 @@ function createWindow() {
         label: 'Application',
         submenu: [
           {
-            label: 'Quit',
+            label: '退出',
             accelerator: 'Command+Q',
             click: function() {
               app.quit()
-            }
-          }
-        ]
+            },
+          },
+          {
+            label: '最小化',
+            accelerator: 'Command+W',
+            click: function() {
+              mainWindow.minimize()
+            },
+          },
+        ],
       },
       {
         label: 'Edit',
@@ -41,9 +48,9 @@ function createWindow() {
           { role: 'paste' },
           { role: 'pasteandmatchstyle' },
           { role: 'delete' },
-          { role: 'selectall' }
-        ]
-      }
+          { role: 'selectall' },
+        ],
+      },
     ]
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
   } else {
@@ -64,7 +71,7 @@ function createWindow() {
       url.format({
         pathname: path.join(__dirname, '../build/index.html'),
         protocol: 'file:',
-        slashes: true
+        slashes: true,
       })
     )
   }
