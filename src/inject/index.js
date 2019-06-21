@@ -3,5 +3,5 @@ import globalActions from '../store/action'
 
 export default {
   globalStore,
-  globalActions
+  globalActions,
 }

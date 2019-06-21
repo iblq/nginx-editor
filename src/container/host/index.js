@@ -21,9 +21,9 @@ function needPswd(str) {
   let keys = [
     'Permission denied',
     'incorrect password',
-    'Password:Sorry, try again.'
+    'Password:Sorry, try again.',
   ]
-  return !!keys.find(k => str.includes(k.toLowerCase()))
+  return !!keys.find((k) => str.includes(k.toLowerCase()))
 }
 
 @superInject()
@@ -36,7 +36,7 @@ class Host extends Component {
       type: 'edit',
       sudo_pswd: localStorage.getItem('sudo_pswd') || '',
       isShowModal: false,
-      status: 'success'
+      status: 'success',
     }
 
     this.store = p.globalStore
@@ -69,22 +69,22 @@ class Host extends Component {
 
   showModal = () => this.setState({ isShowModal: true })
 
-  savePwd = v => {
+  savePwd = (v) => {
     this.setState({ sudo_pswd: v, isShowModal: false })
     localStorage.setItem('sudo_pswd', v)
   }
 
   readFile = async () => {
-    io.pReadFile(this.store.hostPath).then(data => {
+    io.pReadFile(this.store.hostPath).then((data) => {
       this.setState({ content: data, type: 'edit' })
     })
   }
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ content: e.target.value })
   }
 
-  updateInfo = err => {
+  updateInfo = (err) => {
     this.setState({ type: 'info', info: this.state.info + err + '\r\n' })
   }
 
@@ -107,20 +107,20 @@ class Host extends Component {
 
         if (!sudo_pswd) {
           cmd = [`cat "${tmp_fn}" > ${hostPath}`, `rm -rf ${tmp_fn}`].join(
-            ' && '
+            ' && ',
           )
         } else {
           cmd = [
             `echo '${sudo_pswd}' | sudo -S chmod 777 ${hostPath}`,
             `cat "${tmp_fn}" > ${hostPath}`,
-            `echo '${sudo_pswd}' | sudo -S chmod 644 ${hostPath}`
+            `echo '${sudo_pswd}' | sudo -S chmod 644 ${hostPath}`,
             // , 'rm -rf ' + tmp_fn
           ].join(' && ')
         }
 
         return cmd
       })
-      .then(cmd => {
+      .then((cmd) => {
         exec(cmd, function(error, stdout, stderr) {
           if (!error) {
             message.success('文件保存成功')
@@ -134,14 +134,14 @@ class Host extends Component {
           }
         })
       })
-      .catch(err => {
+      .catch((err) => {
         this.updateInfo(err.toString())
       })
   }
 
   onRestart = () => {
     const { path, content } = this.state
-    fs.writeFile(path, content, 'utf8', err => {
+    fs.writeFile(path, content, 'utf8', (err) => {
       if (err) {
         this.updateInfo(err)
         message.error('文件保存错误')
@@ -154,7 +154,7 @@ class Host extends Component {
     const { content, type, info, isShowModal, status } = this.state
     const colorCfg = {
       success: '#52c41a',
-      error: '#f5222d'
+      error: '#f5222d',
     }
 
     return (
@@ -178,7 +178,7 @@ class Host extends Component {
             style={{
               color: colorCfg[status],
               fontSize: '16px',
-              height: 32
+              height: 32,
             }}
             className="g-fr"
           >

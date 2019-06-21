@@ -36,7 +36,7 @@ const superInject = function() {
     stores = args
   }
 
-  return component => inject.apply(null, stores)(observer(component))
+  return (component) => inject.apply(null, stores)(observer(component))
 }
 
 export default superInject

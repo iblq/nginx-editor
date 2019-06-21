@@ -1,7 +1,7 @@
 const fs = window.require('fs')
 const ignoreList = ['node_modules']
 
-export const formatList = projects => {
+export const formatList = (projects) => {
   /****
    * /User/baolq/mine/admin
    * {
@@ -10,7 +10,7 @@ export const formatList = projects => {
    *  userPath: '/mine
    * }
    */
-  const list = projects.map(item => {
+  const list = projects.map((item) => {
     const arr = item.split('/')
 
     let name = '',
@@ -65,7 +65,7 @@ export const readFile = (path, arr, docs) => {
 
   // 不是的话递归查看子文件夹
   const list = files.filter(
-    item => item.substr(0, 1) !== '.' && !ignoreList.includes(item)
+    (item) => item.substr(0, 1) !== '.' && !ignoreList.includes(item),
   )
   for (let i of list) {
     readFile(path + '/' + i, arr, docs)

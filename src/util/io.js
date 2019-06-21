@@ -4,7 +4,7 @@ exports.getUserHome = () => {
   return process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']
 }
 
-let isFile = (exports.isFile = p => {
+let isFile = (exports.isFile = (p) => {
   try {
     if (fs.statSync(p).isFile()) {
       return true
@@ -13,7 +13,7 @@ let isFile = (exports.isFile = p => {
   return false
 })
 
-exports.isDirectory = p => {
+exports.isDirectory = (p) => {
   try {
     if (fs.statSync(p).isDirectory()) {
       return true
@@ -30,7 +30,7 @@ let readFile = (exports.readFile = (fn, callback) => {
   }
 })
 
-exports.pReadFile = fn => {
+exports.pReadFile = (fn) => {
   return new Promise((resolve, reject) => {
     readFile(fn, (e, v) => (e ? reject(e) : resolve(v)))
   })

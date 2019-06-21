@@ -24,5 +24,5 @@ ReactDOM.render(
       <App />
     </LocaleProvider>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 )

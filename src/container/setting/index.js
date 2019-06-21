@@ -27,7 +27,7 @@ class Setting extends Component {
   render() {
     return (
       <div>
-        <Form ref={el => (this.form = el)} {...this.props} />
+        <Form ref={(el) => (this.form = el)} {...this.props} />
         <Row className="g-ta-r">
           <Button type="primary" onClick={this.onSave}>
             保存

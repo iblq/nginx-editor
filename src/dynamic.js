@@ -25,7 +25,7 @@ class Loader extends Component {
       mod: null,
     })
 
-    this.props.bundle(mod => {
+    this.props.bundle((mod) => {
       this.setState({
         mod: mod.default || mod,
       })
@@ -42,11 +42,11 @@ class Dynamic extends Component {
     return (
       <Route
         {...this.props}
-        render={props => {
+        render={(props) => {
           return (
             <Loader
               bundle={this.props.bundle}
-              render={Component => <Component {...props} />}
+              render={(Component) => <Component {...props} />}
             />
           )
         }}

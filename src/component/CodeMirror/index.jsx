@@ -9,7 +9,7 @@ import styles from './style.less'
 const MyCm = ({ onChange, value, options }) => {
   return (
     <div className={styles.textarea}>
-      <textarea ref={c => (this.txt = c)} onChange={() => {}} />
+      <textarea ref={(c) => (this.txt = c)} onChange={() => {}} />
     </div>
   )
 }

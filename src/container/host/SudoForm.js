@@ -3,16 +3,16 @@ import { Modal, Input } from 'antd'
 
 export default class SudoForm extends Component {
   state = {
-    sudo_pswd: ''
-  };
+    sudo_pswd: '',
+  }
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ sudo_pswd: e.target.value })
-  };
+  }
 
   onEnter = () => {
     this.props.saveData(this.state.sudo_pswd)
-  };
+  }
 
   render() {
     return (

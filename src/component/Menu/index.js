@@ -23,7 +23,7 @@ class Menu extends Component {
     const router = this.context.router
     const pathname = router.route.location.pathname
     const currentMenu =
-      menuCfg.find(item => item.link === pathname) || menuCfg[0]
+      menuCfg.find((item) => item.link === pathname) || menuCfg[0]
 
     return (
       <div>
@@ -33,7 +33,7 @@ class Menu extends Component {
           defaultSelectedKeys={currentMenu ? [currentMenu.title] : []}
           onClick={this.handleClick.bind(this)}
         >
-          {menuCfg.map(item => {
+          {menuCfg.map((item) => {
             return (
               <Item key={item.title} pathname={item.link}>
                 {item.icon ? <Icon type={item.icon} /> : null}
@@ -48,7 +48,7 @@ class Menu extends Component {
 }
 
 Menu.contextTypes = {
-  router: PropTypes.object
+  router: PropTypes.object,
 }
 
 export default Menu

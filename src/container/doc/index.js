@@ -18,14 +18,14 @@ const Project = ({ globalActions, globalStore }) => {
           if (err) {
             console.log(err)
           }
-        }
+        },
       )
     } catch (err) {
       message.error(err)
     }
   }
 
-  const renderList = list => {
+  const renderList = (list) => {
     return list.map(({ name, path }) => (
       <p styleName="item" onClick={() => onOpen(path)} key={path}>
         <a href="javascript:;" onClick={() => onOpen(path)}>
@@ -35,7 +35,7 @@ const Project = ({ globalActions, globalStore }) => {
           styleName="finder"
           style={{ float: 'right' }}
           href="javascript:;"
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation()
             onOpen(path, 'finder')
           }}
@@ -57,7 +57,7 @@ const Project = ({ globalActions, globalStore }) => {
         <Col span={12} />
       </Row>
 
-      {Object.keys(docs).map(key => {
+      {Object.keys(docs).map((key) => {
         return (
           <div key={key}>
             <h3 styleName="h3">{key}</h3>

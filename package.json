@@ -9,7 +9,13 @@
     "vendor": "webpack --progress --env=dll",
     "build": "BABEL_ENV=production webpack --progress --env=production",
     "electron": "ELECTRON_ENV=dev electron .",
-    "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns"
+    "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns",
+    "format": "prettier --write \"./src/**/*.js\" \"./src/**/*.jsx\" "
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
@@ -56,6 +62,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-less": "^2.0.0",
     "postcss-loader": "^3.0.0",
+    "prettier": "^1.17.1",
     "react-hot-loader": "^4.3.6",
     "style-loader": "^0.23.0",
     "svg-url-loader": "^2.3.2",

@@ -8,7 +8,7 @@ const cmdPath = { cwd: '/' }
 const Project = ({ globalActions, globalStore }) => {
   const { projects } = globalStore
 
-  const onOpenInCode = path => {
+  const onOpenInCode = (path) => {
     exec(`/usr/local/bin/code ${path}`, cmdPath, (err, stdout, stderr) => {
       console.log(err || stdout || stderr || 'restart success')
       if (err) {
@@ -17,7 +17,7 @@ const Project = ({ globalActions, globalStore }) => {
     })
   }
 
-  const renderList = list => {
+  const renderList = (list) => {
     return list.map(({ name, path }, i) => (
       <Button onClick={() => onOpenInCode(path)} styleName="item" key={path}>
         {name}
@@ -36,7 +36,7 @@ const Project = ({ globalActions, globalStore }) => {
         <Col span={12} />
       </Row>
 
-      {Object.keys(projects).map(key => {
+      {Object.keys(projects).map((key) => {
         return (
           <div key={key}>
             <h3 styleName="h3">{key}</h3>

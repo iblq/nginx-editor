@@ -69,9 +69,9 @@ class Nginx extends Component {
     this.setState({ content: doc.getValue() })
   }
 
-  updateInfo = err => {
+  updateInfo = (err) => {
     let info = `${this.state.info} ${moment(new Date()).format(
-      'h:mm:ss'
+      'h:mm:ss',
     )}>  ${err}`
     this.setState({ type: 'info', info })
   }
@@ -80,7 +80,7 @@ class Nginx extends Component {
     const { content } = this.state
     const { nginxPath, nginxCmdPath } = this
 
-    fs.writeFile(nginxPath, content, 'utf8', err => {
+    fs.writeFile(nginxPath, content, 'utf8', (err) => {
       if (err) {
         this.updateInfo(err)
         message.error('文件保存错误')
@@ -158,7 +158,7 @@ class Nginx extends Component {
         <Spin spinning={this.state.loading} tip="Loading...">
           {type === 'edit' ? (
             <div className={styles.textarea}>
-              <textarea ref={c => (this.txt = c)} onChange={() => {}} />
+              <textarea ref={(c) => (this.txt = c)} onChange={() => {}} />
             </div>
           ) : (
             <TextArea
