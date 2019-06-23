@@ -1,16 +1,23 @@
 import CodeMirror from 'codemirror'
+import 'codemirror/keymap/sublime'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/mode/shell/shell'
+import 'codemirror/mode/nginx/nginx'
+import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './style.less'
-
-import PropTypes from 'prop-types'
 
 class MyCm extends React.Component {
   initCm = () => {
     const { value, options } = this.props
-    this.cm = CodeMirror.fromTextArea(this.textRef, options)
+    this.cm = CodeMirror.fromTextArea(this.textRef, {
+      lineNumbers: true,
+      matchBrackets: true,
+      keyMap: 'sublime',
+      mode: 'nginx',
+      ...(options || {}),
+    })
 
     this.cm.on('change', () => this._onChange())
     this.cm.getDoc().setValue(value || '')
@@ -42,7 +49,7 @@ class MyCm extends React.Component {
 
 MyCm.propTypes = {
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.object.isRequired,
+  options: PropTypes.object,
   value: PropTypes.string,
 }
 

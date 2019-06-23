@@ -131,14 +131,7 @@ class Nginx extends Component {
 
         <div className="g-content">
           {type === 'edit' ? (
-            <CodeMirror
-              value={content}
-              options={{
-                lineNumbers: true,
-                mode: 'shell',
-              }}
-              onChange={this.onChange}
-            />
+            <CodeMirror value={content} onChange={this.onChange} />
           ) : (
             <TextArea
               styleName="log"

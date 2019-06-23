@@ -179,7 +179,6 @@ class Host extends Component {
           <CodeMirror
             value={content}
             options={{
-              lineNumbers: true,
               mode: 'shell',
             }}
             onChange={this.onChange}
