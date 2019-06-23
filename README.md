@@ -11,3 +11,9 @@
 - 本地需求文档和设计文档列表，支持点击在 finder 中查看或 在浏览器直接打开
 
 > host 编辑需要管理员权限，sudo 命令执行相关方法参考 SwitchHosts，感谢前 loader oldj
+
+```shell
+npm install
+npm start
+npm run electron
+```

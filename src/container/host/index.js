@@ -1,19 +1,15 @@
 import { Button, Icon, Input, message } from 'antd'
-import { inject, observer } from 'mobx-react'
 import { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import io from '../../util/io'
-import './style.less'
-import SudoModal from './SudoForm'
 import superInject from 'util/superInject'
+import io from '../../util/io'
+import SudoModal from './SudoForm'
+import CodeMirror from 'component/CodeMirror'
+import { colorCfg } from '@/constant'
+
 const fs = window.require('fs')
 const path = window.require('path')
 const { exec } = window.require('child_process')
 const remote = window.require('electron').remote
-
-const { TextArea } = Input
-
-console.log(remote.app.getPath('home'))
 
 function needPswd(str) {
   str = str.toLowerCase()
@@ -32,8 +28,6 @@ class Host extends Component {
     super(p)
     this.state = {
       content: '',
-      info: '',
-      type: 'edit',
       sudo_pswd: localStorage.getItem('sudo_pswd') || '',
       isShowModal: false,
       status: 'success',
@@ -80,8 +74,8 @@ class Host extends Component {
     })
   }
 
-  onChange = (e) => {
-    this.setState({ content: e.target.value })
+  onChange = (v) => {
+    this.setState({ content: v })
   }
 
   updateInfo = (err) => {
@@ -114,7 +108,6 @@ class Host extends Component {
             `echo '${sudo_pswd}' | sudo -S chmod 777 ${hostPath}`,
             `cat "${tmp_fn}" > ${hostPath}`,
             `echo '${sudo_pswd}' | sudo -S chmod 644 ${hostPath}`,
-            // , 'rm -rf ' + tmp_fn
           ].join(' && ')
         }
 
@@ -151,14 +144,10 @@ class Host extends Component {
   }
 
   render() {
-    const { content, type, info, isShowModal, status } = this.state
-    const colorCfg = {
-      success: '#52c41a',
-      error: '#f5222d',
-    }
+    const { content, isShowModal, status } = this.state
 
     return (
-      <div styleName="wrap">
+      <>
         <div style={{ marginBottom: 12 }}>
           <Button size="small" onClick={this.readFile}>
             编辑
@@ -186,21 +175,21 @@ class Host extends Component {
             {status === 'error' && <Icon type="close-circle" />}
           </div>
         </div>
-        {type === 'edit' ? (
-          <TextArea
-            styleName="textarea"
-            onChange={this.onChange}
+        <div className="g-content">
+          <CodeMirror
             value={content}
-            onBlur={this.onBlur}
+            options={{
+              lineNumbers: true,
+              mode: 'shell',
+            }}
+            onChange={this.onChange}
           />
-        ) : (
-          <TextArea styleName="textarea" value={info} />
-        )}
 
-        {isShowModal && (
-          <SudoModal saveData={this.savePwd} onCancel={this.closeModal} />
-        )}
-      </div>
+          {isShowModal && (
+            <SudoModal saveData={this.savePwd} onCancel={this.closeModal} />
+          )}
+        </div>
+      </>
     )
   }
 }

@@ -44,6 +44,8 @@ const Project = ({ globalActions, globalStore }) => {
           </div>
         )
       })}
+
+      <div className="g-sm-info">点击文件夹名称可直接在 vscode 中打开</div>
     </div>
   )
 }

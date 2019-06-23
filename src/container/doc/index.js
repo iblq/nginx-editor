@@ -47,7 +47,7 @@ const Project = ({ globalActions, globalStore }) => {
   }
 
   return (
-    <div styleName="wrap">
+    <>
       <Row style={{ marginBottom: 12 }}>
         <Col span={12}>
           <Button size="small" onClick={globalActions.readLocalList}>
@@ -65,7 +65,10 @@ const Project = ({ globalActions, globalStore }) => {
           </div>
         )
       })}
-    </div>
+      <div className="g-sm-info">
+        点击文件夹名称可直接在 Chrome 中打开，点击 finder 查看文件目录
+      </div>
+    </>
   )
 }
 

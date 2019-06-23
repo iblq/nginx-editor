@@ -20,7 +20,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: ['babel-loader', 'eslint-loader'],
-        exclude: p => /node_modules/.test(p),
+        exclude: (p) => /node_modules/.test(p),
       },
       {
         test: /\.css$/,
@@ -31,14 +31,6 @@ module.exports = {
             options: {
               modules: true,
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              config: {
-                path: 'config/postcss.config.js',
-              },
             },
           },
         ],
@@ -53,14 +45,6 @@ module.exports = {
             options: {
               modules: true,
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              config: {
-                path: 'config/postcss.config.js',
-              },
             },
           },
           {

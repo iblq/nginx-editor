@@ -15,40 +15,48 @@
     "development": {
       "plugins": [
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
-        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
-        ["import", {
-          "libraryName": "antd",
-          "libraryDirectory": "es"
-        }],
+        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+        [
+          "import",
+          {
+            "libraryName": "antd",
+            "libraryDirectory": "es"
+          }
+        ],
         "react-hot-loader/babel",
-        ["react-css-modules", {
-          "webpackHotModuleReloading": true,
-          "handleMissingStyleName": "warn",
-          "generateScopedName": "[path][name]__[local]--[hash:base64:5]",
-          "filetypes": {
-            ".less": {
-              "syntax": "postcss-less"
+        [
+          "react-css-modules",
+          {
+            "webpackHotModuleReloading": true,
+            "handleMissingStyleName": "warn",
+            "generateScopedName": "[path][name]__[local]--[hash:base64:5]",
+            "filetypes": {
+              ".less": {}
             }
           }
-        }]
+        ]
       ]
     },
     "production": {
       "plugins": [
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
-        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
-        ["import", {
-          "libraryName": "antd",
-          "libraryDirectory": "es"
-        }],
-        ["react-css-modules", {
-          "generateScopedName": "[hash:base64]",
-          "filetypes": {
-            ".less": {
-              "syntax": "postcss-less"
+        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+        [
+          "import",
+          {
+            "libraryName": "antd",
+            "libraryDirectory": "es"
+          }
+        ],
+        [
+          "react-css-modules",
+          {
+            "generateScopedName": "[hash:base64]",
+            "filetypes": {
+              ".less": {}
             }
           }
-        }]
+        ]
       ]
     }
   }

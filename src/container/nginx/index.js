@@ -8,10 +8,7 @@ const { exec } = window.require('child_process')
 const { TextArea } = Input
 const cmdPath = { cwd: '/' }
 
-import CodeMirror from 'codemirror'
-import 'codemirror/mode/javascript/javascript'
-import 'codemirror/mode/shell/shell'
-import 'codemirror/mode/markdown/markdown'
+import CodeMirror from 'component/CodeMirror'
 
 @superInject()
 class Nginx extends Component {
@@ -32,41 +29,20 @@ class Nginx extends Component {
     info: '',
     type: 'edit',
     status: 'success',
-    loading: false,
   }
 
   componentDidMount() {
     this.readFile()
-    this.initCm()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.type !== prevState.type && this.state.type === 'edit') {
-      this.initCm()
-    }
-  }
-
-  initCm = () => {
-    this.cm = CodeMirror.fromTextArea(this.txt, {
-      lineNumbers: true,
-      mode: 'shell',
-    })
-
-    this.cm.on('change', () => this.onChange())
-    this.cm.getDoc().setValue(this.state.value || '')
-    this.cm.setSize('100%', 400)
   }
 
   readFile = () => {
     fs.readFile(this.nginxPath, 'utf8', (err, data) => {
       this.setState({ content: data, type: 'edit' })
-      this.cm.getDoc().setValue(data || '')
     })
   }
 
-  onChange = () => {
-    let doc = this.cm.getDoc()
-    this.setState({ content: doc.getValue() })
+  onChange = (v) => {
+    this.setState({ content: v })
   }
 
   updateInfo = (err) => {
@@ -95,14 +71,12 @@ class Nginx extends Component {
           return false
         }
 
-        this.setState({ loading: true })
-
         exec(`${nginxCmdPath} -s reload`, cmdPath, (err, stdout, stderr) => {
           this.updateInfo(err || stdout || stderr || 'restart success')
           if (err) {
             return false
           }
-          this.setState({ status: 'success', loading: false })
+          this.setState({ status: 'success' })
           message.success('重启成功')
         })
       })
@@ -117,7 +91,7 @@ class Nginx extends Component {
     }
 
     return (
-      <div className={styles.wrap}>
+      <>
         <Row style={{ marginBottom: 12 }}>
           <Button
             size="small"
@@ -155,22 +129,27 @@ class Nginx extends Component {
           </Button>
         </Row>
 
-        <Spin spinning={this.state.loading} tip="Loading...">
+        <div className="g-content">
           {type === 'edit' ? (
-            <div className={styles.textarea}>
-              <textarea ref={(c) => (this.txt = c)} onChange={() => {}} />
-            </div>
+            <CodeMirror
+              value={content}
+              options={{
+                lineNumbers: true,
+                mode: 'shell',
+              }}
+              onChange={this.onChange}
+            />
           ) : (
             <TextArea
-              className={styles.log}
+              styleName="log"
               value={info}
               options={{
                 mode: 'shell',
               }}
             />
           )}
-        </Spin>
-      </div>
+        </div>
+      </>
     )
   }
 }
