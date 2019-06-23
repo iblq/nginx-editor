@@ -8,9 +8,8 @@
     "start": "BABEL_ENV=development webpack-dev-server -w --env=development & npm run electron",
     "build": "BABEL_ENV=production webpack --progress --env=production",
     "electron": "ELECTRON_ENV=dev electron .",
-    "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns",
-    "format": "prettier --write \"./src/**/*.js\" \"./src/**/*.jsx\" ",
-    "package:all": "ELECTRON_ENV=pro electron-packager . --overwrite"
+    "package": "ELECTRON_ENV=pro electron-packager . --overwrite  --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns",
+    "format": "prettier --write \"./src/**/*.js\" \"./src/**/*.jsx\" "
   },
   "husky": {
     "hooks": {
