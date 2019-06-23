@@ -9,7 +9,8 @@
     "build": "BABEL_ENV=production webpack --progress --env=production",
     "electron": "ELECTRON_ENV=dev electron .",
     "package": "ELECTRON_ENV=pro electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns",
-    "format": "prettier --write \"./src/**/*.js\" \"./src/**/*.jsx\" "
+    "format": "prettier --write \"./src/**/*.js\" \"./src/**/*.jsx\" ",
+    "package:all": "ELECTRON_ENV=pro electron-packager . --overwrite"
   },
   "husky": {
     "hooks": {
