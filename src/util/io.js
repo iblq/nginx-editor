@@ -1,5 +1,4 @@
 const fs = window.require('fs')
-
 exports.getUserHome = () => {
   return process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']
 }

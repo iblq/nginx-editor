@@ -1,8 +1,8 @@
-import { observer, inject } from 'mobx-react'
-import storeList from '../inject/index'
+// import { observer, inject } from 'mobx-react'
+// import storeList from '../inject/index'
 
 // 所有 store 和 actions
-let stores = Object.keys(storeList)
+// let stores = Object.keys(storeList)
 
 /**
  * 代替 Mobx 相关 3 个装饰器使用，一次性完成 @withRouter @inject @observer 操作
@@ -30,13 +30,12 @@ let stores = Object.keys(storeList)
  * @returns
  */
 const superInject = function() {
-  const args = [...arguments]
-  // 如果手动传入 store 参数，则使用参数数据
-  if (args.length > 0) {
-    stores = args
-  }
-
-  return (component) => inject.apply(null, stores)(observer(component))
+  // const args = [...arguments]
+  // // 如果手动传入 store 参数，则使用参数数据
+  // if (args.length > 0) {
+  //   stores = args
+  // }
+  // return (component) => inject.apply(null, stores)(observer(component))
 }
 
 export default superInject

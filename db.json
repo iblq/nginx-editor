@@ -1,0 +1,289 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    },
+    {
+      "id": 1,
+      "title": "lowdb is awesome"
+    }
+  ],
+  "user": {
+    "name": "typicode"
+  },
+  "count": 17,
+  "config": {
+    "nginxPath": "/usr/local/etc/nginx/nginx.conf",
+    "nginxCmdPath": "/usr/local/bin/nginx",
+    "hostPath": "/etc/hosts",
+    "readDirList": "mine,work,test,Downloads,Desktop",
+    "sudo_pswd": "blq "
+  },
+  "projects": {
+    "mine": [
+      {
+        "name": "admin",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/admin"
+      },
+      {
+        "name": "count-lines-bao",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/count-lines-bao"
+      },
+      {
+        "name": "forest",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/forest"
+      },
+      {
+        "name": "henanWeb",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/henanWeb"
+      },
+      {
+        "name": "hexo_blog",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/hexo_blog"
+      },
+      {
+        "name": "node-splider",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/node-splider"
+      },
+      {
+        "name": "qx",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/qx"
+      },
+      {
+        "name": "vue_test",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/vue_test"
+      },
+      {
+        "name": "vuepress",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/vuepress"
+      },
+      {
+        "name": "website",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/website"
+      },
+      {
+        "name": "wechatBot",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/wechatBot"
+      },
+      {
+        "name": "wechaty-getting-started",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/wechaty-getting-started"
+      },
+      {
+        "name": "wf",
+        "userPath": "mine",
+        "path": "/Users/baolq/mine/wf"
+      }
+    ],
+    "work": [
+      {
+        "name": "accounting",
+        "userPath": "work",
+        "path": "/Users/baolq/work/accounting"
+      },
+      {
+        "name": "ant-design",
+        "userPath": "work",
+        "path": "/Users/baolq/work/ant-design"
+      },
+      {
+        "name": "cloud_dz",
+        "userPath": "work",
+        "path": "/Users/baolq/work/cloud_dz"
+      },
+      {
+        "name": "cloud_jz",
+        "userPath": "work",
+        "path": "/Users/baolq/work/cloud_jz"
+      },
+      {
+        "name": "platform_gaizao",
+        "userPath": "work",
+        "path": "/Users/baolq/work/platform_gaizao"
+      },
+      {
+        "name": "vue-components-area",
+        "userPath": "work",
+        "path": "/Users/baolq/work/vue-components-area"
+      },
+      {
+        "name": "vue_learning",
+        "userPath": "work",
+        "path": "/Users/baolq/work/vue_learning"
+      }
+    ]
+  },
+  "docs": {
+    "Downloads": [
+      {
+        "name": "UED组件集合",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/UED组件集合"
+      },
+      {
+        "name": "产品原型",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/产品原型"
+      },
+      {
+        "name": "产品原型-1",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/产品原型-1"
+      },
+      {
+        "name": "会计工厂1期设计稿",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/会计工厂1期设计稿"
+      },
+      {
+        "name": "前端组件库页面",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/前端组件库页面"
+      },
+      {
+        "name": "基础组件库",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/基础组件库"
+      },
+      {
+        "name": "录入余额表格式修改",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/录入余额表格式修改"
+      },
+      {
+        "name": "打印管理交互文档",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/打印管理交互文档"
+      },
+      {
+        "name": "打印管理设计稿",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/打印管理设计稿"
+      },
+      {
+        "name": "科目模板凭证模板(记账)交互定稿",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/科目模板凭证模板(记账)交互定稿"
+      },
+      {
+        "name": "记账-科目模板凭证模板视觉稿",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/记账-科目模板凭证模板视觉稿"
+      },
+      {
+        "name": "记账-结转视觉优化",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/记账-结转视觉优化"
+      },
+      {
+        "name": "记账-账簿设计稿",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/记账-账簿设计稿"
+      },
+      {
+        "name": "通用规范",
+        "userPath": "Downloads",
+        "path": "/Users/baolq/Downloads/通用规范"
+      }
+    ],
+    "Downloads/基础框架科目管理设计稿": [
+      {
+        "name": "基础框架科目管理标注",
+        "userPath": "Downloads/基础框架科目管理设计稿",
+        "path": "/Users/baolq/Downloads/基础框架科目管理设计稿/基础框架科目管理标注"
+      }
+    ],
+    "Desktop/sheet/账务模块拆分-报表设计稿": [
+      {
+        "name": "会计报表-资产负债表注标",
+        "userPath": "Desktop/sheet/账务模块拆分-报表设计稿",
+        "path": "/Users/baolq/Desktop/sheet/账务模块拆分-报表设计稿/会计报表-资产负债表注标"
+      }
+    ],
+    "Desktop": [
+      {
+        "name": "云记账-账簿交互定稿",
+        "userPath": "Desktop",
+        "path": "/Users/baolq/Desktop/云记账-账簿交互定稿"
+      },
+      {
+        "name": "记账-结账视觉优化设计稿",
+        "userPath": "Desktop",
+        "path": "/Users/baolq/Desktop/记账-结账视觉优化设计稿"
+      }
+    ]
+  }
+}

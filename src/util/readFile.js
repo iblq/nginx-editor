@@ -1,5 +1,9 @@
 const fs = window.require('fs')
 const ignoreList = ['node_modules']
+import db from 'mydb'
+const remote = window.require('electron').remote
+
+const homePath = remote.app.getPath('home')
 
 export const formatList = (projects) => {
   /****
@@ -70,4 +74,23 @@ export const readFile = (path, arr, docs) => {
   for (let i of list) {
     readFile(path + '/' + i, arr, docs)
   }
+}
+
+export const readLocalList = () => {
+  const { readDirList } = db.get('config')
+  let projects = []
+  let docs = []
+
+  const arr = readDirList.split(/,|，/)
+  for (let dir of arr) {
+    readFile(homePath + '/' + dir, projects, docs)
+  }
+
+  projects = formatList(projects)
+  docs = formatList(docs)
+  console.log(projects)
+
+  db.set('projects', projects)
+  db.set('docs', docs)
+  return { projects, docs }
 }

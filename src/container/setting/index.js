@@ -1,10 +1,8 @@
-import { Button, Row } from 'antd'
-import { inject, observer } from 'mobx-react'
+import { Button, Row, message } from 'antd'
 import { Component } from 'react'
-import Form from './components/Form'
+import Form from './Form'
+import db from 'mydb'
 
-@inject('globalStore', 'globalActions')
-@observer
 class Setting extends Component {
   componentDidMount() {}
 
@@ -12,17 +10,13 @@ class Setting extends Component {
     this.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
-        localStorage.setItem('setting', JSON.stringify(values))
-        this.props.globalActions.merge(values)
+        db.set('config', values)
+        message.success('保存成功')
       }
     })
   }
 
-  reset = () => {
-    this.props.globalActions.reset()
-    localStorage.clear('setting')
-    this.form.setFieldsValue(this.props.globalStore.defaultSetting)
-  }
+  reset = () => {}
 
   render() {
     return (
@@ -32,9 +26,9 @@ class Setting extends Component {
           <Button type="primary" onClick={this.onSave}>
             保存
           </Button>
-          <Button className="g-ml-12" type="primary" onClick={this.reset}>
+          {/* <Button className="g-ml-12" type="primary" onClick={this.reset}>
             重置
-          </Button>
+          </Button> */}
         </Row>
       </div>
     )

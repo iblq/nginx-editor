@@ -9,14 +9,14 @@ import Menu from 'component/Menu'
 import Dynamic from './dynamic'
 
 import routerCfg from './router'
-import superInject from 'util/superInject'
 
-@superInject()
+import { readLocalList } from '@/util/readFile'
+
 class App extends Component {
   componentDidMount() {
     setTimeout(() => {
-      this.props.globalActions.readLocalList()
-    }, 1000)
+      readLocalList()
+    }, 500)
   }
 
   render() {

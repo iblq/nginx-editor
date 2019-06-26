@@ -1,12 +1,18 @@
 import { Button, Col, Row, message } from 'antd'
-import React from 'react'
-import superInject from 'superInject'
 import './style.less'
 const { exec } = window.require('child_process')
 const cmdPath = { cwd: '/' }
+import { readLocalList } from '@/util/readFile'
+import db from 'mydb'
+import { useEffect, useState } from 'react'
 
-const Project = ({ globalActions, globalStore }) => {
-  const { docs } = globalStore
+const Project = () => {
+  const [_docs, set_docs] = useState({})
+
+  useEffect(() => {
+    const docs = db.get('docs')
+    set_docs(docs)
+  }, [])
 
   const onOpen = (path, type) => {
     try {
@@ -46,22 +52,27 @@ const Project = ({ globalActions, globalStore }) => {
     ))
   }
 
+  const refresh = () => {
+    let { docs } = readLocalList()
+    set_docs(docs)
+  }
+
   return (
     <>
       <Row style={{ marginBottom: 12 }}>
         <Col span={12}>
-          <Button size="small" onClick={globalActions.readLocalList}>
+          <Button size="small" onClick={refresh}>
             刷新
           </Button>
         </Col>
         <Col span={12} />
       </Row>
 
-      {Object.keys(docs).map((key) => {
+      {Object.keys(_docs).map((key) => {
         return (
           <div key={key}>
             <h3 styleName="h3">{key}</h3>
-            <div>{renderList(docs[key])}</div>
+            <div>{renderList(_docs[key])}</div>
           </div>
         )
       })}
@@ -72,4 +83,4 @@ const Project = ({ globalActions, globalStore }) => {
   )
 }
 
-export default superInject()(Project)
+export default Project
