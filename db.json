@@ -93,29 +93,9 @@
         "path": "/Users/baolq/mine/count-lines-bao"
       },
       {
-        "name": "forest",
-        "userPath": "mine",
-        "path": "/Users/baolq/mine/forest"
-      },
-      {
-        "name": "henanWeb",
-        "userPath": "mine",
-        "path": "/Users/baolq/mine/henanWeb"
-      },
-      {
         "name": "hexo_blog",
         "userPath": "mine",
         "path": "/Users/baolq/mine/hexo_blog"
-      },
-      {
-        "name": "node-splider",
-        "userPath": "mine",
-        "path": "/Users/baolq/mine/node-splider"
-      },
-      {
-        "name": "qx",
-        "userPath": "mine",
-        "path": "/Users/baolq/mine/qx"
       },
       {
         "name": "vue_test",
@@ -155,11 +135,6 @@
         "path": "/Users/baolq/work/accounting"
       },
       {
-        "name": "ant-design",
-        "userPath": "work",
-        "path": "/Users/baolq/work/ant-design"
-      },
-      {
         "name": "cloud_dz",
         "userPath": "work",
         "path": "/Users/baolq/work/cloud_dz"
@@ -170,19 +145,16 @@
         "path": "/Users/baolq/work/cloud_jz"
       },
       {
-        "name": "platform_gaizao",
-        "userPath": "work",
-        "path": "/Users/baolq/work/platform_gaizao"
-      },
-      {
         "name": "vue-components-area",
         "userPath": "work",
         "path": "/Users/baolq/work/vue-components-area"
-      },
+      }
+    ],
+    "Desktop": [
       {
-        "name": "vue_learning",
-        "userPath": "work",
-        "path": "/Users/baolq/work/vue_learning"
+        "name": "md",
+        "userPath": "Desktop",
+        "path": "/Users/baolq/Desktop/md"
       }
     ]
   },
@@ -278,11 +250,6 @@
         "name": "云记账-账簿交互定稿",
         "userPath": "Desktop",
         "path": "/Users/baolq/Desktop/云记账-账簿交互定稿"
-      },
-      {
-        "name": "记账-结账视觉优化设计稿",
-        "userPath": "Desktop",
-        "path": "/Users/baolq/Desktop/记账-结账视觉优化设计稿"
       }
     ]
   }
