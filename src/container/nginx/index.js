@@ -2,12 +2,12 @@ import { colorCfg } from '@/constant'
 import { Button, Icon, Input, message, Row } from 'antd'
 import CodeMirror from 'component/CodeMirror'
 import db from 'mydb'
+import { exec } from 'util/cmd'
 import { useEffect, useState } from 'react'
+import { pReadFile, pWriteFile } from 'util/io'
 import './style.less'
-const fs = window.require('fs')
-const { exec } = window.require('child_process')
+
 const { TextArea } = Input
-const cmdPath = { cwd: '/' }
 
 const Nginx = () => {
   const { nginxPath, nginxCmdPath } = db.get('config')
@@ -17,11 +17,11 @@ const Nginx = () => {
   const [type, setType] = useState('edit')
   const [status, setStatus] = useState('success')
 
-  const readFile = () => {
-    fs.readFile(nginxPath, 'utf8', (err, data) => {
-      setContent(data)
-      setType('edit')
-    })
+  const readFile = async () => {
+    const [data, err] = await pReadFile(nginxPath)
+    if (err) return
+    setContent(data)
+    setType('edit')
   }
 
   useEffect(() => {
@@ -38,32 +38,32 @@ const Nginx = () => {
     setInfo(info)
   }
 
-  const onRestart = () => {
-    fs.writeFile(nginxPath, content, 'utf8', (err) => {
-      if (err) {
-        updateInfo(err)
-        message.error('文件保存错误')
-        return
-      }
+  const onRestart = async () => {
+    // write file
+    const [writeRes, writeErr] = await pWriteFile(nginxPath, content)
+    if (writeErr) {
+      updateInfo(err)
+      message.error('文件保存错误')
+      return
+    }
+    // test conf
+    const [res, err] = await exec(`${nginxCmdPath} -t`)
 
-      exec(`${nginxCmdPath} -t`, cmdPath, (err, stdout, stderr) => {
-        updateInfo(err || stdout || stderr)
-        if (err) {
-          message.error('命令执行错误，请查看日志或检查命令配置是否正确')
-          setStatus('error')
-          return false
-        }
+    updateInfo(err || res)
+    if (err) {
+      message.error('命令执行错误，请查看日志或检查命令配置是否正确')
+      setStatus('error')
+      return false
+    }
+    // reload config
+    const [startRes, startErr] = await exec(`${nginxCmdPath} -s reload`)
 
-        exec(`${nginxCmdPath} -s reload`, cmdPath, (err, stdout, stderr) => {
-          updateInfo(err || stdout || stderr || 'restart success')
-          if (err) {
-            return false
-          }
-          setStatus('success')
-          message.success('重启成功')
-        })
-      })
-    })
+    updateInfo(startErr || startRes || 'restart success')
+    if (startErr) {
+      return false
+    }
+    setStatus('success')
+    message.success('重启成功')
   }
 
   return (

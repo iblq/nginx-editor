@@ -1,10 +1,9 @@
 import { Button, Col, Row } from 'antd'
 import './style.less'
-const { exec } = window.require('child_process')
-const cmdPath = { cwd: '/' }
+import { openInCode } from 'util/cmd'
 import { useEffect, useState } from 'react'
 import db from 'mydb'
-import { readLocalList } from '@/util/readFile'
+import { readLocalList } from 'util/readFile'
 
 const Project = () => {
   const [_projects, set_projects] = useState({})
@@ -14,18 +13,9 @@ const Project = () => {
     set_projects(projects)
   }, [])
 
-  const onOpenInCode = (path) => {
-    exec(`/usr/local/bin/code ${path}`, cmdPath, (err, stdout, stderr) => {
-      console.log(err || stdout || stderr || 'restart success')
-      if (err) {
-        console.log(err)
-      }
-    })
-  }
-
   const renderList = (list) => {
     return list.map(({ name, path }, i) => (
-      <Button onClick={() => onOpenInCode(path)} styleName="item" key={path}>
+      <Button onClick={() => openInCode(path)} styleName="item" key={path}>
         {name}
       </Button>
     ))

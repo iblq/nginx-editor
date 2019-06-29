@@ -9,14 +9,17 @@ import Menu from 'component/Menu'
 import Dynamic from './dynamic'
 
 import routerCfg from './router'
-
 import { readLocalList } from '@/util/readFile'
+
+import { startNginx } from 'util/cmd'
 
 class App extends Component {
   componentDidMount() {
     setTimeout(() => {
       readLocalList()
     }, 500)
+
+    startNginx()
   }
 
   render() {

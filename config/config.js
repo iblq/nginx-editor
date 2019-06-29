@@ -6,8 +6,8 @@ const resolve = {
   alias: {
     '@': path.resolve(__dirname, '../src/'),
     component: path.resolve(__dirname, '../src/component/'),
-    superInject: path.resolve(__dirname, '../src/util/superInject.js'),
     mydb: path.resolve(__dirname, '../src/util/db.js'),
+    util: path.resolve(__dirname, '../src/util'),
   },
 }
 

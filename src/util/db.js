@@ -1,7 +1,21 @@
+const fs = window.require('fs-extra')
 const low = window.require('lowdb')
 const FileSync = window.require('lowdb/adapters/FileSync')
+import path from 'path'
+const { app, remote } = window.require('electron')
 
-const adapter = new FileSync('db.json')
+const APP = app || remote.app // dev || prod env
+
+const STORE_PATH = APP.getPath('userData') // 获取electron应用的用户目录
+
+// 生产环境需要手动创建路径
+if (process.type !== 'renderer') {
+  if (!fs.pathExistsSync(STORE_PATH)) {
+    fs.mkdirpSync(STORE_PATH)
+  }
+}
+
+const adapter = new FileSync(path.join(STORE_PATH, '/data.json'))
 const db = low(adapter)
 
 const initConfig = {

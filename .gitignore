@@ -73,3 +73,4 @@ tmp
 # tsconfig.json
 
 *darwin-x64
+dist    

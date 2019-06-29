@@ -21,7 +21,6 @@ class MyCm extends React.Component {
 
     this.cm.on('change', () => this._onChange())
     this.cm.getDoc().setValue(value || '')
-    // this.cm.setSize('100%', '100%')
   }
   componentDidMount() {
     this.initCm()

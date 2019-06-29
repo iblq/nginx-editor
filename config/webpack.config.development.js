@@ -70,7 +70,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/,
+        test: /\.(png|jpe?g|gif)$/,
         use: 'url-loader?limit=8192&name=image/[hash].[ext]',
       },
     ]),

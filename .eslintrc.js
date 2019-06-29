@@ -6,19 +6,19 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
       legacyDecorators: true,
-      experimentalObjectRestSpread: true
-    }
+      experimentalObjectRestSpread: true,
+    },
   },
   env: {
     browser: true,
     node: true,
     es6: true,
-    jest: true
+    jest: true,
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   plugins: ['import', 'react'],
   globals: {
-    API_SERVER_PLACEHOLDER: true
+    API_SERVER_PLACEHOLDER: true,
   },
   rules: {
     indent: [
@@ -26,8 +26,8 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
-        ignoreComments: true
-      }
+        ignoreComments: true,
+      },
     ],
     'linebreak-style': ['error', 'unix'],
     quotes: ['warn', 'single'],
@@ -35,19 +35,19 @@ module.exports = {
     'no-console': [
       'error',
       {
-        allow: ['log', 'warn', 'error']
-      }
+        allow: ['log', 'warn', 'error'],
+      },
     ],
     'no-empty': [
       'error',
       {
-        allowEmptyCatch: true
-      }
+        allowEmptyCatch: true,
+      },
     ],
-    semi: ['warn', 'never'],
+    // semi: ['warn', 'never'],
     'eol-last': 'warn',
     'comma-dangle': [1, 'always-multiline'],
     'react/react-in-jsx-scope': 'off',
-    'react/prop-types': 'off'
-  }
+    'react/prop-types': 'off',
+  },
 }

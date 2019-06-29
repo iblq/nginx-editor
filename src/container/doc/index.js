@@ -1,7 +1,6 @@
 import { Button, Col, Row, message } from 'antd'
 import './style.less'
-const { exec } = window.require('child_process')
-const cmdPath = { cwd: '/' }
+import { openFile } from 'util/cmd'
 import { readLocalList } from '@/util/readFile'
 import db from 'mydb'
 import { useEffect, useState } from 'react'
@@ -14,18 +13,10 @@ const Project = () => {
     set_docs(docs)
   }, [])
 
-  const onOpen = (path, type) => {
+  const onOpen = async (path, type) => {
     try {
-      exec(
-        `/usr/bin/open ${path}${type === 'finder' ? '' : '/index.html'}`,
-        cmdPath,
-        (err, stdout, stderr) => {
-          console.log(err || stdout || stderr || 'open success')
-          if (err) {
-            console.log(err)
-          }
-        },
-      )
+      const _path = `${path}${type === 'finder' ? '' : '/index.html'}`
+      await openFile(_path)
     } catch (err) {
       message.error(err)
     }

@@ -3,23 +3,13 @@ import { Button, Icon, message } from 'antd'
 import CodeMirror from 'component/CodeMirror'
 import db from 'mydb'
 import { useEffect, useState } from 'react'
-import io from '../../util/io'
+import { pReadFile, pWriteFile } from 'util/io'
 import SudoModal from './SudoForm'
+import { exec } from 'util/cmd'
+import { isNeedPswd } from 'util'
 
 const path = window.require('path')
-const { exec } = window.require('child_process')
 const remote = window.require('electron').remote
-
-function needPswd(str) {
-  str = str.toLowerCase()
-
-  let keys = [
-    'Permission denied',
-    'incorrect password',
-    'Password:Sorry, try again.',
-  ]
-  return !!keys.find((k) => str.includes(k.toLowerCase()))
-}
 
 const userPath = remote.app.getPath('home')
 
@@ -46,14 +36,13 @@ const Host = () => {
   }
 
   const readFile = async () => {
-    io.pReadFile(hostPath).then((data) => {
-      setContent(data)
-    })
+    let [data] = await pReadFile(hostPath)
+    setContent(data || '')
   }
 
   const onChange = (v) => setContent(v)
 
-  const onSaveFile = () => {
+  const onSaveFile = async () => {
     let tmp_fn = path.join(userPath, 'tmp.txt')
     setStatus('')
     if (typeof content !== 'string') {
@@ -61,41 +50,32 @@ const Host = () => {
       return
     }
 
-    io.pWriteFile(tmp_fn, content)
-      .then(() => {
-        let cmd
+    const [res, err] = await pWriteFile(tmp_fn, content)
+    if (err) return
 
-        if (!_sudo_pswd) {
-          cmd = [`cat "${tmp_fn}" > ${hostPath}`, `rm -rf ${tmp_fn}`].join(
-            ' && ',
-          )
-        } else {
-          cmd = [
-            `echo '${_sudo_pswd}' | sudo -S chmod 777 ${hostPath}`,
-            `cat "${tmp_fn}" > ${hostPath}`,
-            `echo '${_sudo_pswd}' | sudo -S chmod 644 ${hostPath}`,
-          ].join(' && ')
-        }
+    let cmd
+    if (!_sudo_pswd) {
+      cmd = [`cat "${tmp_fn}" > ${hostPath}`, `rm -rf ${tmp_fn}`].join(' && ')
+    } else {
+      cmd = [
+        `echo '${_sudo_pswd}' | sudo -S chmod 777 ${hostPath}`,
+        `cat "${tmp_fn}" > ${hostPath}`,
+        `echo '${_sudo_pswd}' | sudo -S chmod 644 ${hostPath}`,
+      ].join(' && ')
+    }
 
-        return cmd
-      })
-      .then((cmd) => {
-        exec(cmd, function(error, stdout, stderr) {
-          if (!error) {
-            message.success('文件保存成功')
-            setStatus('success')
-            return
-          }
-          if (!_sudo_pswd || needPswd(stdout + stderr)) {
-            showModal()
-          } else {
-            message.error(error)
-          }
-        })
-      })
-      .catch((err) => {
-        message.error(err.toString())
-      })
+    const [stdout, error] = await exec(cmd)
+    if (!error) {
+      message.success('文件保存成功')
+      setStatus('success')
+      return
+    }
+
+    if (!_sudo_pswd || isNeedPswd(stdout + error)) {
+      showModal()
+    } else {
+      message.error(error)
+    }
   }
 
   return (

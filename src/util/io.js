@@ -1,18 +1,16 @@
 const fs = window.require('fs')
-exports.getUserHome = () => {
-  return process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']
-}
+import { tryCatch } from './index'
 
-let isFile = (exports.isFile = (p) => {
+export const isFile = (p) => {
   try {
     if (fs.statSync(p).isFile()) {
       return true
     }
   } catch (e) {}
   return false
-})
+}
 
-exports.isDirectory = (p) => {
+export const isDirectory = (p) => {
   try {
     if (fs.statSync(p).isDirectory()) {
       return true
@@ -21,29 +19,34 @@ exports.isDirectory = (p) => {
   return false
 }
 
-let writeFile = (exports.writeFile = (fn, data, callback) => {
+export const writeFile = (fn, data, callback) => {
   if (isFile(fn)) {
     callback()
   } else {
     fs.writeFile(fn, data, 'utf-8', callback)
   }
-})
-exports.pWriteFile = (fn, data) => {
-  return new Promise((resolve, reject) => {
-    writeFile(fn, data, (e, v) => (e ? reject(e) : resolve(v)))
-  })
 }
 
-let readFile = (exports.readFile = (fn, callback) => {
+export const pWriteFile = (fn, data) => {
+  return tryCatch(
+    new Promise((resolve, reject) => {
+      writeFile(fn, data, (e, v) => (e ? reject(e) : resolve(v)))
+    }),
+  )
+}
+
+export const readFile = (fn, callback) => {
   if (!isFile(fn)) {
     callback(null, '')
   } else {
     fs.readFile(fn, 'utf-8', callback)
   }
-})
+}
 
-exports.pReadFile = (fn) => {
-  return new Promise((resolve, reject) => {
-    readFile(fn, (e, v) => (e ? reject(e) : resolve(v)))
-  })
+export const pReadFile = (fn) => {
+  return tryCatch(
+    new Promise((resolve, reject) => {
+      readFile(fn, (e, v) => (e ? reject(e) : resolve(v)))
+    }),
+  )
 }
