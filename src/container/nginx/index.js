@@ -26,6 +26,7 @@ const Nginx = () => {
 
   useEffect(() => {
     readFile()
+    exec(`${nginxCmdPath}`)
   }, [])
 
   const onChange = (v) => setContent(v)
@@ -49,8 +50,8 @@ const Nginx = () => {
     // test conf
     const [res, err] = await exec(`${nginxCmdPath} -t`)
 
-    updateInfo(err || res)
     if (err) {
+      updateInfo(err)
       message.error('命令执行错误，请查看日志或检查命令配置是否正确')
       setStatus('error')
       return false
@@ -58,8 +59,8 @@ const Nginx = () => {
     // reload config
     const [startRes, startErr] = await exec(`${nginxCmdPath} -s reload`)
 
-    updateInfo(startErr || startRes || 'restart success')
     if (startErr) {
+      updateInfo(startErr)
       return false
     }
     setStatus('success')
