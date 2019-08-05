@@ -1,13 +1,4 @@
-
-
-基于 electron 实现的 mac 下简单工作流工具。
-
-![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf1.png)
-![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf2.png)
-
-## 下载地址
-
-[Mac腾讯微云](https://share.weiyun.com/55UCLpI)
+基于 electron 实现的 Mac 下简单工作流工具。
 
 ## 功能
 - nginx conf 编辑
@@ -31,3 +22,13 @@ npm run package
 // or
 npm run package2
 ```
+
+## 下载地址
+
+[Mac腾讯微云](https://share.weiyun.com/55UCLpI)
+
+## 界面
+
+![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf1.png)
+![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf2.png)
+
