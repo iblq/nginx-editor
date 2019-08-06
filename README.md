@@ -1,6 +1,7 @@
 基于 electron 实现的 Mac 下简单工作流工具。
 
 ## 功能
+
 - nginx conf 编辑
 - host 编辑
 - node 项目列表，支持点击在 vscode 中打开
@@ -25,10 +26,9 @@ npm run package2
 
 ## 下载地址
 
-[Mac腾讯微云](https://share.weiyun.com/55UCLpI)
+[Mac 腾讯微云](https://share.weiyun.com/5O6qkuM)
 
 ## 界面
 
 ![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf1.png)
 ![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf2.png)
-
