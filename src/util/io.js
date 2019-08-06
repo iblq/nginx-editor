@@ -20,11 +20,11 @@ export const isDirectory = (p) => {
 }
 
 export const writeFile = (fn, data, callback) => {
-  if (isFile(fn)) {
-    callback()
-  } else {
-    fs.writeFile(fn, data, 'utf-8', callback)
-  }
+  // if (isFile(fn)) {
+  //   callback()
+  // } else {
+  fs.writeFile(fn, data, 'utf-8', callback)
+  // }
 }
 
 export const pWriteFile = (fn, data) => {
