@@ -10,7 +10,7 @@ import styles from './style.less'
 
 class MyCm extends React.Component {
   initCm = () => {
-    const { value, options } = this.props
+    const { value, onBlur, options } = this.props
     this.cm = CodeMirror.fromTextArea(this.textRef, {
       lineNumbers: true,
       matchBrackets: true,
@@ -20,6 +20,11 @@ class MyCm extends React.Component {
     })
 
     this.cm.on('change', () => this._onChange())
+    // this.cm.on('blur', () =>
+    //   setTimeout(() => {
+    //     onBlur()
+    //   }, 100),
+    // )
     this.cm.getDoc().setValue(value || '')
   }
   componentDidMount() {

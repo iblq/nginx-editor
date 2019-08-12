@@ -5,7 +5,6 @@ import path from 'path'
 const { app, remote } = window.require('electron')
 
 const APP = app || remote.app // dev || prod env
-
 const STORE_PATH = APP.getPath('userData') // 获取electron应用的用户目录
 
 // 生产环境需要手动创建路径

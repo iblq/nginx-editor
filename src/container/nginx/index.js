@@ -35,7 +35,6 @@ const Nginx = () => {
     let info = `${info} ${new Date()
       .toLocaleTimeString()
       .substr(0, 9)}>  ${err}`
-    setType('info')
     setInfo(info)
   }
 
@@ -52,7 +51,7 @@ const Nginx = () => {
 
     if (err) {
       updateInfo(err)
-      message.error('命令执行错误，请查看日志或检查命令配置是否正确')
+      message.error('重启失败，请查看日志或检查命令配置是否正确')
       setStatus('error')
       return false
     }
@@ -78,12 +77,12 @@ const Nginx = () => {
           编辑
         </Button>
         <Button
+          type="primary"
           size="small"
-          type={type === 'info' ? 'primary' : 'default'}
           style={{ marginLeft: 12 }}
-          onClick={() => setType('info')}
+          onClick={onRestart}
         >
-          日志
+          重启
         </Button>
         <div className="g-sm-info">
           如有错误请检查 setting 页面命令配置是否正确
@@ -96,13 +95,13 @@ const Nginx = () => {
           {status === 'error' && <Icon type="close-circle" />}
         </div>
         <Button
-          type="primary"
           size="small"
           className="g-fr"
+          type={type === 'info' ? 'primary' : 'default'}
           style={{ marginRight: 12 }}
-          onClick={onRestart}
+          onClick={() => setType('info')}
         >
-          重启
+          日志
         </Button>
       </Row>
 

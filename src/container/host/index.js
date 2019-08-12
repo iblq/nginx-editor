@@ -30,7 +30,7 @@ const Host = () => {
   const showModal = () => setIsShowModal(true)
 
   const savePwd = (v) => {
-    db.set({ sudo_pswd: v })
+    db.set('config', { sudo_pswd: v })
     setPwd(v)
     closeModal()
   }
@@ -43,30 +43,33 @@ const Host = () => {
   const onChange = (v) => setContent(v)
 
   const onSaveFile = async () => {
-    let tmp_fn = path.join(userPath, 'tmp.txt')
+    let tempFilePath = path.join(userPath, '.wf_temp.txt')
     setStatus('')
     if (typeof content !== 'string') {
       message.error('')
       return
     }
 
-    const [res, err] = await pWriteFile(tmp_fn, content)
+    const [res, err] = await pWriteFile(tempFilePath, content)
     if (err) return
 
     let cmd
     if (!_sudo_pswd) {
-      cmd = [`cat "${tmp_fn}" > ${hostPath}`, `rm -rf ${tmp_fn}`].join(' && ')
+      cmd = [
+        `cat "${tempFilePath}" > ${hostPath}`,
+        `rm -rf ${tempFilePath}`,
+      ].join(' && ')
     } else {
       cmd = [
         `echo '${_sudo_pswd}' | sudo -S chmod 777 ${hostPath}`,
-        `cat "${tmp_fn}" > ${hostPath}`,
+        `cat "${tempFilePath}" > ${hostPath}`,
         `echo '${_sudo_pswd}' | sudo -S chmod 644 ${hostPath}`,
       ].join(' && ')
     }
 
     const [stdout, error] = await exec(cmd)
     if (!error) {
-      message.success('文件保存成功')
+      message.success('保存成功')
       setStatus('success')
       return
     }
