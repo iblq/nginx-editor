@@ -26,7 +26,7 @@ npm run package2
 
 ## 下载地址
 
-[Mac 腾讯微云](https://share.weiyun.com/5O6qkuM)
+[Mac 腾讯微云](https://share.weiyun.com/524XptV)
 
 ## 界面
 
