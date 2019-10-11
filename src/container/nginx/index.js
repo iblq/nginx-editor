@@ -50,7 +50,7 @@ const Nginx = () => {
       return
     }
     // test conf
-    const [res, err] = await exec(`${nginxCmdPath} -t`)
+    const [err] = await exec(`${nginxCmdPath} -t`)
 
     if (err) {
       updateInfo(err)
@@ -59,7 +59,7 @@ const Nginx = () => {
       return false
     }
     // reload config
-    const [startRes, startErr] = await exec(`${nginxCmdPath} -s reload`)
+    const [startErr] = await exec(`${nginxCmdPath} -s reload`)
 
     if (startErr) {
       updateInfo(startErr)
