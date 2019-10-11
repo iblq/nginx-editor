@@ -2,7 +2,7 @@ import { colorCfg } from '@/constant'
 import { Button, Icon, message } from 'antd'
 import CodeMirror from 'component/CodeMirror'
 import db from 'mydb'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { pReadFile, pWriteFile } from 'util/io'
 import SudoModal from './SudoForm'
 import { exec } from 'util/cmd'
@@ -20,6 +20,9 @@ const Host = () => {
   const [isShowModal, setIsShowModal] = useState(false)
   const [status, setStatus] = useState('success')
   const [_sudo_pswd, setPwd] = useState(sudo_pswd)
+
+  const contentRef = useRef('')
+  contentRef.current = content
 
   useEffect(() => {
     readFile()
@@ -45,12 +48,12 @@ const Host = () => {
   const onSaveFile = async () => {
     let tempFilePath = path.join(userPath, '.wf_temp.txt')
     setStatus('')
-    if (typeof content !== 'string') {
-      message.error('')
+    if (typeof contentRef.current !== 'string') {
+      message.error('保存出错')
       return
     }
 
-    const [res, err] = await pWriteFile(tempFilePath, content)
+    const [err] = await pWriteFile(tempFilePath, contentRef.current)
     if (err) return
 
     let cmd
@@ -117,6 +120,7 @@ const Host = () => {
             mode: 'shell',
           }}
           onChange={onChange}
+          onSave={onSaveFile}
         />
 
         {isShowModal && <SudoModal saveData={savePwd} onCancel={closeModal} />}

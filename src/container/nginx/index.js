@@ -3,7 +3,7 @@ import { Button, Icon, Input, message, Row } from 'antd'
 import CodeMirror from 'component/CodeMirror'
 import db from 'mydb'
 import { exec } from 'util/cmd'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { pReadFile, pWriteFile } from 'util/io'
 import './style.less'
 
@@ -16,6 +16,9 @@ const Nginx = () => {
   const [info, setInfo] = useState('')
   const [type, setType] = useState('edit')
   const [status, setStatus] = useState('success')
+
+  const contentRef = useRef('')
+  contentRef.current = content
 
   const readFile = async () => {
     const [data, err] = await pReadFile(nginxPath)
@@ -40,7 +43,7 @@ const Nginx = () => {
 
   const onRestart = async () => {
     // write file
-    const [writeRes, writeErr] = await pWriteFile(nginxPath, content)
+    const [writeErr] = await pWriteFile(nginxPath, contentRef.current)
     if (writeErr) {
       updateInfo(err)
       message.error('文件保存错误')
@@ -107,7 +110,7 @@ const Nginx = () => {
 
       <div className="g-content">
         {type === 'edit' ? (
-          <CodeMirror value={content} onChange={onChange} />
+          <CodeMirror value={content} onChange={onChange} onSave={onRestart} />
         ) : (
           <TextArea
             styleName="log"

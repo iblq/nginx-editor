@@ -10,7 +10,7 @@ import styles from './style.less'
 
 class MyCm extends React.Component {
   initCm = () => {
-    const { value, onBlur, options } = this.props
+    const { value, options, onSave } = this.props
     this.cm = CodeMirror.fromTextArea(this.textRef, {
       lineNumbers: true,
       matchBrackets: true,
@@ -19,12 +19,13 @@ class MyCm extends React.Component {
       ...(options || {}),
     })
 
+    this.cm.setOption('extraKeys', {
+      'Cmd-S': () => {
+        onSave && onSave()
+      },
+    })
+
     this.cm.on('change', () => this._onChange())
-    // this.cm.on('blur', () =>
-    //   setTimeout(() => {
-    //     onBlur()
-    //   }, 100),
-    // )
     this.cm.getDoc().setValue(value || '')
   }
   componentDidMount() {
@@ -53,6 +54,7 @@ class MyCm extends React.Component {
 
 MyCm.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func,
   options: PropTypes.object,
   value: PropTypes.string,
 }
