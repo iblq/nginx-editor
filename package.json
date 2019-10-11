@@ -9,7 +9,6 @@
     "build": "BABEL_ENV=production webpack --progress --env=production",
     "electron": "ELECTRON_ENV=dev electron .",
     "package": "ELECTRON_ENV=pro electron-packager . --overwrite  --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns",
-    "package2": "ELECTRON_ENV=pro electron-packager . --overwrite --icon=assets/wf.icns",
     "format": "prettier --write \"./src/**/*.js\" \"./src/**/*.jsx\" "
   },
   "build": {
