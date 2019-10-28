@@ -20,11 +20,10 @@ npm start
 
 ```shell
 npm run package
-// or
-npm run package2
 ```
 
 ## 界面
 
-![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf1.png)
-![界面图片](https://github.com/iblq/NHEditor/blob/master/assets/wf2.png)
+![界面图片](https://github.com/iblq/WF/blob/master/assets/wf1.png)
+![界面图片](https://github.com/iblq/WF/blob/master/assets/wf2.png)
+![界面图片](https://github.com/iblq/WF/blob/master/assets/wf3.png)
