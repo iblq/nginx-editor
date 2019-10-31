@@ -16,7 +16,12 @@ class Setting extends Component {
     })
   }
 
-  reset = () => {}
+  reset = () => {
+    db.setDefault()
+    setTimeout(() => {
+      this.forceUpdate()
+    }, 500)
+  }
 
   render() {
     return (
@@ -26,9 +31,9 @@ class Setting extends Component {
           <Button type="primary" onClick={this.onSave}>
             保存
           </Button>
-          {/* <Button className="g-ml-12" type="primary" onClick={this.reset}>
+          <Button className="g-ml-12" type="primary" onClick={this.reset}>
             重置
-          </Button> */}
+          </Button>
         </Row>
       </div>
     )

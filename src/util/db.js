@@ -35,9 +35,9 @@ export default {
       .write(),
   get: (key) => db.get(key).value(),
   getAll: () => db.get().value(),
-  setDefault: () =>
-    db
-      .get('config')
-      .assign(initConfig)
-      .write(),
+  setDefault() {
+    this.set('config', initConfig)
+    this.set('projects', {})
+    this.set('docs', {})
+  },
 }

@@ -41,38 +41,42 @@ export const formatList = (projects) => {
 }
 
 export const readFile = (path, arr, docs) => {
-  if (!fs.existsSync(path)) return
+  try {
+    if (!fs.existsSync(path)) return
 
-  let info = fs.statSync(path)
+    let info = fs.statSync(path)
 
-  // 文件夹
-  if (!info.isDirectory()) return
+    // 文件夹
+    if (!info.isDirectory()) return
 
-  const files = fs.readdirSync(path) //同步读取文件夹
+    const files = fs.readdirSync(path) //同步读取文件夹
 
-  // 判断是否是 node 应用
-  if (files.includes('package.json')) {
-    arr.push(path)
-    return
-  }
-  // 判断是否是设计文档
-  if (
-    files.includes('index.html') &&
-    (files.includes('assets') ||
-      files.includes('images') ||
-      files.includes('files') ||
-      files.includes('links'))
-  ) {
-    docs.push(path)
-    return
-  }
+    // 判断是否是 node 应用
+    if (files.includes('package.json')) {
+      arr.push(path)
+      return
+    }
+    // 判断是否是设计文档
+    if (
+      files.includes('index.html') &&
+      (files.includes('assets') ||
+        files.includes('images') ||
+        files.includes('files') ||
+        files.includes('links'))
+    ) {
+      docs.push(path)
+      return
+    }
 
-  // 不是的话递归查看子文件夹
-  const list = files.filter(
-    (item) => item.substr(0, 1) !== '.' && !ignoreList.includes(item),
-  )
-  for (let i of list) {
-    readFile(path + '/' + i, arr, docs)
+    // 不是的话递归查看子文件夹
+    const list = files.filter(
+      (item) => item.substr(0, 1) !== '.' && !ignoreList.includes(item),
+    )
+    for (let i of list) {
+      readFile(path + '/' + i, arr, docs)
+    }
+  } catch (err) {
+    return false
   }
 }
 
@@ -81,7 +85,9 @@ export const readLocalList = () => {
   let projects = []
   let docs = []
 
-  const arr = readDirList.split(/,|，/)
+  let arr = readDirList.split(/,|，/)
+  arr = arr.filter((item) => item && item.length > 1)
+
   for (let dir of arr) {
     readFile(homePath + '/' + dir, projects, docs)
   }

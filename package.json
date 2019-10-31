@@ -5,7 +5,7 @@
   "main": "main/index.js",
   "homepage": ".",
   "scripts": {
-    "start": "BABEL_ENV=development webpack-dev-server -w --env=development",
+    "start": "BABEL_ENV=development webpack-dev-server -w --env=development && npm run electron",
     "build": "BABEL_ENV=production webpack --progress --env=production",
     "electron": "ELECTRON_ENV=dev electron .",
     "package": "yarn build && ELECTRON_ENV=pro electron-packager . --overwrite  --download.mirror=https://npm.taobao.org/mirrors/electron/ --icon=assets/wf.icns",
