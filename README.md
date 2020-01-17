@@ -1,5 +1,7 @@
 基于 electron 实现的 Mac 下简单工作流工具。
 
+> Mojave 运行出错，暂无法使用
+
 ## 功能
 
 - nginx conf 编辑
