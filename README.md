@@ -1,31 +1,55 @@
-基于 electron 实现的 Mac 下简单工作流工具。
-
-> Mojave 运行出错，暂无法使用
-
-## 功能
-
-- nginx conf 编辑
-- host 编辑
-- node 项目列表，支持点击在 vscode 中打开
-- 本地需求文档和设计文档列表，支持点击在 finder 中查看或 在浏览器直接打开
-
-> host 编辑需要管理员权限，sudo 命令执行相关方法参考 SwitchHosts，感谢
-
-## start
-
-```shell
+## Quick start
+install
+```bash
+yarn
+# or
 npm install
-npm start
 ```
 
-## build
-
-```shell
-npm run package
+start dev
+```bash
+npm run dev
 ```
 
-## 界面
+## Overview
+- webpack
+- electron
+- electron-builder
+- electron-log
+- react
+- react-router
+- redux
+- ant-design
+- less
+- typescript
+- eslint
+- prettier
 
-![界面图片](https://github.com/iblq/WF/blob/master/assets/wf1.png)
-![界面图片](https://github.com/iblq/WF/blob/master/assets/wf2.png)
-![界面图片](https://github.com/iblq/WF/blob/master/assets/wf3.png)
+## DevTools
+
+Toggle DevTools:
+
+* OSX: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+* Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+* Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+
+## Build package
+
+Modify [builder.config.ts](./build/builder.config.ts) to edit package info.
+
+For a full list of options see: https://www.electron.build/configuration/configuration
+
+Create a package for OSX, Windows and Linux
+```
+npm run build
+```
+
+Please check the `release` folder after the build is complete.
+
+
+## Old version
+- The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/electron-antd/tree/v1.0)
+- The `js-babel` version archive to [babel](https://github.com/lanten/electron-antd/tree/babel)
+
+## License
+[MIT](./LICENSE)
