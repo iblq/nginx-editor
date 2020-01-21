@@ -6,16 +6,22 @@
   background-color: @sidebar_background;
   color: @color_light;
   user-select: none;
+
   .side-menu {
     margin-top: @padding;
     .side-menu-item {
       width: 100%;
-      text-align: center;
       padding: @padding;
-      color: @color_light;
+      color: @color_gray;
+
       &:hover,
       &.active {
-        color: @color_white;
+        color: @color_title;
+        background-color: @color_background;
+      }
+
+      .side-menu-icon {
+        margin-right: 8px;
       }
     }
   }
