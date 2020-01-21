@@ -19,9 +19,9 @@ export class AppSidebar extends React.Component {
     )
   }
 
-  renderMenuItem = ({ name, icon, path, title }: SideMenuItem) => {
+  renderMenuItem = ({ icon, path, title }: SideMenuItem) => {
     return (
-      <Tooltip key={name} overlayClassName="side-menu-item-tooltip" placement="right" title={title}>
+      <Tooltip key={path} overlayClassName="side-menu-item-tooltip" placement="right" title={title}>
         <a className="side-menu-item" href={path}>
           <Icon type={icon} className="fs-24" />
         </a>

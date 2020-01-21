@@ -1,10 +1,9 @@
 const routes: RouteConfig[] = [
   {
-    key: 'nginx',
+    key: 'Home',
     path: '/',
-    // redirect: { to: '/demo?form=home' },
     windowOptions: {
-      title: 'App Home',
+      title: 'Nginx config',
       width: 1200,
       height: 800,
     },
@@ -13,6 +12,26 @@ const routes: RouteConfig[] = [
       saveWindowBounds: true,
       openDevTools: true,
     },
+  },
+  {
+    key: 'Doc',
+    path: '/doc',
+  },
+  {
+    key: 'Host',
+    path: '/host',
+  },
+  {
+    key: 'Nginx',
+    path: '/',
+  },
+  {
+    key: 'Setting',
+    path: '/setting',
+  },
+  {
+    key: 'Project',
+    path: '/project',
   },
 ]
 

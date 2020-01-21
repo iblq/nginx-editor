@@ -1,13 +1,15 @@
-import { colorCfg } from '@/constant'
+import React, { useEffect, useState, useRef } from 'react'
 import { Button, Icon, Input, message, Row } from 'antd'
-import CodeMirror from 'component/CodeMirror'
-import db from 'mydb'
-import { exec } from 'util/cmd'
-import { useEffect, useState, useRef } from 'react'
-import { pReadFile, pWriteFile } from 'util/io'
-import './style.less'
+import { CodeMirror } from '@/src/components'
+
+import db from '@/src/util/db'
+import { exec } from '@/src/util/cmd'
+import { pReadFile, pWriteFile } from '@/src/util/io'
+import { colorCfg } from '@/src/constant'
 
 const { TextArea } = Input
+
+const CodeMirrorCom: any = CodeMirror
 
 const Nginx = () => {
   const { nginxPath, nginxCmdPath } = db.get('config')
@@ -32,20 +34,18 @@ const Nginx = () => {
     exec(`${nginxCmdPath}`)
   }, [])
 
-  const onChange = (v) => setContent(v)
+  const onChange = (v: string) => setContent(v)
 
-  const updateInfo = (err) => {
-    let info = `${info} ${new Date()
-      .toLocaleTimeString()
-      .substr(0, 9)}>  ${err}`
-    setInfo(info)
+  const updateInfo = (err: string) => {
+    const newInfo = `${info} ${new Date().toLocaleTimeString().substr(0, 9)}>  ${err}`
+    setInfo(newInfo)
   }
 
   const onRestart = async () => {
     // write file
     const [writeErr] = await pWriteFile(nginxPath, contentRef.current)
     if (writeErr) {
-      updateInfo(err)
+      updateInfo(writeErr)
       message.error('文件保存错误')
       return
     }
@@ -72,28 +72,14 @@ const Nginx = () => {
   return (
     <>
       <Row style={{ marginBottom: 12 }}>
-        <Button
-          size="small"
-          type={type === 'edit' ? 'primary' : 'default'}
-          onClick={readFile}
-        >
+        <Button size="small" type={type === 'edit' ? 'primary' : 'default'} onClick={readFile}>
           编辑
         </Button>
-        <Button
-          type="primary"
-          size="small"
-          style={{ marginLeft: 12 }}
-          onClick={onRestart}
-        >
+        <Button type="primary" size="small" style={{ marginLeft: 12 }} onClick={onRestart}>
           重启
         </Button>
-        <div className="g-sm-info">
-          如有错误请检查 setting 页面命令配置是否正确
-        </div>
-        <div
-          style={{ color: colorCfg[status], fontSize: '16px' }}
-          className="g-fr"
-        >
+        <div className="g-sm-info">如有错误请检查 setting 页面命令配置是否正确</div>
+        <div style={{ color: colorCfg[status], fontSize: '16px' }} className="g-fr">
           {status === 'success' && <Icon type="check-circle" />}
           {status === 'error' && <Icon type="close-circle" />}
         </div>
@@ -110,15 +96,9 @@ const Nginx = () => {
 
       <div className="g-content">
         {type === 'edit' ? (
-          <CodeMirror value={content} onChange={onChange} onSave={onRestart} />
+          <CodeMirrorCom value={content} onChange={onChange} onSave={onRestart} />
         ) : (
-          <TextArea
-            styleName="log"
-            value={info}
-            options={{
-              mode: 'shell',
-            }}
-          />
+          <TextArea className="log" value={info} />
         )}
       </div>
     </>

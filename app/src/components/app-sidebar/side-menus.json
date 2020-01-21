@@ -1,32 +1,32 @@
 [
   {
+    "name": "nginx",
     "title": "nginx",
-    "path": "nginx",
-    "link": "/",
+    "path": "#/",
     "icon": "home"
   },
   {
+    "name": "host",
     "title": "host",
-    "path": "host",
-    "link": "/host",
+    "path": "#/host",
     "icon": "unordered-list"
   },
   {
     "title": "project",
-    "path": "project",
-    "link": "/project",
+    "name": "project",
+    "path": "#/project",
     "icon": "project"
   },
   {
     "title": "doc",
-    "path": "doc",
-    "link": "/doc",
+    "name": "doc",
+    "path": "#/doc",
     "icon": "database"
   },
   {
     "title": "setting",
-    "path": "setting",
-    "link": "/setting",
+    "name": "setting",
+    "path": "#/setting",
     "icon": "setting"
   }
 ]

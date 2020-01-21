@@ -6,7 +6,11 @@
 export const Home = undefined
 
 export const Demo = import('./views/demo/demo')
-export const PageParams = import('./views/demo/page-params')
+export const Nginx = import('./views/nginx/nginx')
+export const Host = import('./views/host')
+export const Doc = import('./views/doc')
+export const Project = import('./views/project')
+export const Setting = import('./views/setting')
 
 // 同步/异步 混用
 export { default as AlertModal } from './views/modals/alert-modal'

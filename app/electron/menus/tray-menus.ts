@@ -5,14 +5,14 @@ export const trayMenus: MenuItemConstructorOptions[] = [
 
   { type: 'separator' },
 
-  {
-    label: 'page-params',
-    click: () =>
-      $tools.createWindow('PageParams', {
-        params: { test: 'test-params' },
-        query: { testObj: { aa: ['bb', 'cc'] } },
-      }),
-  },
+  // {
+  //   label: 'page-params',
+  //   click: () =>
+  //     $tools.createWindow('PageParams', {
+  //       params: { test: 'test-params' },
+  //       query: { testObj: { aa: ['bb', 'cc'] } },
+  //     }),
+  // },
   { label: 'demo2', click: () => $tools.createWindow('Demo') },
 
   { type: 'separator' },

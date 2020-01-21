@@ -9,41 +9,19 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "locale": "zh-CN",
     "baseUrl": ".",
-    "types": [
-      "webpack-env",
-      "node"
-    ],
+    "types": ["webpack-env", "node"],
     "paths": {
-      "@/*": [
-        "app/*"
-      ],
-      "@root/*": [
-        "*"
-      ]
+      "@/*": ["app/*"],
+      "@root/*": ["*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost",
-      "es5"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost", "es5"]
   },
-  "include": [
-    "app/typescript",
-    "app/**/*.ts",
-    "app/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "release",
-    "assets"
-  ]
+  "include": ["app/typescript", "app/**/*.ts", "app/**/*.tsx"],
+  "exclude": ["node_modules", "build", "dist", "release", "assets"]
 }

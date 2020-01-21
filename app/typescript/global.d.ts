@@ -17,4 +17,10 @@ declare namespace NodeJS {
   }
 }
 
+/** 同步事件 e 类型 */
+interface SyntheticEvent<T> {
+  current: EventTarget & T
+  target: object & T
+}
+
 declare const nodeRequire: NodeRequire

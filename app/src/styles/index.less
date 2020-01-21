@@ -1,3 +1,48 @@
 @import '~antd/dist/antd.less';
 @import './common.less';
 @import './theme.less';
+@import '~codemirror/lib/codemirror.css';
+
+.CodeMirror {
+  height: 100% !important;
+  font-weight: 600;
+}
+.CodeMirror-vscrollbar {
+  display: none !;
+}
+.CodeMirror-hint {
+  margin: 0;
+  padding: 0 4px;
+  border-radius: 2px;
+  white-space: pre;
+  color: black;
+}
+li.CodeMirror-hint-active {
+  background: #08f;
+  color: white;
+}
+
+.CodeMirror-cursors .CodeMirror-cursor {
+  border-left: 2px solid black;
+}
+
+.g-fr {
+  float: right;
+}
+.g-ml-12 {
+  margin-left: 12px;
+}
+.g-ta-r {
+  text-align: right;
+}
+.g-sm-info {
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 12px;
+  position: fixed;
+  bottom: 4px;
+  right: 20px;
+}
+.g-content {
+  height: calc(100% - 40px);
+}
