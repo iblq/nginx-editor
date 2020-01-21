@@ -13,16 +13,15 @@ export class AppSidebar extends React.Component {
   }
 
   onMenuSelect = (path: string) => {
-    console.log(path)
     this.setState({ currentPath: path })
   }
 
   render() {
     return (
       <div className="app-sidebar">
-        <div className="mt-24 flex center app-sidebar-header">
+        {/* <div className="mt-24 flex center app-sidebar-header">
           <img width="40" src={$tools.APP_ICON} />
-        </div>
+        </div> */}
 
         <div className="flex column side-menu">{AppSideMenus.map(this.renderMenuItem)}</div>
       </div>

@@ -3,14 +3,14 @@ const routes: RouteConfig[] = [
     key: 'Home',
     path: '/',
     windowOptions: {
-      title: 'Nginx config',
-      width: 1200,
-      height: 800,
+      title: 'Nginx editor',
+      width: 800,
+      height: 600,
     },
     createConfig: {
       showSidebar: true,
       saveWindowBounds: true,
-      openDevTools: true,
+      openDevTools: false,
     },
   },
   {

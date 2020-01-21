@@ -1,6 +1,6 @@
 {
-  "name": "electron-antd",
-  "appId": "org.electron.electron-antd",
+  "name": "nginx_editor",
+  "appId": "org.electron.nginx_editor",
   "version": "1.0.0",
   "buildVersion": "0001",
   "private": false,
@@ -75,10 +75,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lanten/electron-antd.git"
+    "url": "git+https://github.com/lanten/nginx_editor.git"
   },
   "bugs": {
-    "url": "https://github.com/lanten/electron-antd/issues"
+    "url": "https://github.com/lanten/nginx_editor/issues"
   },
-  "homepage": "https://github.com/lanten/electron-antd#readme"
+  "homepage": "https://github.com/lanten/nginx_editor#readme"
 }
