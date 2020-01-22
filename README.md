@@ -1,5 +1,3 @@
-基于 electron 实现的 Mac 下简单工作流工具。
-
 ## 功能
 
 - nginx conf 编辑
