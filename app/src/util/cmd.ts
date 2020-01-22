@@ -1,17 +1,16 @@
-import shell from 'shelljs'
 import process from 'child_process'
-
 import { tryCatch } from './index'
+import db from './db'
+const { nginxCmdPath } = db.get('config')
 
-const codeCmd = shell.which('code').toString()
+const cmdPath = { cwd: '/' }
 
 export const exec = (cmd: string) => {
   return tryCatch(
     new Promise((resolve, reject) => {
-      shell.exec(cmd, (code: number, stdout: string, stderr: string) => {
-        console.log({ code }, { stderr }, { stdout })
-        if (code !== 0) {
-          reject(stderr)
+      process.exec(cmd, cmdPath, (err, stdout, stderr) => {
+        if (err) {
+          reject(stderr || err)
         } else {
           resolve(stdout)
         }
@@ -20,17 +19,13 @@ export const exec = (cmd: string) => {
   )
 }
 
-/** 在 vscode 中打开项目 */
 export const openInCode = (dirPath: string) => {
-  process.exec(`${codeCmd} ${dirPath}`)
+  exec(`/usr/local/bin/code ${dirPath}`)
 }
 
-/** 在 finder 中打开项目 */
 export const openFile = (filePath: string) => {
-  process.exec(`open ${filePath}`)
+  exec(`/usr/bin/open ${filePath}`)
 }
-
-/** 在 finder 中打开项目 */
 export const startNginx = () => {
-  shell.exec('nginx')
+  exec(`${nginxCmdPath}`)
 }

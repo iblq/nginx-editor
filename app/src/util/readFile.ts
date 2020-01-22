@@ -79,7 +79,6 @@ export const readFile = (path: string, arr: any[], docs: any[]) => {
 
 export const readLocalList = () => {
   const { readDirList } = db.get('config')
-  console.log(readDirList)
   const projects: AnyObj[] = []
   const docs: AnyObj[] = []
 
@@ -92,8 +91,6 @@ export const readLocalList = () => {
 
   const projectsObj = formatList(projects)
   const docsObj = formatList(docs)
-
-  console.log(projectsObj)
 
   db.set('projects', projectsObj)
   db.set('docs', docsObj)
