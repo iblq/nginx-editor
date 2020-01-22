@@ -1,61 +1,27 @@
-## Quick start
+基于 electron 实现的 Mac 下简单工作流工具。
 
-install
+## 功能
 
-```bash
-yarn
-# or
+- nginx conf 编辑
+- host 编辑
+- node 项目列表，支持点击在 vscode 中打开
+- 本地需求文档和设计文档列表，支持点击在 finder 中查看或 在浏览器直接打开
+
+## start
+
+```shell
 npm install
+npm start
 ```
 
-start dev
+## build
 
-```bash
-npm run dev
-```
-
-## Overview
-
-- webpack
-- electron
-- electron-builder
-- electron-log
-- react
-- react-router
-- redux
-- ant-design
-- less
-- typescript
-- eslint
-- prettier
-
-## DevTools
-
-Toggle DevTools:
-
-- OSX: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-- Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-- Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-
-## Build package
-
-Modify [builder.config.ts](./build/builder.config.ts) to edit package info.
-
-For a full list of options see: https://www.electron.build/configuration/configuration
-
-Create a package for OSX, Windows and Linux
-
-```
+```shell
 npm run build
 ```
 
-Please check the `release` folder after the build is complete.
+## 下载地址
 
-## Old version
+## 界面
 
-- The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/nginx_editor/tree/v1.0)
-- The `js-babel` version archive to [babel](https://github.com/lanten/nginx_editor/tree/babel)
-
-## License
-
-[MIT](./LICENSE)
+![界面图片](https://github.com/iblq/WF/blob/master/assets/wf1.png) ![界面图片](https://github.com/iblq/WF/blob/master/assets/wf2.png) ![界面图片](https://github.com/iblq/WF/blob/master/assets/wf3.png)
