@@ -57,7 +57,7 @@ const Project = () => {
 
   return (
     <>
-      <Row style={{ marginBottom: 12 }}>
+      <Row className="g-header" style={{ marginBottom: 12 }}>
         <Col span={12}>
           <Button size="small" onClick={refresh}>
             刷新
@@ -65,16 +65,16 @@ const Project = () => {
         </Col>
         <Col span={12} />
       </Row>
-
-      {Object.keys(_docs).map(key => {
-        return (
-          <div key={key}>
-            <h3 className="doc-h3">{key}</h3>
-            <div>{renderList(_docs[key])}</div>
-          </div>
-        )
-      })}
-      <div className="doc-g-sm-info">点击文件夹名称可直接在 Chrome 中打开，点击 finder 查看文件目录</div>
+      <div className="g-content">
+        {Object.keys(_docs).map(key => {
+          return (
+            <div key={key}>
+              <h3 className="doc-h3">{key}</h3>
+              <div>{renderList(_docs[key])}</div>
+            </div>
+          )
+        })}
+      </div>
     </>
   )
 }

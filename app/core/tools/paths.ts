@@ -10,6 +10,9 @@ export const APP_DATA_PATH: string = app.getPath('appData')
 /** 储存你应用程序设置文件的文件夹 */
 export const USER_DATA_PATH: string = app.getPath('userData')
 
+/** 当前用户目录 */
+export const USER_HOME_PATH: string = app.getPath('home')
+
 /** 应用程序的日志文件夹 */
 export const LOGS_PATH: string =
   process.platform === 'darwin'

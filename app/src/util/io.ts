@@ -1,7 +1,7 @@
 const fs = require('fs')
 import { tryCatch } from './index'
 
-export const isFile = p => {
+export const isFile = (p: any) => {
   try {
     if (fs.statSync(p).isFile()) {
       return true
@@ -10,7 +10,7 @@ export const isFile = p => {
   return false
 }
 
-export const isDirectory = p => {
+export const isDirectory = (p: any) => {
   try {
     if (fs.statSync(p).isDirectory()) {
       return true
@@ -19,23 +19,19 @@ export const isDirectory = p => {
   return false
 }
 
-export const writeFile = (fn, data, callback) => {
-  // if (isFile(fn)) {
-  //   callback()
-  // } else {
+export const writeFile = (fn: any, data: string, callback: any) => {
   fs.writeFile(fn, data, 'utf-8', callback)
-  // }
 }
 
-export const pWriteFile = (fn, data) => {
+export const pWriteFile = (fn: any, data: string) => {
   return tryCatch(
     new Promise((resolve, reject) => {
-      writeFile(fn, data, (e, v) => (e ? reject(e) : resolve(v)))
+      writeFile(fn, data, (e: any, v: any) => (e ? reject(e) : resolve(v)))
     })
   )
 }
 
-export const readFile = (fn, callback) => {
+export const readFile = (fn: any, callback: any) => {
   if (!isFile(fn)) {
     callback(null, '')
   } else {
@@ -43,10 +39,10 @@ export const readFile = (fn, callback) => {
   }
 }
 
-export const pReadFile = fn => {
+export const pReadFile = (fn: any) => {
   return tryCatch(
     new Promise((resolve, reject) => {
-      readFile(fn, (e, v) => (e ? reject(e) : resolve(v)))
+      readFile(fn, (e: any, v: any) => (e ? reject(e) : resolve(v)))
     })
   )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Icon, Tooltip } from 'antd'
-import { withStore } from '@/src/components'
+import { Icon } from 'antd'
 
 import AppSideMenus from './side-menus.json'
 import './app-sidebar.less'
@@ -9,7 +8,7 @@ type SideMenuItem = typeof AppSideMenus[0]
 
 export class AppSidebar extends React.Component {
   state = {
-    currentPath: '#/',
+    currentPath: location.hash,
   }
 
   onMenuSelect = (path: string) => {

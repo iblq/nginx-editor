@@ -2,10 +2,9 @@ const fs = require('fs')
 const ignoreList = ['node_modules']
 import db from './db'
 
-const remote = require('electron').remote
-const homePath = remote.app.getPath('home')
+const homePath = $tools.USER_HOME_PATH
 
-export const formatList = projects => {
+export const formatList = (projects: object[]) => {
   /****
    * /User/baolq/mine/admin
    * {
@@ -14,42 +13,42 @@ export const formatList = projects => {
    *  userPath: '/mine
    * }
    */
-  const list = projects.map(item => {
+  const list = projects.map((item: any) => {
     const arr = item.split('/')
 
     let name = '',
-      userPath = ''
+      userPath: [] = []
 
     name = arr[arr.length - 1]
 
     userPath = arr.slice(3, arr.length - 1)
-    userPath = userPath.join('/')
+    const userPathStr = userPath.join('/')
     return {
       name,
-      userPath,
+      userPath: userPathStr,
       path: item,
     }
   })
 
-  let objData = {}
-  for (let i of list) {
-    let { userPath } = i
+  const objData = {}
+  for (const i of list) {
+    const { userPath } = i
     objData[userPath] = objData[userPath] ? objData[userPath] : []
     objData[userPath].push(i)
   }
   return objData
 }
 
-export const readFile = (path, arr, docs) => {
+export const readFile = (path: string, arr: any[], docs: any[]) => {
   try {
     if (!fs.existsSync(path)) return
 
-    let info = fs.statSync(path)
+    const info = fs.statSync(path)
 
     // 文件夹
     if (!info.isDirectory()) return
 
-    const files = fs.readdirSync(path) //同步读取文件夹
+    const files: any[] = fs.readdirSync(path) //同步读取文件夹
 
     // 判断是否是 node 应用
     if (files.includes('package.json')) {
@@ -70,7 +69,7 @@ export const readFile = (path, arr, docs) => {
 
     // 不是的话递归查看子文件夹
     const list = files.filter(item => item.substr(0, 1) !== '.' && !ignoreList.includes(item))
-    for (let i of list) {
+    for (const i of list) {
       readFile(path + '/' + i, arr, docs)
     }
   } catch (err) {
@@ -80,20 +79,23 @@ export const readFile = (path, arr, docs) => {
 
 export const readLocalList = () => {
   const { readDirList } = db.get('config')
-  let projects = []
-  let docs = []
+  console.log(readDirList)
+  const projects: AnyObj[] = []
+  const docs: AnyObj[] = []
 
-  let arr = readDirList.split(/,|，/)
+  let arr: any[] = readDirList.split(/,|，/)
   arr = arr.filter(item => item && item.length > 1)
 
   for (const dir of arr) {
     readFile(homePath + '/' + dir, projects, docs)
   }
 
-  projects = formatList(projects)
-  docs = formatList(docs)
+  const projectsObj = formatList(projects)
+  const docsObj = formatList(docs)
 
-  db.set('projects', projects)
-  db.set('docs', docs)
-  return { projects, docs }
+  console.log(projectsObj)
+
+  db.set('projects', projectsObj)
+  db.set('docs', docsObj)
+  return { projects: docsObj, docs: docsObj }
 }

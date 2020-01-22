@@ -1,15 +1,13 @@
 import { Button, Row, message } from 'antd'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Form from './Form'
 import db from '@/src/util/db'
 
 const Setting = (props: any) => {
-  const [count, setCount] = useState(0)
-
   const formRef: any = useRef(null)
 
   const onSave = () => {
-    formRef.validateFieldsAndScroll((err: string | object, values: object) => {
+    formRef.current.validateFieldsAndScroll((err: string | object, values: object) => {
       if (!err) {
         console.log('Received values of form: ', values)
         db.set('config', values)
@@ -21,12 +19,12 @@ const Setting = (props: any) => {
   const reset = () => {
     db.setDefault()
     setTimeout(() => {
-      setCount(count + 1)
+      formRef.current.resetFields()
     }, 500)
   }
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Form ref={formRef} {...props} />
       <Row className="g-ta-r">
         <Button type="primary" onClick={onSave}>

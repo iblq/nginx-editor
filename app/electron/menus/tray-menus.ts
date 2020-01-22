@@ -13,10 +13,10 @@ export const trayMenus: MenuItemConstructorOptions[] = [
   //       query: { testObj: { aa: ['bb', 'cc'] } },
   //     }),
   // },
-  { label: 'demo2', click: () => $tools.createWindow('Demo') },
+  // { label: 'demo2', click: () => $tools.createWindow('Demo') },
 
   { type: 'separator' },
 
-  { label: 'about', click: () => $tools.createWindow('Demo') },
+  // { label: 'about', click: () => $tools.createWindow('Demo') },
   { label: 'quit', role: 'quit' },
 ]

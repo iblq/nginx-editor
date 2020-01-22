@@ -30,7 +30,7 @@ const Project = () => {
 
   return (
     <div className="projcet-wrap">
-      <Row style={{ marginBottom: 12 }}>
+      <Row className="g-header" style={{ marginBottom: 12 }}>
         <Col span={12}>
           <Button size="small" onClick={refresh}>
             刷新
@@ -38,17 +38,16 @@ const Project = () => {
         </Col>
         <Col span={12} />
       </Row>
-
-      {Object.keys(_projects).map(key => {
-        return (
-          <div key={key}>
-            <h3 className="projcet-h3">{key}</h3>
-            <div>{renderList(_projects[key])}</div>
-          </div>
-        )
-      })}
-
-      <div className="g-sm-info">点击文件夹名称可直接在 vscode 中打开</div>
+      <div className="g-content">
+        {Object.keys(_projects).map(key => {
+          return (
+            <div key={key}>
+              <h3 className="projcet-h3">{key}</h3>
+              <div>{renderList(_projects[key])}</div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

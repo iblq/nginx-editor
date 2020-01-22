@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react'
 import { Button, Icon, Input, message, Row } from 'antd'
 import { CodeMirror } from '@/src/components'
@@ -50,7 +51,7 @@ const Nginx = () => {
       return
     }
     // test conf
-    const [err] = await exec(`${nginxCmdPath} -t`)
+    const [res, err] = await exec(`${nginxCmdPath} -t`)
 
     if (err) {
       updateInfo(err)
@@ -59,7 +60,7 @@ const Nginx = () => {
       return false
     }
     // reload config
-    const [startErr] = await exec(`${nginxCmdPath} -s reload`)
+    const [res2, startErr] = await exec(`${nginxCmdPath} -s reload`)
 
     if (startErr) {
       updateInfo(startErr)
@@ -98,7 +99,7 @@ const Nginx = () => {
         {type === 'edit' ? (
           <CodeMirrorCom value={content} onChange={onChange} onSave={onRestart} />
         ) : (
-          <TextArea className="log" value={info} />
+          <TextArea className="log" value={info} style={{ height: '100%' }} />
         )}
       </div>
     </>

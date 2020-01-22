@@ -24,3 +24,6 @@ interface SyntheticEvent<T> {
 }
 
 declare const nodeRequire: NodeRequire
+declare module 'codemirror'
+declare module 'shelljs'
+declare module 'lowdb'

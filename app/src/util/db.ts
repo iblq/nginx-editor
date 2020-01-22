@@ -1,11 +1,9 @@
+import path from 'path'
 const fs = require('fs-extra')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-import path from 'path'
-const { app, remote } = require('electron')
 
-const APP = app || remote.app // dev || prod env
-const STORE_PATH = APP.getPath('userData') // 获取electron应用的用户目录
+const STORE_PATH = $tools.APP_DATA_PATH // 获取electron应用的用户目录
 
 // 生产环境需要手动创建路径
 if (process.type !== 'renderer') {
@@ -22,18 +20,18 @@ const initConfig = {
   nginxCmdPath: '/usr/local/bin/nginx',
   hostPath: '/etc/hosts',
   readDirList: ['mine', 'work', 'test', 'Downloads', 'Desktop'].join(','),
-  sudo_pswd: '',
+  sudoPswd: '',
 }
 
 db.defaults({ config: initConfig, projects: {}, docs: {} }).write()
 
 export default {
-  set: (key, value) =>
+  set: (key: string, value: any) =>
     db
       .get(key)
       .assign(value)
       .write(),
-  get: key => db.get(key).value(),
+  get: (key: string) => db.get(key).value(),
   getAll: () => db.get().value(),
   setDefault() {
     this.set('config', initConfig)

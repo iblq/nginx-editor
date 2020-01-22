@@ -52,6 +52,7 @@ class CodeMirror extends React.Component<CmProps> {
     })
 
     this.cm.on('change', () => this._onChange())
+    this.cm.on('blur', () => onSave && onSave())
     this.cm.getDoc().setValue(value || '')
   }
   componentDidMount() {

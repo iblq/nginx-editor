@@ -32,7 +32,7 @@ const SettingForm = ({ form }: any) => {
           initialValue: nginxPath,
         })(<Input />)}
       </Form.Item>
-      <Form.Item label="命令路径">
+      {/*<Form.Item label="命令路径">
         {getFieldDecorator('nginxCmdPath', {
           rules: [
             {
@@ -42,7 +42,7 @@ const SettingForm = ({ form }: any) => {
           ],
           initialValue: nginxCmdPath,
         })(<Input />)}
-      </Form.Item>
+      </Form.Item> */}
       <h3>文档、项目相关</h3>
       <Form.Item label="搜索文件夹">
         {getFieldDecorator('readDirList', {
@@ -53,7 +53,7 @@ const SettingForm = ({ form }: any) => {
             },
           ],
           initialValue: readDirList,
-        })(<Input.TextArea />)}
+        })(<Input.TextArea style={{ width: '100%' }} />)}
       </Form.Item>
     </Form>
   )

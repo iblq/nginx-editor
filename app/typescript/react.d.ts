@@ -4,5 +4,3 @@ declare namespace JSX {
     // Navbar: any
   }
 }
-
-declare module 'codemirror'

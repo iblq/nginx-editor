@@ -1,17 +1,16 @@
 import { Button, Icon, message } from 'antd'
-import { CodeMirror } from '@/src/components'
-import db from '@/src/util/db'
-import { exec } from '@/src/util/cmd'
 import React, { useEffect, useState, useRef, Fragment } from 'react'
-import { pReadFile, pWriteFile } from '@/src/util/io'
+
 import SudoModal from './SudoForm'
+
+import { CodeMirror } from '@/src/components'
+import { exec } from '@/src/util/cmd'
+import db from '@/src/util/db'
+import { pReadFile, pWriteFile } from '@/src/util/io'
 import { isNeedPswd } from '@/src/util'
 import { colorCfg } from '@/src/constant'
 
-const path = require('path')
-const remote = require('electron').remote
-
-const userPath = remote.app.getPath('home')
+const userPath = $tools.APP_DATA_PATH
 
 const Host = () => {
   const { hostPath, sudoPswd } = db.get('config')
@@ -84,9 +83,6 @@ const Host = () => {
   return (
     <Fragment>
       <div style={{ marginBottom: 12 }}>
-        <Button size="small" onClick={readFile}>
-          编辑
-        </Button>
         <Button type="primary" size="small" style={{ marginLeft: 12 }} onClick={onSaveFile}>
           保存
         </Button>

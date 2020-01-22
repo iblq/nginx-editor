@@ -1,4 +1,4 @@
-export const tryCatch = async promise => {
+export const tryCatch = async (promise: any) => {
   try {
     const res = await promise
     return [res, null]
@@ -7,7 +7,7 @@ export const tryCatch = async promise => {
   }
 }
 
-export const isNeedPswd = str => {
+export const isNeedPswd = (str: string) => {
   const newStr = str.toLowerCase()
 
   const keys = ['Permission denied', 'incorrect password', 'Password:Sorry, try again.']
