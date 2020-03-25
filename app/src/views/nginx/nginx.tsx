@@ -58,7 +58,7 @@ const Nginx = () => {
   const onChange = (v: string) => setContent(v)
 
   const updateInfo = (err: string) => {
-    const newInfo = `${info} ${new Date().toLocaleTimeString().substr(0, 9)}>  ${err}`
+    const newInfo = `${info} ${new Date().toLocaleTimeString().substr(0, 9)}>  ${err}\r`
     setInfo(newInfo)
   }
 
@@ -84,6 +84,7 @@ const Nginx = () => {
 
     setStatus('success')
     message.success('重启成功')
+    updateInfo('reload success')
   }
 
   return (
@@ -115,11 +116,10 @@ const Nginx = () => {
       </Head>
 
       <Content right>
-        {type === 'edit' ? (
+        <div style={{ display: type === 'edit' ? 'block' : 'none', width: '100%', height: '100%' }}>
           <CodeMirrorCom value={content} onChange={onChange} onSave={onRestart} />
-        ) : (
-          <TextArea className="log" value={info} style={{ height: '100%' }} />
-        )}
+        </div>
+        {type !== 'edit' && <TextArea className="log" value={info} style={{ height: '100%' }} />}
       </Content>
     </>
   )

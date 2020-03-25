@@ -21,7 +21,8 @@ const Setting = (props: any) => {
     db.setDefault()
     setTimeout(() => {
       formRef.current.resetFields()
-    }, 500)
+      message.success('重置成功')
+    }, 300)
   }
 
   return (

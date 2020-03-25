@@ -25,6 +25,10 @@ const Host = () => {
   const contentRef = useRef('')
   contentRef.current = content
 
+  const readFile = async () => {
+    const [data] = await pReadFile(hostPath)
+    setContent(data || '')
+  }
   useEffect(() => {
     readFile()
   }, [])
@@ -33,28 +37,16 @@ const Host = () => {
 
   const showModal = () => setIsShowModal(true)
 
-  const savePwd = (v: string) => {
-    db.set('config', { sudoPswd: v })
-    setPwd(v)
-    closeModal()
-  }
-
-  const readFile = async () => {
-    const [data] = await pReadFile(hostPath)
-    setContent(data || '')
-  }
-
-  const onChange = (v: string) => setContent(v)
-
-  const onSaveFile = async () => {
+  const onSaveFile = async (_sudoPswd: string) => {
     const tempFilePath = path.join(userPath, '.wf_temp.txt')
     setStatus('')
+
     if (typeof contentRef.current !== 'string') {
       message.error('保存出错')
       return
     }
 
-    const [err] = await pWriteFile(tempFilePath, contentRef.current)
+    const [res, err] = await pWriteFile(tempFilePath, contentRef.current)
     if (err) return
 
     let cmd
@@ -67,8 +59,8 @@ const Host = () => {
         `echo '${_sudoPswd}' | sudo -S chmod 644 ${hostPath}`,
       ].join(' && ')
     }
-
     const [stdout, error] = await exec(cmd)
+
     if (!error) {
       message.success('保存成功')
       setStatus('success')
@@ -82,10 +74,22 @@ const Host = () => {
     }
   }
 
+  const savePwd = (v: string) => {
+    db.update('config', { sudoPswd: v })
+    setPwd(v)
+    closeModal()
+
+    setTimeout(() => {
+      onSaveFile(v)
+    }, 100)
+  }
+
+  const onChange = (v: string) => setContent(v)
+
   return (
     <Fragment>
       <Head>
-        <Button type="primary" size="small" onClick={onSaveFile}>
+        <Button type="primary" size="small" onClick={() => onSaveFile(_sudoPswd)}>
           保存
         </Button>
         <div className="g-sm-info">如有错误请检查 setting 页面命令配置是否正确</div>

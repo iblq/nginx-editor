@@ -23,9 +23,9 @@ export function creatAppTray({ menus = trayMenus, title = APP_NAME, icon }: AppI
   image.isMacTemplateImage = true
   const tray = new Tray(image)
   tray.setToolTip(title)
-  tray.setContextMenu(Menu.buildFromTemplate(menus))
+  // tray.setContextMenu(Menu.buildFromTemplate(menus))
 
-  tray.on('double-click', () => {
+  tray.on('click', () => {
     $tools.createWindow('Home')
   })
 

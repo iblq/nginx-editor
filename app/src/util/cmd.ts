@@ -25,11 +25,14 @@ export const openInCode = (dirPath: string) => {
 }
 
 export const openFile = (filePath: string) => {
-  exec(`${execPre}open ${filePath}`)
+  const fp = filePath.replace(/\s/, '\\ ')
+  exec(`/usr/bin/open ${fp}`)
 }
+
 export const startNginx = () => {
   exec(`${nginxCmdPath}`)
 }
+
 export const reloadNginx = async () => {
   return await exec(`${nginxCmdPath} -s reload`)
 }

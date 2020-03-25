@@ -30,15 +30,15 @@ const initConfig = {
 db.defaults({ config: initConfig, projects: {}, docs: {} }).write()
 
 export default {
-  // set: (key: string, value: any) =>
-  //   db
-  //     .get(key)
-  //     .assign(value)
-  //     .write(),
   set: (key: string, value: any) => db.set(key, value).write(),
+  update: (key: string, value: any) =>
+    db
+      .get(key)
+      .assign(value)
+      .write(),
   get: (key: string) => db.get(key).value(),
   getAll: () => db.get().value(),
   setDefault() {
-    this.set('config', initConfig)
+    this.set('config', { ...initConfig, isFirst: 'false' })
   },
 }
