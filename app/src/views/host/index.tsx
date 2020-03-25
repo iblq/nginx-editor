@@ -37,7 +37,7 @@ const Host = () => {
 
   const showModal = () => setIsShowModal(true)
 
-  const onSaveFile = async (_sudoPswd: string) => {
+  const onSaveFile = async (pwd: string = _sudoPswd) => {
     const tempFilePath = path.join(userPath, '.wf_temp.txt')
     setStatus('')
 
@@ -50,13 +50,13 @@ const Host = () => {
     if (err) return
 
     let cmd
-    if (!_sudoPswd) {
+    if (!pwd) {
       cmd = [`cat "${tempFilePath}" > ${hostPath}`, `rm -rf ${tempFilePath}`].join(' && ')
     } else {
       cmd = [
-        `echo '${_sudoPswd}' | sudo -S chmod 777 ${hostPath}`,
+        `echo '${pwd}' | sudo -S chmod 777 ${hostPath}`,
         `cat "${tempFilePath}" > ${hostPath}`,
-        `echo '${_sudoPswd}' | sudo -S chmod 644 ${hostPath}`,
+        `echo '${pwd}' | sudo -S chmod 644 ${hostPath}`,
       ].join(' && ')
     }
     const [stdout, error] = await exec(cmd)
@@ -67,7 +67,7 @@ const Host = () => {
       return
     }
 
-    if (!_sudoPswd || isNeedPswd(stdout + error)) {
+    if (!pwd || isNeedPswd(stdout + error)) {
       showModal()
     } else {
       message.error(error)
