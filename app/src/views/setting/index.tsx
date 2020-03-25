@@ -31,10 +31,10 @@ const Setting = (props: any) => {
       <Content>
         <Form ref={formRef} {...props} />
         <div className="g-ta-r">
-          <Button type="primary" onClick={onSave}>
+          <Button type="primary" size="small" onClick={onSave}>
             保存
           </Button>
-          <Button className="g-ml-12" type="primary" onClick={reset}>
+          <Button className="g-ml-12" size="small" type="primary" onClick={reset}>
             重置
           </Button>
         </div>
