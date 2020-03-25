@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, useRef } from 'react'
-import { Button, Icon, Input, message, Row } from 'antd'
+import { Button, Icon, Input, message, Modal } from 'antd'
 import { CodeMirror } from '@/src/components'
 
 import db from '@/src/util/db'
-import { exec, startNginx, reloadNginx } from '@/src/util/cmd'
+import { startNginx, reloadNginx } from '@/src/util/cmd'
 import { pReadFile, pWriteFile } from '@/src/util/io'
 import { colorCfg } from '@/src/constant'
-import { Content, Head, Right } from '@com/layout'
+import { Content, Head, Right } from '@/src/components'
 
 const { TextArea } = Input
 
@@ -26,14 +26,33 @@ const Nginx = () => {
 
   const readFile = async () => {
     const [data, err] = await pReadFile(nginxPath)
-    if (err) return
+    if (err || !data) {
+      return
+    }
+
     setContent(data)
     setType('edit')
   }
 
+  const setFirst = () => {
+    db.set('isFirst', 'false')
+  }
+
+  const showMessage = () => {
+    Modal.info({
+      title: '小提示',
+      content:
+        '工具默认读取预设目录下的 Nginx 配置文件和指定文件夹及其子目录中的应用项目和设计稿，请先编辑或检查相关配置是否正确！',
+      okText: '知道了',
+    })
+  }
+
   useEffect(() => {
+    if (db.get('isFirst') === 'true') {
+      showMessage()
+    }
+    startNginx()
     readFile()
-    exec(`${nginxCmdPath}`)
   }, [])
 
   const onChange = (v: string) => setContent(v)

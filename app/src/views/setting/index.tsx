@@ -1,8 +1,8 @@
-import { Button, Row, message } from 'antd'
+import { Button, message } from 'antd'
 import React, { useRef } from 'react'
 import Form from './Form'
 import db from '@/src/util/db'
-import { Content, Head } from '@com/layout'
+import { Content, Head } from '@/src/components'
 
 const Setting = (props: any) => {
   const formRef: any = useRef(null)

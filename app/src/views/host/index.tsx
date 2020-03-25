@@ -10,8 +10,7 @@ import db from '@/src/util/db'
 import { pReadFile, pWriteFile } from '@/src/util/io'
 import { isNeedPswd } from '@/src/util'
 import { colorCfg } from '@/src/constant'
-import { Content, Head } from '@com/layout'
-import { Right } from '@/src/components/layout'
+import { Content, Head, Right } from '@/src/components'
 
 const userPath = $tools.APP_DATA_PATH
 

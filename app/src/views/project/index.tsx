@@ -4,7 +4,7 @@ import { openInCode } from '@/src/util/cmd'
 import React, { useEffect, useState } from 'react'
 import db from '@/src/util/db'
 import { readLocalList } from '@/src/util/readFile'
-import { Content, Head } from '@com/layout'
+import { Content, Head } from '@/src/components'
 
 import './style.less'
 
@@ -18,7 +18,7 @@ const Project = () => {
 
   const renderList = (list: any[]) => {
     return list.map(({ name, path }) => (
-      <Col xs={12} sm={12} md={8} lg={8} key={path}>
+      <Col className="project-wrap-item" xs={12} sm={12} md={8} lg={8} key={path}>
         <Button onClick={() => openInCode(path)} className="projcet-item">
           {name}
         </Button>

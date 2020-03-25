@@ -4,7 +4,7 @@ import { openFile } from '@/src/util/cmd'
 import { readLocalList } from '@/src/util/readFile'
 import db from '@/src/util/db'
 import React, { useEffect, useState } from 'react'
-import { Content, Head } from '@com/layout'
+import { Content, Head } from '@/src/components'
 
 import './style.less'
 

@@ -24,6 +24,7 @@ const initConfig = {
   hostPath: '/etc/hosts',
   readDirList: ['mine', 'work', 'test', 'Downloads', 'Desktop', 'doc'].join(','),
   sudoPswd: '',
+  isFirst: 'true',
 }
 
 db.defaults({ config: initConfig, projects: {}, docs: {} }).write()
