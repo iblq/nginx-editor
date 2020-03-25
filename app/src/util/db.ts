@@ -13,29 +13,31 @@ if (process.type !== 'renderer') {
 }
 
 const adapter = new FileSync(path.join(STORE_PATH, '/.wf_data.json'))
+
+console.log(path.join(STORE_PATH, '/.wf_data.json'))
+
 const db = low(adapter)
 
 const initConfig = {
   nginxPath: '/usr/local/etc/nginx/nginx.conf',
   nginxCmdPath: '/usr/local/bin/nginx',
   hostPath: '/etc/hosts',
-  readDirList: ['mine', 'work', 'test', 'Downloads', 'Desktop'].join(','),
+  readDirList: ['mine', 'work', 'test', 'Downloads', 'Desktop', 'doc'].join(','),
   sudoPswd: '',
 }
 
 db.defaults({ config: initConfig, projects: {}, docs: {} }).write()
 
 export default {
-  set: (key: string, value: any) =>
-    db
-      .get(key)
-      .assign(value)
-      .write(),
+  // set: (key: string, value: any) =>
+  //   db
+  //     .get(key)
+  //     .assign(value)
+  //     .write(),
+  set: (key: string, value: any) => db.set(key, value).write(),
   get: (key: string) => db.get(key).value(),
   getAll: () => db.get().value(),
   setDefault() {
     this.set('config', initConfig)
-    this.set('projects', {})
-    this.set('docs', {})
   },
 }

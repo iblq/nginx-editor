@@ -23,6 +23,7 @@ const webpackConfig: Configuration = {
       '@': path.resolve(__dirname, '../app'),
       '@root': path.resolve(__dirname, '../'),
       '@src': path.resolve(__dirname, '../app/src'),
+      '@com': path.resolve(__dirname, '../app/src/components'),
     },
     extensions: ['.ts', '.tsx', '.js'],
   },

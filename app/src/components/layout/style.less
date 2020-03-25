@@ -1,0 +1,31 @@
+@padding: 8px;
+@height: 38px;
+.view-head {
+  height: @height;
+  line-height: @height;
+  position: relative;
+  padding: 0 @padding 0 @padding;
+  -webkit-app-region: drag;
+
+  button,
+  i {
+    -webkit-app-region: no-drag;
+  }
+}
+.view-right {
+  position: absolute;
+  right: @padding;
+  top: 0;
+  height: @height;
+  line-height: @height;
+  text-align: right;
+}
+.view-content {
+  height: calc(100vh - 46px);
+  overflow: auto;
+  padding: 0 @padding 0 @padding;
+}
+.view-main {
+  height: 100%;
+  padding-right: @padding;
+}

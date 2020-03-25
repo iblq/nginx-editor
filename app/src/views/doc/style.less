@@ -3,12 +3,18 @@
 }
 .doc-item {
   margin-left: 20px;
-  padding-top: 10px;
-  margin-bottom: 0 !important;
+  height: 32px;
+  line-height: 32px;
 
   border-bottom: 1px solid lightgray;
   cursor: pointer;
 
+  a {
+    color: #111;
+    &:hover {
+      color: #30b6f2;
+    }
+  }
   &:hover {
     background-color: #e5e5e5;
   }
@@ -19,8 +25,9 @@
 }
 .doc-finder {
   display: inline-block;
-  transition: 0.1s all;
-  &:hover {
-    font-size: 18px;
-  }
+  font-size: 18px;
+  // transition: 0.1s all;
+  // &:hover {
+  //   font-size: 18px;
+  // }
 }

@@ -4,9 +4,10 @@ import { Button, Icon, Input, message, Row } from 'antd'
 import { CodeMirror } from '@/src/components'
 
 import db from '@/src/util/db'
-import { exec } from '@/src/util/cmd'
+import { exec, startNginx, reloadNginx } from '@/src/util/cmd'
 import { pReadFile, pWriteFile } from '@/src/util/io'
 import { colorCfg } from '@/src/constant'
+import { Content, Head, Right } from '@com/layout'
 
 const { TextArea } = Input
 
@@ -50,29 +51,25 @@ const Nginx = () => {
       message.error('文件保存错误')
       return
     }
-    // test conf
-    const [res, err] = await exec(`${nginxCmdPath} -t`)
 
-    if (err) {
-      updateInfo(err)
-      message.error('重启失败，请查看日志或检查命令配置是否正确')
-      setStatus('error')
-      return false
-    }
     // reload config
-    const [res2, startErr] = await exec(`${nginxCmdPath} -s reload`)
+    const [res2, startErr] = await reloadNginx()
 
     if (startErr) {
       updateInfo(startErr)
+      message.error('重启失败，请查看日志或检查命令配置是否正确')
+      setType('error')
+      setStatus('error')
       return false
     }
+
     setStatus('success')
     message.success('重启成功')
   }
 
   return (
     <>
-      <Row style={{ marginBottom: 12 }}>
+      <Head>
         <Button size="small" type={type === 'edit' ? 'primary' : 'default'} onClick={readFile}>
           编辑
         </Button>
@@ -80,28 +77,31 @@ const Nginx = () => {
           重启
         </Button>
         <div className="g-sm-info">如有错误请检查 setting 页面命令配置是否正确</div>
-        <div style={{ color: colorCfg[status], fontSize: '16px' }} className="g-fr">
-          {status === 'success' && <Icon type="check-circle" />}
-          {status === 'error' && <Icon type="close-circle" />}
-        </div>
-        <Button
-          size="small"
-          className="g-fr"
-          type={type === 'info' ? 'primary' : 'default'}
-          style={{ marginRight: 12 }}
-          onClick={() => setType('info')}
-        >
-          日志
-        </Button>
-      </Row>
 
-      <div className="g-content">
+        <Right>
+          <div style={{ color: colorCfg[status], fontSize: '16px' }} className="g-fr">
+            {status === 'success' && <Icon type="check-circle" />}
+            {status === 'error' && <Icon type="close-circle" />}
+          </div>
+
+          <Button
+            size="small"
+            type={type === 'info' ? 'primary' : 'default'}
+            style={{ marginRight: 12 }}
+            onClick={() => setType('info')}
+          >
+            日志
+          </Button>
+        </Right>
+      </Head>
+
+      <Content right>
         {type === 'edit' ? (
           <CodeMirrorCom value={content} onChange={onChange} onSave={onRestart} />
         ) : (
           <TextArea className="log" value={info} style={{ height: '100%' }} />
         )}
-      </div>
+      </Content>
     </>
   )
 }

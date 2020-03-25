@@ -2,6 +2,7 @@ import { Button, Row, message } from 'antd'
 import React, { useRef } from 'react'
 import Form from './Form'
 import db from '@/src/util/db'
+import { Content, Head } from '@com/layout'
 
 const Setting = (props: any) => {
   const formRef: any = useRef(null)
@@ -24,17 +25,20 @@ const Setting = (props: any) => {
   }
 
   return (
-    <div style={{ width: '100%' }}>
-      <Form ref={formRef} {...props} />
-      <Row className="g-ta-r">
-        <Button type="primary" onClick={onSave}>
-          保存
-        </Button>
-        <Button className="g-ml-12" type="primary" onClick={reset}>
-          重置
-        </Button>
-      </Row>
-    </div>
+    <>
+      <Head />
+      <Content>
+        <Form ref={formRef} {...props} />
+        <div className="g-ta-r">
+          <Button type="primary" onClick={onSave}>
+            保存
+          </Button>
+          <Button className="g-ml-12" type="primary" onClick={reset}>
+            重置
+          </Button>
+        </div>
+      </Content>
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ import { asAssetsPath } from './paths'
 export const APP_NAME = app.name
 
 /** 应用标题 */
-export const APP_TITLE = 'Electron Antd'
+export const APP_TITLE = app.name
 
 /** 应用主图标 (桌面) */
 export const APP_ICON = asAssetsPath('app-icon/app-icon@256.png')
@@ -29,7 +29,7 @@ export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
     nodeIntegration: true,
     scrollBounce: true,
   },
-  // titleBarStyle: 'hidden', // 隐藏标题栏, 但显示窗口控制按钮
+  titleBarStyle: 'hiddenInset', // 隐藏标题栏, 但显示窗口控制按钮 , 需指定可拖动区域
   // frame: process.platform === 'darwin' ? true : false, // 无边框窗口
   // frame: false, // 无边框窗口
   // skipTaskbar: false, // 是否在任务栏中隐藏窗口

@@ -33,7 +33,7 @@ export const pWriteFile = (fn: any, data: string) => {
 
 export const readFile = (fn: any, callback: any) => {
   if (!isFile(fn)) {
-    callback(null, '')
+    callback('文件不存在', null)
   } else {
     fs.readFile(fn, 'utf-8', callback)
   }

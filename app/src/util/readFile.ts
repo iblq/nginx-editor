@@ -39,7 +39,13 @@ export const formatList = (projects: object[]) => {
   return objData
 }
 
-export const readFile = (path: string, arr: any[], docs: any[]) => {
+/**
+ *
+ * @param path {string} file url
+ * @param projects {array} project arr
+ * @param docs {array} doc arr
+ */
+export const readFile = (path: string, projects: any[], docs: any[]) => {
   try {
     if (!fs.existsSync(path)) return
 
@@ -52,9 +58,10 @@ export const readFile = (path: string, arr: any[], docs: any[]) => {
 
     // 判断是否是 node 应用
     if (files.includes('package.json')) {
-      arr.push(path)
+      projects.push(path)
       return
     }
+
     // 判断是否是设计文档
     if (
       files.includes('index.html') &&
@@ -70,7 +77,7 @@ export const readFile = (path: string, arr: any[], docs: any[]) => {
     // 不是的话递归查看子文件夹
     const list = files.filter(item => item.substr(0, 1) !== '.' && !ignoreList.includes(item))
     for (const i of list) {
-      readFile(path + '/' + i, arr, docs)
+      readFile(path + '/' + i, projects, docs)
     }
   } catch (err) {
     return false
@@ -82,10 +89,9 @@ export const readLocalList = () => {
   const projects: AnyObj[] = []
   const docs: AnyObj[] = []
 
-  let arr: any[] = readDirList.split(/,|，/)
-  arr = arr.filter(item => item && item.length > 1)
+  const rootDirs: any[] = readDirList.split(/,|，/).filter((item: any) => item && item.length > 1)
 
-  for (const dir of arr) {
+  for (const dir of rootDirs) {
     readFile(homePath + '/' + dir, projects, docs)
   }
 
@@ -94,5 +100,5 @@ export const readLocalList = () => {
 
   db.set('projects', projectsObj)
   db.set('docs', docsObj)
-  return { projects: docsObj, docs: docsObj }
+  return { projects: projectsObj, docs: docsObj }
 }

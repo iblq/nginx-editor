@@ -10,6 +10,8 @@ import db from '@/src/util/db'
 import { pReadFile, pWriteFile } from '@/src/util/io'
 import { isNeedPswd } from '@/src/util'
 import { colorCfg } from '@/src/constant'
+import { Content, Head } from '@com/layout'
+import { Right } from '@/src/components/layout'
 
 const userPath = $tools.APP_DATA_PATH
 
@@ -83,24 +85,25 @@ const Host = () => {
 
   return (
     <Fragment>
-      <div style={{ marginBottom: 12 }}>
-        <Button type="primary" size="small" style={{ marginLeft: 12 }} onClick={onSaveFile}>
+      <Head>
+        <Button type="primary" size="small" onClick={onSaveFile}>
           保存
         </Button>
         <div className="g-sm-info">如有错误请检查 setting 页面命令配置是否正确</div>
-        <div
-          style={{
-            color: colorCfg[status],
-            fontSize: '16px',
-            height: 32,
-          }}
-          className="g-fr"
-        >
-          {status === 'success' && <Icon type="check-circle" />}
-          {status === 'error' && <Icon type="close-circle" />}
-        </div>
-      </div>
-      <div className="g-content">
+        <Right>
+          <div
+            style={{
+              color: colorCfg[status],
+              fontSize: '16px',
+              height: 32,
+            }}
+          >
+            {status === 'success' && <Icon type="check-circle" />}
+            {status === 'error' && <Icon type="close-circle" />}
+          </div>
+        </Right>
+      </Head>
+      <Content right>
         <CodeMirror
           value={content}
           options={{
@@ -109,9 +112,8 @@ const Host = () => {
           onChange={onChange}
           onSave={onSaveFile}
         />
-
-        {isShowModal && <SudoModal saveData={savePwd} onCancel={closeModal} />}
-      </div>
+      </Content>
+      {isShowModal && <SudoModal saveData={savePwd} onCancel={closeModal} />}
     </Fragment>
   )
 }

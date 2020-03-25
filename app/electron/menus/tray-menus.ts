@@ -1,5 +1,5 @@
 import { MenuItemConstructorOptions } from 'electron'
-
+// 右侧icon
 export const trayMenus: MenuItemConstructorOptions[] = [
   { label: 'home', click: () => $tools.createWindow('Home') },
 
@@ -15,7 +15,7 @@ export const trayMenus: MenuItemConstructorOptions[] = [
   // },
   // { label: 'demo2', click: () => $tools.createWindow('Demo') },
 
-  { type: 'separator' },
+  // { type: 'separator' },
 
   // { label: 'about', click: () => $tools.createWindow('Demo') },
   { label: 'quit', role: 'quit' },

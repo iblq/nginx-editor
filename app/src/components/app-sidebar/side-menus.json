@@ -3,7 +3,7 @@
     "name": "nginx",
     "title": "nginx",
     "path": "#/",
-    "icon": "home"
+    "icon": "apartment"
   },
   {
     "name": "host",
@@ -18,10 +18,10 @@
     "icon": "project"
   },
   {
-    "title": "doc",
+    "title": "design",
     "name": "doc",
     "path": "#/doc",
-    "icon": "database"
+    "icon": "sketch"
   },
   {
     "title": "setting",

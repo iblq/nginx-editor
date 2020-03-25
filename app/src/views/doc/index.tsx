@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Button, Col, Row, message } from 'antd'
+import { Button, message, Icon } from 'antd'
 import { openFile } from '@/src/util/cmd'
 import { readLocalList } from '@/src/util/readFile'
 import db from '@/src/util/db'
 import React, { useEffect, useState } from 'react'
+import { Content, Head } from '@com/layout'
 
 import './style.less'
 
@@ -44,7 +45,7 @@ const Project = () => {
             onOpen(path, 'finder')
           }}
         >
-          finder
+          <Icon type="folder-open" />
         </a>
       </p>
     ))
@@ -57,15 +58,12 @@ const Project = () => {
 
   return (
     <>
-      <Row className="g-header" style={{ marginBottom: 12 }}>
-        <Col span={12}>
-          <Button size="small" onClick={refresh}>
-            刷新
-          </Button>
-        </Col>
-        <Col span={12} />
-      </Row>
-      <div className="g-content">
+      <Head>
+        <Button size="small" type="primary" onClick={refresh}>
+          刷新
+        </Button>
+      </Head>
+      <Content>
         {Object.keys(_docs).map(key => {
           return (
             <div key={key}>
@@ -74,7 +72,7 @@ const Project = () => {
             </div>
           )
         })}
-      </div>
+      </Content>
     </>
   )
 }

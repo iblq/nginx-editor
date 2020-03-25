@@ -4,6 +4,7 @@ import db from './db'
 const { nginxCmdPath } = db.get('config')
 
 const cmdPath = { cwd: '/' }
+const execPre = '/usr/local/bin/'
 
 export const exec = (cmd: string) => {
   return tryCatch(
@@ -20,12 +21,15 @@ export const exec = (cmd: string) => {
 }
 
 export const openInCode = (dirPath: string) => {
-  exec(`/usr/local/bin/code ${dirPath}`)
+  exec(`${execPre}code ${dirPath}`)
 }
 
 export const openFile = (filePath: string) => {
-  exec(`/usr/bin/open ${filePath}`)
+  exec(`${execPre}open ${filePath}`)
 }
 export const startNginx = () => {
   exec(`${nginxCmdPath}`)
+}
+export const reloadNginx = async () => {
+  return await exec(`${nginxCmdPath} -s reload`)
 }

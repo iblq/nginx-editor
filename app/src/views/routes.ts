@@ -3,12 +3,12 @@ const routes: RouteConfig[] = [
     key: 'Home',
     path: '/',
     windowOptions: {
-      title: 'nginx editor',
+      title: 'NginxEditor',
     },
     createConfig: {
       showSidebar: true,
       saveWindowBounds: true,
-      // openDevTools: true,
+      openDevTools: true,
     },
   },
   {

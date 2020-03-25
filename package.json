@@ -1,6 +1,6 @@
 {
-  "name": "nginx_editor",
-  "appId": "org.electron.nginx_editor",
+  "name": "NginxEditor",
+  "appId": "org.electron.NginxEditor",
   "version": "1.0.0",
   "buildVersion": "0001",
   "private": false,
