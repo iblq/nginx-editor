@@ -21,6 +21,8 @@ npm run build
 
 ## 下载地址
 
+[releases](https://github.com/iblq/nginx-editor/releases)
+
 ## 界面
 
 ![界面图片](https://github.com/iblq/nginx-editor/blob/master/assets/images/nginx.png)
