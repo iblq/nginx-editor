@@ -1,5 +1,4 @@
 import React from 'react'
-import { Icon } from 'antd'
 
 import AppSideMenus from './side-menus.json'
 import './app-sidebar.less'

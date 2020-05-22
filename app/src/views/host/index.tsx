@@ -15,12 +15,11 @@ import { Content, Head, Right } from '@/src/components'
 const userPath = $tools.APP_DATA_PATH
 
 const Host = () => {
-  const { hostPath, sudoPswd } = db.get('config')
+  const { hostPath } = db.get('config')
 
   const [content, setContent] = useState('')
   const [isShowModal, setIsShowModal] = useState(false)
   const [status, setStatus] = useState('success')
-  const [_sudoPswd, setPwd] = useState(sudoPswd)
 
   const contentRef = useRef('')
   contentRef.current = content
@@ -37,7 +36,7 @@ const Host = () => {
 
   const showModal = () => setIsShowModal(true)
 
-  const onSaveFile = async (pwd: string = _sudoPswd) => {
+  const onSaveFile = async () => {
     const tempFilePath = path.join(userPath, '.wf_temp.txt')
     setStatus('')
 
@@ -46,10 +45,12 @@ const Host = () => {
       return
     }
 
-    const [res, err] = await pWriteFile(tempFilePath, contentRef.current)
+    const [, err] = await pWriteFile(tempFilePath, contentRef.current)
     if (err) return
 
+    const pwd = db.get('config').sudoPswd
     let cmd
+
     if (!pwd) {
       cmd = [`cat "${tempFilePath}" > ${hostPath}`, `rm -rf ${tempFilePath}`].join(' && ')
     } else {
@@ -59,6 +60,7 @@ const Host = () => {
         `echo '${pwd}' | sudo -S chmod 644 ${hostPath}`,
       ].join(' && ')
     }
+
     const [stdout, error] = await exec(cmd)
 
     if (!error) {
@@ -76,11 +78,11 @@ const Host = () => {
 
   const savePwd = (v: string) => {
     db.update('config', { sudoPswd: v })
-    setPwd(v)
+
     closeModal()
 
     setTimeout(() => {
-      onSaveFile(v)
+      onSaveFile()
     }, 100)
   }
 
@@ -89,7 +91,7 @@ const Host = () => {
   return (
     <Fragment>
       <Head>
-        <Button type="primary" size="small" onClick={() => onSaveFile(_sudoPswd)}>
+        <Button type="primary" size="small" onClick={onSaveFile}>
           保存
         </Button>
         <div className="g-sm-info">如有错误请检查 setting 页面命令配置是否正确</div>

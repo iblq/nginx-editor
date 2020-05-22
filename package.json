@@ -1,11 +1,11 @@
 {
   "name": "NginxEditor",
   "appId": "org.electron.NginxEditor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "buildVersion": "0001",
   "private": false,
   "main": "dist/main/main.js",
-  "author": "lanten",
+  "author": "baolq",
   "scripts": {
     "ts:dev": "ts-node -P build/tsconfig.json build/tasks/dev-server.ts",
     "ts:build": "ts-node -P build/tsconfig.json build/tasks/build.ts",

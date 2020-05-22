@@ -4,6 +4,8 @@ import db from './db'
 
 const homePath = $tools.USER_HOME_PATH
 
+const getFirst = (s: string) => s.substr(0, 1)
+
 export const formatList = (projects: object[]) => {
   /****
    * /User/baolq/mine/admin
@@ -36,6 +38,19 @@ export const formatList = (projects: object[]) => {
     objData[userPath] = objData[userPath] ? objData[userPath] : []
     objData[userPath].push(i)
   }
+
+  // 排序
+  for (const i in objData) {
+    const arr = objData[i]
+    objData[i] = arr.sort((a: any, b: any) =>
+      getFirst(a.name)
+        .toString()
+        .localeCompare(getFirst(b.name))
+    )
+  }
+
+  console.log(objData)
+
   return objData
 }
 
