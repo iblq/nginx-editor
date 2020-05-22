@@ -36,7 +36,7 @@ export class AppSidebar extends React.Component {
         href={path}
         onClick={() => this.onMenuSelect(path)}
       >
-        <Icon className="side-menu-icon" type={icon} />
+        {/* <Icon className="side-menu-icon" type={icon} /> */}
         <span className="side-menu-title">{title}</span>
       </a>
       // </Tooltip>

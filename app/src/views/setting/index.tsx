@@ -11,7 +11,7 @@ const Setting = (props: any) => {
     formRef.current.validateFieldsAndScroll((err: string | object, values: object) => {
       if (!err) {
         console.log('Received values of form: ', values)
-        db.set('config', values)
+        db.update('config', values)
         message.success('保存成功')
       }
     })
